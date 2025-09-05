@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "users";
+option go_package = "https://github.com/Azat201003/summorist-share/gen/go;users";
 package users;
 
 import "common/user.proto";
@@ -8,6 +8,7 @@ import "common/user.proto";
 service Users {
   rpc SignIn(SignInRequest) returns (SignInResponse);
   rpc Authorize(AuthRequest) returns (AuthResponse);
+  rpc SignUp(common.User) returns (SignUpResponse);
 }
 
 message SignInRequest {
@@ -17,14 +18,22 @@ message SignInRequest {
 
 message SignInResponse {
   string token = 1;
+  int32 code = 2;
 }
+
 
 message AuthRequest {
   string token = 1;   
 }
 
 message AuthResponse {
-  User user = 1;
+  common.User user = 1;
+  int32 code = 2;
+}
+
+
+message SignUpResponse {
+  common.User user = 1;
   int32 code = 2;
 }
 
