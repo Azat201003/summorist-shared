@@ -9,7 +9,7 @@ package users
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	common "https://github.com/Azat201003/summorist-shared/gen/go/common"
+	common "github.com/Azat201003/summorist-shared/gen/go/common"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
