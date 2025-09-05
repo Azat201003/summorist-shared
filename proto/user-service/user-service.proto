@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option go_package = "users";
+package users;
+
+import "common/user.proto";
+
+service Users {
+  rpc SignIn(SignInRequest) returns (SignInResponse);
+  rpc Authorize(AuthRequest) returns (AuthResponse);
+}
+
+message SignInRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message SignInResponse {
+  string token = 1;
+}
+
+message AuthRequest {
+  string token = 1;   
+}
+
+message AuthResponse {
+  User user = 1;
+  int32 code = 2;
+}
+
