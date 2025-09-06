@@ -9,6 +9,7 @@ service Users {
   rpc SignIn(SignInRequest) returns (SignInResponse);
   rpc Authorize(AuthRequest) returns (AuthResponse);
   rpc SignUp(common.User) returns (SignUpResponse);
+  rpc GetFiltered(common.User) returns (stream common.User);
 }
 
 message SignInRequest {
@@ -29,7 +30,6 @@ message AuthRequest {
 }
 
 message AuthResponse {
-  common.User user = 1;
   int32 code = 2;
   string jwt_token = 3;
   string refresh_token = 4;

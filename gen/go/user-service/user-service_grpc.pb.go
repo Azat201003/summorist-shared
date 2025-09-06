@@ -20,9 +20,10 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Users_SignIn_FullMethodName    = "/users.Users/SignIn"
-	Users_Authorize_FullMethodName = "/users.Users/Authorize"
-	Users_SignUp_FullMethodName    = "/users.Users/SignUp"
+	Users_SignIn_FullMethodName      = "/users.Users/SignIn"
+	Users_Authorize_FullMethodName   = "/users.Users/Authorize"
+	Users_SignUp_FullMethodName      = "/users.Users/SignUp"
+	Users_GetFiltered_FullMethodName = "/users.Users/GetFiltered"
 )
 
 // UsersClient is the client API for Users service.
@@ -32,6 +33,7 @@ type UsersClient interface {
 	SignIn(ctx context.Context, in *SignInRequest, opts ...grpc.CallOption) (*SignInResponse, error)
 	Authorize(ctx context.Context, in *AuthRequest, opts ...grpc.CallOption) (*AuthResponse, error)
 	SignUp(ctx context.Context, in *common.User, opts ...grpc.CallOption) (*SignUpResponse, error)
+	GetFiltered(ctx context.Context, in *common.User, opts ...grpc.CallOption) (grpc.ServerStreamingClient[common.User], error)
 }
 
 type usersClient struct {
@@ -72,6 +74,25 @@ func (c *usersClient) SignUp(ctx context.Context, in *common.User, opts ...grpc.
 	return out, nil
 }
 
+func (c *usersClient) GetFiltered(ctx context.Context, in *common.User, opts ...grpc.CallOption) (grpc.ServerStreamingClient[common.User], error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	stream, err := c.cc.NewStream(ctx, &Users_ServiceDesc.Streams[0], Users_GetFiltered_FullMethodName, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &grpc.GenericClientStream[common.User, common.User]{ClientStream: stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type Users_GetFilteredClient = grpc.ServerStreamingClient[common.User]
+
 // UsersServer is the server API for Users service.
 // All implementations must embed UnimplementedUsersServer
 // for forward compatibility.
@@ -79,6 +100,7 @@ type UsersServer interface {
 	SignIn(context.Context, *SignInRequest) (*SignInResponse, error)
 	Authorize(context.Context, *AuthRequest) (*AuthResponse, error)
 	SignUp(context.Context, *common.User) (*SignUpResponse, error)
+	GetFiltered(*common.User, grpc.ServerStreamingServer[common.User]) error
 	mustEmbedUnimplementedUsersServer()
 }
 
@@ -97,6 +119,9 @@ func (UnimplementedUsersServer) Authorize(context.Context, *AuthRequest) (*AuthR
 }
 func (UnimplementedUsersServer) SignUp(context.Context, *common.User) (*SignUpResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SignUp not implemented")
+}
+func (UnimplementedUsersServer) GetFiltered(*common.User, grpc.ServerStreamingServer[common.User]) error {
+	return status.Errorf(codes.Unimplemented, "method GetFiltered not implemented")
 }
 func (UnimplementedUsersServer) mustEmbedUnimplementedUsersServer() {}
 func (UnimplementedUsersServer) testEmbeddedByValue()               {}
@@ -173,6 +198,17 @@ func _Users_SignUp_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Users_GetFiltered_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(common.User)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(UsersServer).GetFiltered(m, &grpc.GenericServerStream[common.User, common.User]{ServerStream: stream})
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type Users_GetFilteredServer = grpc.ServerStreamingServer[common.User]
+
 // Users_ServiceDesc is the grpc.ServiceDesc for Users service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -193,6 +229,12 @@ var Users_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Users_SignUp_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "GetFiltered",
+			Handler:       _Users_GetFiltered_Handler,
+			ServerStreams: true,
+		},
+	},
 	Metadata: "user-service/user-service.proto",
 }

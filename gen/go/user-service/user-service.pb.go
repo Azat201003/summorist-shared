@@ -188,7 +188,6 @@ func (x *AuthRequest) GetRefreshToken() string {
 
 type AuthResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	User          *common.User           `protobuf:"bytes,1,opt,name=user,proto3" json:"user,omitempty"`
 	Code          int32                  `protobuf:"varint,2,opt,name=code,proto3" json:"code,omitempty"`
 	JwtToken      string                 `protobuf:"bytes,3,opt,name=jwt_token,json=jwtToken,proto3" json:"jwt_token,omitempty"`
 	RefreshToken  string                 `protobuf:"bytes,4,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
@@ -224,13 +223,6 @@ func (x *AuthResponse) ProtoReflect() protoreflect.Message {
 // Deprecated: Use AuthResponse.ProtoReflect.Descriptor instead.
 func (*AuthResponse) Descriptor() ([]byte, []int) {
 	return file_user_service_user_service_proto_rawDescGZIP(), []int{3}
-}
-
-func (x *AuthResponse) GetUser() *common.User {
-	if x != nil {
-		return x.User
-	}
-	return nil
 }
 
 func (x *AuthResponse) GetCode() int32 {
@@ -320,19 +312,19 @@ const file_user_service_user_service_proto_rawDesc = "" +
 	"\x04code\x18\x03 \x01(\x05R\x04code\"O\n" +
 	"\vAuthRequest\x12\x1b\n" +
 	"\tjwt_token\x18\x01 \x01(\tR\bjwtToken\x12#\n" +
-	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"\x86\x01\n" +
-	"\fAuthResponse\x12 \n" +
-	"\x04user\x18\x01 \x01(\v2\f.common.UserR\x04user\x12\x12\n" +
+	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"d\n" +
+	"\fAuthResponse\x12\x12\n" +
 	"\x04code\x18\x02 \x01(\x05R\x04code\x12\x1b\n" +
 	"\tjwt_token\x18\x03 \x01(\tR\bjwtToken\x12#\n" +
 	"\rrefresh_token\x18\x04 \x01(\tR\frefreshToken\"F\n" +
 	"\x0eSignUpResponse\x12 \n" +
 	"\x04user\x18\x01 \x01(\v2\f.common.UserR\x04user\x12\x12\n" +
-	"\x04code\x18\x02 \x01(\x05R\x04code2\xa3\x01\n" +
+	"\x04code\x18\x02 \x01(\x05R\x04code2\xd0\x01\n" +
 	"\x05Users\x125\n" +
 	"\x06SignIn\x12\x14.users.SignInRequest\x1a\x15.users.SignInResponse\x124\n" +
 	"\tAuthorize\x12\x12.users.AuthRequest\x1a\x13.users.AuthResponse\x12-\n" +
-	"\x06SignUp\x12\f.common.User\x1a\x15.users.SignUpResponseB4Z2github.com/Azat201003/summorist-share/gen/go;usersb\x06proto3"
+	"\x06SignUp\x12\f.common.User\x1a\x15.users.SignUpResponse\x12+\n" +
+	"\vGetFiltered\x12\f.common.User\x1a\f.common.User0\x01B4Z2github.com/Azat201003/summorist-share/gen/go;usersb\x06proto3"
 
 var (
 	file_user_service_user_service_proto_rawDescOnce sync.Once
@@ -356,19 +348,20 @@ var file_user_service_user_service_proto_goTypes = []any{
 	(*common.User)(nil),    // 5: common.User
 }
 var file_user_service_user_service_proto_depIdxs = []int32{
-	5, // 0: users.AuthResponse.user:type_name -> common.User
-	5, // 1: users.SignUpResponse.user:type_name -> common.User
-	0, // 2: users.Users.SignIn:input_type -> users.SignInRequest
-	2, // 3: users.Users.Authorize:input_type -> users.AuthRequest
-	5, // 4: users.Users.SignUp:input_type -> common.User
+	5, // 0: users.SignUpResponse.user:type_name -> common.User
+	0, // 1: users.Users.SignIn:input_type -> users.SignInRequest
+	2, // 2: users.Users.Authorize:input_type -> users.AuthRequest
+	5, // 3: users.Users.SignUp:input_type -> common.User
+	5, // 4: users.Users.GetFiltered:input_type -> common.User
 	1, // 5: users.Users.SignIn:output_type -> users.SignInResponse
 	3, // 6: users.Users.Authorize:output_type -> users.AuthResponse
 	4, // 7: users.Users.SignUp:output_type -> users.SignUpResponse
-	5, // [5:8] is the sub-list for method output_type
-	2, // [2:5] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	5, // 8: users.Users.GetFiltered:output_type -> common.User
+	5, // [5:9] is the sub-list for method output_type
+	1, // [1:5] is the sub-list for method input_type
+	1, // [1:1] is the sub-list for extension type_name
+	1, // [1:1] is the sub-list for extension extendee
+	0, // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_user_service_user_service_proto_init() }
