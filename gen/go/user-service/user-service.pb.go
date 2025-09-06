@@ -9,7 +9,7 @@ package users
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	common "github.com/Azat201003/summorist-shared/gen/go/common"
+	common "https://github.com/Azat201003/summorist-shared/gen/go/common"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -25,7 +25,7 @@ const (
 type SignInRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
-	Password      string                 `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
+	PasswordHash  string                 `protobuf:"bytes,2,opt,name=password_hash,json=passwordHash,proto3" json:"password_hash,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -67,17 +67,18 @@ func (x *SignInRequest) GetUsername() string {
 	return ""
 }
 
-func (x *SignInRequest) GetPassword() string {
+func (x *SignInRequest) GetPasswordHash() string {
 	if x != nil {
-		return x.Password
+		return x.PasswordHash
 	}
 	return ""
 }
 
 type SignInResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Token         string                 `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
-	Code          int32                  `protobuf:"varint,2,opt,name=code,proto3" json:"code,omitempty"`
+	JwtToken      string                 `protobuf:"bytes,1,opt,name=jwt_token,json=jwtToken,proto3" json:"jwt_token,omitempty"`
+	RefreshToken  string                 `protobuf:"bytes,2,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
+	Code          int32                  `protobuf:"varint,3,opt,name=code,proto3" json:"code,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -112,9 +113,16 @@ func (*SignInResponse) Descriptor() ([]byte, []int) {
 	return file_user_service_user_service_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *SignInResponse) GetToken() string {
+func (x *SignInResponse) GetJwtToken() string {
 	if x != nil {
-		return x.Token
+		return x.JwtToken
+	}
+	return ""
+}
+
+func (x *SignInResponse) GetRefreshToken() string {
+	if x != nil {
+		return x.RefreshToken
 	}
 	return ""
 }
@@ -128,7 +136,8 @@ func (x *SignInResponse) GetCode() int32 {
 
 type AuthRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Token         string                 `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	JwtToken      string                 `protobuf:"bytes,1,opt,name=jwt_token,json=jwtToken,proto3" json:"jwt_token,omitempty"`
+	RefreshToken  string                 `protobuf:"bytes,2,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -163,9 +172,16 @@ func (*AuthRequest) Descriptor() ([]byte, []int) {
 	return file_user_service_user_service_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *AuthRequest) GetToken() string {
+func (x *AuthRequest) GetJwtToken() string {
 	if x != nil {
-		return x.Token
+		return x.JwtToken
+	}
+	return ""
+}
+
+func (x *AuthRequest) GetRefreshToken() string {
+	if x != nil {
+		return x.RefreshToken
 	}
 	return ""
 }
@@ -174,6 +190,8 @@ type AuthResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	User          *common.User           `protobuf:"bytes,1,opt,name=user,proto3" json:"user,omitempty"`
 	Code          int32                  `protobuf:"varint,2,opt,name=code,proto3" json:"code,omitempty"`
+	JwtToken      string                 `protobuf:"bytes,3,opt,name=jwt_token,json=jwtToken,proto3" json:"jwt_token,omitempty"`
+	RefreshToken  string                 `protobuf:"bytes,4,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -220,6 +238,20 @@ func (x *AuthResponse) GetCode() int32 {
 		return x.Code
 	}
 	return 0
+}
+
+func (x *AuthResponse) GetJwtToken() string {
+	if x != nil {
+		return x.JwtToken
+	}
+	return ""
+}
+
+func (x *AuthResponse) GetRefreshToken() string {
+	if x != nil {
+		return x.RefreshToken
+	}
+	return ""
 }
 
 type SignUpResponse struct {
@@ -278,18 +310,22 @@ var File_user_service_user_service_proto protoreflect.FileDescriptor
 
 const file_user_service_user_service_proto_rawDesc = "" +
 	"\n" +
-	"\x1fuser-service/user-service.proto\x12\x05users\x1a\x11common/user.proto\"G\n" +
+	"\x1fuser-service/user-service.proto\x12\x05users\x1a\x11common/user.proto\"P\n" +
 	"\rSignInRequest\x12\x1a\n" +
-	"\busername\x18\x01 \x01(\tR\busername\x12\x1a\n" +
-	"\bpassword\x18\x02 \x01(\tR\bpassword\":\n" +
-	"\x0eSignInResponse\x12\x14\n" +
-	"\x05token\x18\x01 \x01(\tR\x05token\x12\x12\n" +
-	"\x04code\x18\x02 \x01(\x05R\x04code\"#\n" +
-	"\vAuthRequest\x12\x14\n" +
-	"\x05token\x18\x01 \x01(\tR\x05token\"D\n" +
+	"\busername\x18\x01 \x01(\tR\busername\x12#\n" +
+	"\rpassword_hash\x18\x02 \x01(\tR\fpasswordHash\"f\n" +
+	"\x0eSignInResponse\x12\x1b\n" +
+	"\tjwt_token\x18\x01 \x01(\tR\bjwtToken\x12#\n" +
+	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\x12\x12\n" +
+	"\x04code\x18\x03 \x01(\x05R\x04code\"O\n" +
+	"\vAuthRequest\x12\x1b\n" +
+	"\tjwt_token\x18\x01 \x01(\tR\bjwtToken\x12#\n" +
+	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"\x86\x01\n" +
 	"\fAuthResponse\x12 \n" +
 	"\x04user\x18\x01 \x01(\v2\f.common.UserR\x04user\x12\x12\n" +
-	"\x04code\x18\x02 \x01(\x05R\x04code\"F\n" +
+	"\x04code\x18\x02 \x01(\x05R\x04code\x12\x1b\n" +
+	"\tjwt_token\x18\x03 \x01(\tR\bjwtToken\x12#\n" +
+	"\rrefresh_token\x18\x04 \x01(\tR\frefreshToken\"F\n" +
 	"\x0eSignUpResponse\x12 \n" +
 	"\x04user\x18\x01 \x01(\v2\f.common.UserR\x04user\x12\x12\n" +
 	"\x04code\x18\x02 \x01(\x05R\x04code2\xa3\x01\n" +

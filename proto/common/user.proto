@@ -5,5 +5,6 @@ package common;
 
 message User {
     string username = 1;
+    string password_hash = 2;
 }
 

@@ -24,6 +24,7 @@ const (
 type User struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
+	PasswordHash  string                 `protobuf:"bytes,2,opt,name=password_hash,json=passwordHash,proto3" json:"password_hash,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -65,13 +66,21 @@ func (x *User) GetUsername() string {
 	return ""
 }
 
+func (x *User) GetPasswordHash() string {
+	if x != nil {
+		return x.PasswordHash
+	}
+	return ""
+}
+
 var File_common_user_proto protoreflect.FileDescriptor
 
 const file_common_user_proto_rawDesc = "" +
 	"\n" +
-	"\x11common/user.proto\x12\x06common\"\"\n" +
+	"\x11common/user.proto\x12\x06common\"G\n" +
 	"\x04User\x12\x1a\n" +
-	"\busername\x18\x01 \x01(\tR\busernameBEZChttps://github.com/Azat201003/summorist-shared/gen/go/common;commonb\x06proto3"
+	"\busername\x18\x01 \x01(\tR\busername\x12#\n" +
+	"\rpassword_hash\x18\x02 \x01(\tR\fpasswordHashBEZChttps://github.com/Azat201003/summorist-shared/gen/go/common;commonb\x06proto3"
 
 var (
 	file_common_user_proto_rawDescOnce sync.Once
