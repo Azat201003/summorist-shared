@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package="https://github.com/Azat201003/summorist-shared/gen/go/common;common";
+option go_package="github.com/Azat201003/summorist-shared/gen/go/common;common";
 package common;
 
 message User {

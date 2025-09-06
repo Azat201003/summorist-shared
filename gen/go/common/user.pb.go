@@ -80,7 +80,7 @@ const file_common_user_proto_rawDesc = "" +
 	"\x11common/user.proto\x12\x06common\"G\n" +
 	"\x04User\x12\x1a\n" +
 	"\busername\x18\x01 \x01(\tR\busername\x12#\n" +
-	"\rpassword_hash\x18\x02 \x01(\tR\fpasswordHashBEZChttps://github.com/Azat201003/summorist-shared/gen/go/common;commonb\x06proto3"
+	"\rpassword_hash\x18\x02 \x01(\tR\fpasswordHashB=Z;github.com/Azat201003/summorist-shared/gen/go/common;commonb\x06proto3"
 
 var (
 	file_common_user_proto_rawDescOnce sync.Once

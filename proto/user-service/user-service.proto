@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "https://github.com/Azat201003/summorist-share/gen/go;users";
+option go_package = "github.com/Azat201003/summorist-share/gen/go;users";
 package users;
 
 import "common/user.proto";

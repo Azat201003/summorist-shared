@@ -7,9 +7,9 @@
 package users
 
 import (
+	common "github.com/Azat201003/summorist-shared/gen/go/common"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	common "https://github.com/Azat201003/summorist-shared/gen/go/common"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -332,7 +332,7 @@ const file_user_service_user_service_proto_rawDesc = "" +
 	"\x05Users\x125\n" +
 	"\x06SignIn\x12\x14.users.SignInRequest\x1a\x15.users.SignInResponse\x124\n" +
 	"\tAuthorize\x12\x12.users.AuthRequest\x1a\x13.users.AuthResponse\x12-\n" +
-	"\x06SignUp\x12\f.common.User\x1a\x15.users.SignUpResponseB<Z:https://github.com/Azat201003/summorist-share/gen/go;usersb\x06proto3"
+	"\x06SignUp\x12\f.common.User\x1a\x15.users.SignUpResponseB4Z2github.com/Azat201003/summorist-share/gen/go;usersb\x06proto3"
 
 var (
 	file_user_service_user_service_proto_rawDescOnce sync.Once
