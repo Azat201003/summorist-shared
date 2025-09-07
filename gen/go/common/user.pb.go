@@ -24,7 +24,8 @@ const (
 type User struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
-	PasswordHash  string                 `protobuf:"bytes,2,opt,name=password_hash,json=passwordHash,proto3" json:"password_hash,omitempty"`
+	PasswordHash  []byte                 `protobuf:"bytes,2,opt,name=password_hash,json=passwordHash,proto3" json:"password_hash,omitempty"`
+	Id            uint64                 `protobuf:"varint,3,opt,name=id,proto3" json:"id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -66,21 +67,29 @@ func (x *User) GetUsername() string {
 	return ""
 }
 
-func (x *User) GetPasswordHash() string {
+func (x *User) GetPasswordHash() []byte {
 	if x != nil {
 		return x.PasswordHash
 	}
-	return ""
+	return nil
+}
+
+func (x *User) GetId() uint64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
 }
 
 var File_common_user_proto protoreflect.FileDescriptor
 
 const file_common_user_proto_rawDesc = "" +
 	"\n" +
-	"\x11common/user.proto\x12\x06common\"G\n" +
+	"\x11common/user.proto\x12\x06common\"W\n" +
 	"\x04User\x12\x1a\n" +
 	"\busername\x18\x01 \x01(\tR\busername\x12#\n" +
-	"\rpassword_hash\x18\x02 \x01(\tR\fpasswordHashB=Z;github.com/Azat201003/summorist-shared/gen/go/common;commonb\x06proto3"
+	"\rpassword_hash\x18\x02 \x01(\fR\fpasswordHash\x12\x0e\n" +
+	"\x02id\x18\x03 \x01(\x04R\x02idB=Z;github.com/Azat201003/summorist-shared/gen/go/common;commonb\x06proto3"
 
 var (
 	file_common_user_proto_rawDescOnce sync.Once
