@@ -25,7 +25,7 @@ const (
 type SignInRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
-	PasswordHash  string                 `protobuf:"bytes,2,opt,name=password_hash,json=passwordHash,proto3" json:"password_hash,omitempty"`
+	PasswordHash  []byte                 `protobuf:"bytes,2,opt,name=password_hash,json=passwordHash,proto3" json:"password_hash,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -67,11 +67,11 @@ func (x *SignInRequest) GetUsername() string {
 	return ""
 }
 
-func (x *SignInRequest) GetPasswordHash() string {
+func (x *SignInRequest) GetPasswordHash() []byte {
 	if x != nil {
 		return x.PasswordHash
 	}
-	return ""
+	return nil
 }
 
 type SignInResponse struct {
@@ -305,7 +305,7 @@ const file_user_service_user_service_proto_rawDesc = "" +
 	"\x1fuser-service/user-service.proto\x12\x05users\x1a\x11common/user.proto\"P\n" +
 	"\rSignInRequest\x12\x1a\n" +
 	"\busername\x18\x01 \x01(\tR\busername\x12#\n" +
-	"\rpassword_hash\x18\x02 \x01(\tR\fpasswordHash\"f\n" +
+	"\rpassword_hash\x18\x02 \x01(\fR\fpasswordHash\"f\n" +
 	"\x0eSignInResponse\x12\x1b\n" +
 	"\tjwt_token\x18\x01 \x01(\tR\bjwtToken\x12#\n" +
 	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\x12\x12\n" +
