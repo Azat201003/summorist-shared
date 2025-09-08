@@ -188,6 +188,7 @@ func (x *AuthRequest) GetRefreshToken() string {
 
 type AuthResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserId        uint64                 `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	Code          int32                  `protobuf:"varint,2,opt,name=code,proto3" json:"code,omitempty"`
 	JwtToken      string                 `protobuf:"bytes,3,opt,name=jwt_token,json=jwtToken,proto3" json:"jwt_token,omitempty"`
 	RefreshToken  string                 `protobuf:"bytes,4,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
@@ -223,6 +224,13 @@ func (x *AuthResponse) ProtoReflect() protoreflect.Message {
 // Deprecated: Use AuthResponse.ProtoReflect.Descriptor instead.
 func (*AuthResponse) Descriptor() ([]byte, []int) {
 	return file_user_service_user_service_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *AuthResponse) GetUserId() uint64 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
 }
 
 func (x *AuthResponse) GetCode() int32 {
@@ -312,8 +320,9 @@ const file_user_service_user_service_proto_rawDesc = "" +
 	"\x04code\x18\x03 \x01(\x05R\x04code\"O\n" +
 	"\vAuthRequest\x12\x1b\n" +
 	"\tjwt_token\x18\x01 \x01(\tR\bjwtToken\x12#\n" +
-	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"d\n" +
-	"\fAuthResponse\x12\x12\n" +
+	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"}\n" +
+	"\fAuthResponse\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\x04R\x06userId\x12\x12\n" +
 	"\x04code\x18\x02 \x01(\x05R\x04code\x12\x1b\n" +
 	"\tjwt_token\x18\x03 \x01(\tR\bjwtToken\x12#\n" +
 	"\rrefresh_token\x18\x04 \x01(\tR\frefreshToken\"F\n" +

@@ -25,7 +25,8 @@ type User struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
 	PasswordHash  []byte                 `protobuf:"bytes,2,opt,name=password_hash,json=passwordHash,proto3" json:"password_hash,omitempty"`
-	Id            uint64                 `protobuf:"varint,3,opt,name=id,proto3" json:"id,omitempty"`
+	TokenId       uint64                 `protobuf:"varint,3,opt,name=token_id,json=tokenId,proto3" json:"token_id,omitempty"`
+	Id            uint64                 `protobuf:"varint,4,opt,name=id,proto3" json:"id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -74,6 +75,13 @@ func (x *User) GetPasswordHash() []byte {
 	return nil
 }
 
+func (x *User) GetTokenId() uint64 {
+	if x != nil {
+		return x.TokenId
+	}
+	return 0
+}
+
 func (x *User) GetId() uint64 {
 	if x != nil {
 		return x.Id
@@ -81,15 +89,91 @@ func (x *User) GetId() uint64 {
 	return 0
 }
 
+type TokenKeys struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            uint64                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	PrivateKey    string                 `protobuf:"bytes,2,opt,name=private_key,json=privateKey,proto3" json:"private_key,omitempty"`
+	PublicKey     string                 `protobuf:"bytes,3,opt,name=public_key,json=publicKey,proto3" json:"public_key,omitempty"`
+	IsActive      bool                   `protobuf:"varint,4,opt,name=is_active,json=isActive,proto3" json:"is_active,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TokenKeys) Reset() {
+	*x = TokenKeys{}
+	mi := &file_common_user_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TokenKeys) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TokenKeys) ProtoMessage() {}
+
+func (x *TokenKeys) ProtoReflect() protoreflect.Message {
+	mi := &file_common_user_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TokenKeys.ProtoReflect.Descriptor instead.
+func (*TokenKeys) Descriptor() ([]byte, []int) {
+	return file_common_user_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *TokenKeys) GetId() uint64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *TokenKeys) GetPrivateKey() string {
+	if x != nil {
+		return x.PrivateKey
+	}
+	return ""
+}
+
+func (x *TokenKeys) GetPublicKey() string {
+	if x != nil {
+		return x.PublicKey
+	}
+	return ""
+}
+
+func (x *TokenKeys) GetIsActive() bool {
+	if x != nil {
+		return x.IsActive
+	}
+	return false
+}
+
 var File_common_user_proto protoreflect.FileDescriptor
 
 const file_common_user_proto_rawDesc = "" +
 	"\n" +
-	"\x11common/user.proto\x12\x06common\"W\n" +
+	"\x11common/user.proto\x12\x06common\"r\n" +
 	"\x04User\x12\x1a\n" +
 	"\busername\x18\x01 \x01(\tR\busername\x12#\n" +
-	"\rpassword_hash\x18\x02 \x01(\fR\fpasswordHash\x12\x0e\n" +
-	"\x02id\x18\x03 \x01(\x04R\x02idB=Z;github.com/Azat201003/summorist-shared/gen/go/common;commonb\x06proto3"
+	"\rpassword_hash\x18\x02 \x01(\fR\fpasswordHash\x12\x19\n" +
+	"\btoken_id\x18\x03 \x01(\x04R\atokenId\x12\x0e\n" +
+	"\x02id\x18\x04 \x01(\x04R\x02id\"x\n" +
+	"\tTokenKeys\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x04R\x02id\x12\x1f\n" +
+	"\vprivate_key\x18\x02 \x01(\tR\n" +
+	"privateKey\x12\x1d\n" +
+	"\n" +
+	"public_key\x18\x03 \x01(\tR\tpublicKey\x12\x1b\n" +
+	"\tis_active\x18\x04 \x01(\bR\bisActiveB=Z;github.com/Azat201003/summorist-shared/gen/go/common;commonb\x06proto3"
 
 var (
 	file_common_user_proto_rawDescOnce sync.Once
@@ -103,9 +187,10 @@ func file_common_user_proto_rawDescGZIP() []byte {
 	return file_common_user_proto_rawDescData
 }
 
-var file_common_user_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_common_user_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_common_user_proto_goTypes = []any{
-	(*User)(nil), // 0: common.User
+	(*User)(nil),      // 0: common.User
+	(*TokenKeys)(nil), // 1: common.TokenKeys
 }
 var file_common_user_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
@@ -126,7 +211,7 @@ func file_common_user_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_common_user_proto_rawDesc), len(file_common_user_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   1,
+			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

@@ -30,6 +30,7 @@ message AuthRequest {
 }
 
 message AuthResponse {
+  uint64 user_id = 1;
   int32 code = 2;
   string jwt_token = 3;
   string refresh_token = 4;

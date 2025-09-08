@@ -6,6 +6,14 @@ package common;
 message User {
     string username = 1;
     bytes password_hash = 2;
-    uint64 id = 3;
+    uint64 token_id = 3;
+    uint64 id = 4;
+}
+
+message TokenKeys {
+    uint64 id = 1;
+    string private_key = 2;
+    string public_key = 3;
+    bool is_active = 4;
 }
 
