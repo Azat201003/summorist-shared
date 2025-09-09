@@ -92,8 +92,8 @@ func (x *User) GetId() uint64 {
 type TokenKeys struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            uint64                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	PrivateKey    string                 `protobuf:"bytes,2,opt,name=private_key,json=privateKey,proto3" json:"private_key,omitempty"`
-	PublicKey     string                 `protobuf:"bytes,3,opt,name=public_key,json=publicKey,proto3" json:"public_key,omitempty"`
+	PrivateKey    []byte                 `protobuf:"bytes,2,opt,name=private_key,json=privateKey,proto3" json:"private_key,omitempty"`
+	PublicKey     []byte                 `protobuf:"bytes,3,opt,name=public_key,json=publicKey,proto3" json:"public_key,omitempty"`
 	IsActive      bool                   `protobuf:"varint,4,opt,name=is_active,json=isActive,proto3" json:"is_active,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -136,18 +136,18 @@ func (x *TokenKeys) GetId() uint64 {
 	return 0
 }
 
-func (x *TokenKeys) GetPrivateKey() string {
+func (x *TokenKeys) GetPrivateKey() []byte {
 	if x != nil {
 		return x.PrivateKey
 	}
-	return ""
+	return nil
 }
 
-func (x *TokenKeys) GetPublicKey() string {
+func (x *TokenKeys) GetPublicKey() []byte {
 	if x != nil {
 		return x.PublicKey
 	}
-	return ""
+	return nil
 }
 
 func (x *TokenKeys) GetIsActive() bool {
@@ -169,10 +169,10 @@ const file_common_user_proto_rawDesc = "" +
 	"\x02id\x18\x04 \x01(\x04R\x02id\"x\n" +
 	"\tTokenKeys\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x04R\x02id\x12\x1f\n" +
-	"\vprivate_key\x18\x02 \x01(\tR\n" +
+	"\vprivate_key\x18\x02 \x01(\fR\n" +
 	"privateKey\x12\x1d\n" +
 	"\n" +
-	"public_key\x18\x03 \x01(\tR\tpublicKey\x12\x1b\n" +
+	"public_key\x18\x03 \x01(\fR\tpublicKey\x12\x1b\n" +
 	"\tis_active\x18\x04 \x01(\bR\bisActiveB=Z;github.com/Azat201003/summorist-shared/gen/go/common;commonb\x06proto3"
 
 var (
