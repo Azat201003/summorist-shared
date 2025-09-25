@@ -20,10 +20,11 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Users_SignIn_FullMethodName      = "/users.Users/SignIn"
-	Users_Authorize_FullMethodName   = "/users.Users/Authorize"
-	Users_SignUp_FullMethodName      = "/users.Users/SignUp"
-	Users_GetFiltered_FullMethodName = "/users.Users/GetFiltered"
+	Users_SignIn_FullMethodName        = "/users.Users/SignIn"
+	Users_Authorize_FullMethodName     = "/users.Users/Authorize"
+	Users_RefreshTokens_FullMethodName = "/users.Users/RefreshTokens"
+	Users_SignUp_FullMethodName        = "/users.Users/SignUp"
+	Users_GetFiltered_FullMethodName   = "/users.Users/GetFiltered"
 )
 
 // UsersClient is the client API for Users service.
@@ -32,6 +33,7 @@ const (
 type UsersClient interface {
 	SignIn(ctx context.Context, in *SignInRequest, opts ...grpc.CallOption) (*SignInResponse, error)
 	Authorize(ctx context.Context, in *AuthRequest, opts ...grpc.CallOption) (*AuthResponse, error)
+	RefreshTokens(ctx context.Context, in *RefreshRequest, opts ...grpc.CallOption) (*RefreshResponse, error)
 	SignUp(ctx context.Context, in *common.User, opts ...grpc.CallOption) (*SignUpResponse, error)
 	GetFiltered(ctx context.Context, in *common.User, opts ...grpc.CallOption) (grpc.ServerStreamingClient[common.User], error)
 }
@@ -58,6 +60,16 @@ func (c *usersClient) Authorize(ctx context.Context, in *AuthRequest, opts ...gr
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(AuthResponse)
 	err := c.cc.Invoke(ctx, Users_Authorize_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *usersClient) RefreshTokens(ctx context.Context, in *RefreshRequest, opts ...grpc.CallOption) (*RefreshResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RefreshResponse)
+	err := c.cc.Invoke(ctx, Users_RefreshTokens_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -99,6 +111,7 @@ type Users_GetFilteredClient = grpc.ServerStreamingClient[common.User]
 type UsersServer interface {
 	SignIn(context.Context, *SignInRequest) (*SignInResponse, error)
 	Authorize(context.Context, *AuthRequest) (*AuthResponse, error)
+	RefreshTokens(context.Context, *RefreshRequest) (*RefreshResponse, error)
 	SignUp(context.Context, *common.User) (*SignUpResponse, error)
 	GetFiltered(*common.User, grpc.ServerStreamingServer[common.User]) error
 	mustEmbedUnimplementedUsersServer()
@@ -116,6 +129,9 @@ func (UnimplementedUsersServer) SignIn(context.Context, *SignInRequest) (*SignIn
 }
 func (UnimplementedUsersServer) Authorize(context.Context, *AuthRequest) (*AuthResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Authorize not implemented")
+}
+func (UnimplementedUsersServer) RefreshTokens(context.Context, *RefreshRequest) (*RefreshResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RefreshTokens not implemented")
 }
 func (UnimplementedUsersServer) SignUp(context.Context, *common.User) (*SignUpResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SignUp not implemented")
@@ -180,6 +196,24 @@ func _Users_Authorize_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Users_RefreshTokens_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RefreshRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UsersServer).RefreshTokens(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Users_RefreshTokens_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UsersServer).RefreshTokens(ctx, req.(*RefreshRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Users_SignUp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(common.User)
 	if err := dec(in); err != nil {
@@ -223,6 +257,10 @@ var Users_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Authorize",
 			Handler:    _Users_Authorize_Handler,
+		},
+		{
+			MethodName: "RefreshTokens",
+			Handler:    _Users_RefreshTokens_Handler,
 		},
 		{
 			MethodName: "SignUp",

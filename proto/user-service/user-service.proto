@@ -8,6 +8,7 @@ import "common/user.proto";
 service Users {
   rpc SignIn(SignInRequest) returns (SignInResponse);
   rpc Authorize(AuthRequest) returns (AuthResponse);
+  rpc RefreshTokens(RefreshRequest) returns (RefreshResponse);
   rpc SignUp(common.User) returns (SignUpResponse);
   rpc GetFiltered(common.User) returns (stream common.User);
 }
@@ -26,14 +27,21 @@ message SignInResponse {
 
 message AuthRequest {
   string jwt_token = 1;
-  string refresh_token = 2;  
 }
 
 message AuthResponse {
   uint64 user_id = 1;
   int32 code = 2;
-  string jwt_token = 3;
-  string refresh_token = 4;
+}
+
+
+message RefreshRequest {
+  string refresh_token = 1;
+}
+
+message RefreshResponse {
+  string refresh_token = 1;
+  string jwt_token = 2;
 }
 
 

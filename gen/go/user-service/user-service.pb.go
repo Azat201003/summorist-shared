@@ -137,7 +137,6 @@ func (x *SignInResponse) GetCode() int32 {
 type AuthRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	JwtToken      string                 `protobuf:"bytes,1,opt,name=jwt_token,json=jwtToken,proto3" json:"jwt_token,omitempty"`
-	RefreshToken  string                 `protobuf:"bytes,2,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -179,19 +178,10 @@ func (x *AuthRequest) GetJwtToken() string {
 	return ""
 }
 
-func (x *AuthRequest) GetRefreshToken() string {
-	if x != nil {
-		return x.RefreshToken
-	}
-	return ""
-}
-
 type AuthResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	UserId        uint64                 `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	Code          int32                  `protobuf:"varint,2,opt,name=code,proto3" json:"code,omitempty"`
-	JwtToken      string                 `protobuf:"bytes,3,opt,name=jwt_token,json=jwtToken,proto3" json:"jwt_token,omitempty"`
-	RefreshToken  string                 `protobuf:"bytes,4,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -240,16 +230,98 @@ func (x *AuthResponse) GetCode() int32 {
 	return 0
 }
 
-func (x *AuthResponse) GetJwtToken() string {
+type RefreshRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	RefreshToken  string                 `protobuf:"bytes,1,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RefreshRequest) Reset() {
+	*x = RefreshRequest{}
+	mi := &file_user_service_user_service_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RefreshRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RefreshRequest) ProtoMessage() {}
+
+func (x *RefreshRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_user_service_user_service_proto_msgTypes[4]
 	if x != nil {
-		return x.JwtToken
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RefreshRequest.ProtoReflect.Descriptor instead.
+func (*RefreshRequest) Descriptor() ([]byte, []int) {
+	return file_user_service_user_service_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *RefreshRequest) GetRefreshToken() string {
+	if x != nil {
+		return x.RefreshToken
 	}
 	return ""
 }
 
-func (x *AuthResponse) GetRefreshToken() string {
+type RefreshResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	RefreshToken  string                 `protobuf:"bytes,1,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
+	JwtToken      string                 `protobuf:"bytes,2,opt,name=jwt_token,json=jwtToken,proto3" json:"jwt_token,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RefreshResponse) Reset() {
+	*x = RefreshResponse{}
+	mi := &file_user_service_user_service_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RefreshResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RefreshResponse) ProtoMessage() {}
+
+func (x *RefreshResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_user_service_user_service_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RefreshResponse.ProtoReflect.Descriptor instead.
+func (*RefreshResponse) Descriptor() ([]byte, []int) {
+	return file_user_service_user_service_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *RefreshResponse) GetRefreshToken() string {
 	if x != nil {
 		return x.RefreshToken
+	}
+	return ""
+}
+
+func (x *RefreshResponse) GetJwtToken() string {
+	if x != nil {
+		return x.JwtToken
 	}
 	return ""
 }
@@ -264,7 +336,7 @@ type SignUpResponse struct {
 
 func (x *SignUpResponse) Reset() {
 	*x = SignUpResponse{}
-	mi := &file_user_service_user_service_proto_msgTypes[4]
+	mi := &file_user_service_user_service_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -276,7 +348,7 @@ func (x *SignUpResponse) String() string {
 func (*SignUpResponse) ProtoMessage() {}
 
 func (x *SignUpResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_user_service_user_service_proto_msgTypes[4]
+	mi := &file_user_service_user_service_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -289,7 +361,7 @@ func (x *SignUpResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SignUpResponse.ProtoReflect.Descriptor instead.
 func (*SignUpResponse) Descriptor() ([]byte, []int) {
-	return file_user_service_user_service_proto_rawDescGZIP(), []int{4}
+	return file_user_service_user_service_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *SignUpResponse) GetUser() *common.User {
@@ -317,21 +389,24 @@ const file_user_service_user_service_proto_rawDesc = "" +
 	"\x0eSignInResponse\x12\x1b\n" +
 	"\tjwt_token\x18\x01 \x01(\tR\bjwtToken\x12#\n" +
 	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\x12\x12\n" +
-	"\x04code\x18\x03 \x01(\x05R\x04code\"O\n" +
+	"\x04code\x18\x03 \x01(\x05R\x04code\"*\n" +
 	"\vAuthRequest\x12\x1b\n" +
-	"\tjwt_token\x18\x01 \x01(\tR\bjwtToken\x12#\n" +
-	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"}\n" +
+	"\tjwt_token\x18\x01 \x01(\tR\bjwtToken\";\n" +
 	"\fAuthResponse\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\x04R\x06userId\x12\x12\n" +
-	"\x04code\x18\x02 \x01(\x05R\x04code\x12\x1b\n" +
-	"\tjwt_token\x18\x03 \x01(\tR\bjwtToken\x12#\n" +
-	"\rrefresh_token\x18\x04 \x01(\tR\frefreshToken\"F\n" +
+	"\x04code\x18\x02 \x01(\x05R\x04code\"5\n" +
+	"\x0eRefreshRequest\x12#\n" +
+	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\"S\n" +
+	"\x0fRefreshResponse\x12#\n" +
+	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\x12\x1b\n" +
+	"\tjwt_token\x18\x02 \x01(\tR\bjwtToken\"F\n" +
 	"\x0eSignUpResponse\x12 \n" +
 	"\x04user\x18\x01 \x01(\v2\f.common.UserR\x04user\x12\x12\n" +
-	"\x04code\x18\x02 \x01(\x05R\x04code2\xd0\x01\n" +
+	"\x04code\x18\x02 \x01(\x05R\x04code2\x90\x02\n" +
 	"\x05Users\x125\n" +
 	"\x06SignIn\x12\x14.users.SignInRequest\x1a\x15.users.SignInResponse\x124\n" +
-	"\tAuthorize\x12\x12.users.AuthRequest\x1a\x13.users.AuthResponse\x12-\n" +
+	"\tAuthorize\x12\x12.users.AuthRequest\x1a\x13.users.AuthResponse\x12>\n" +
+	"\rRefreshTokens\x12\x15.users.RefreshRequest\x1a\x16.users.RefreshResponse\x12-\n" +
 	"\x06SignUp\x12\f.common.User\x1a\x15.users.SignUpResponse\x12+\n" +
 	"\vGetFiltered\x12\f.common.User\x1a\f.common.User0\x01B4Z2github.com/Azat201003/summorist-share/gen/go;usersb\x06proto3"
 
@@ -347,27 +422,31 @@ func file_user_service_user_service_proto_rawDescGZIP() []byte {
 	return file_user_service_user_service_proto_rawDescData
 }
 
-var file_user_service_user_service_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_user_service_user_service_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_user_service_user_service_proto_goTypes = []any{
-	(*SignInRequest)(nil),  // 0: users.SignInRequest
-	(*SignInResponse)(nil), // 1: users.SignInResponse
-	(*AuthRequest)(nil),    // 2: users.AuthRequest
-	(*AuthResponse)(nil),   // 3: users.AuthResponse
-	(*SignUpResponse)(nil), // 4: users.SignUpResponse
-	(*common.User)(nil),    // 5: common.User
+	(*SignInRequest)(nil),   // 0: users.SignInRequest
+	(*SignInResponse)(nil),  // 1: users.SignInResponse
+	(*AuthRequest)(nil),     // 2: users.AuthRequest
+	(*AuthResponse)(nil),    // 3: users.AuthResponse
+	(*RefreshRequest)(nil),  // 4: users.RefreshRequest
+	(*RefreshResponse)(nil), // 5: users.RefreshResponse
+	(*SignUpResponse)(nil),  // 6: users.SignUpResponse
+	(*common.User)(nil),     // 7: common.User
 }
 var file_user_service_user_service_proto_depIdxs = []int32{
-	5, // 0: users.SignUpResponse.user:type_name -> common.User
+	7, // 0: users.SignUpResponse.user:type_name -> common.User
 	0, // 1: users.Users.SignIn:input_type -> users.SignInRequest
 	2, // 2: users.Users.Authorize:input_type -> users.AuthRequest
-	5, // 3: users.Users.SignUp:input_type -> common.User
-	5, // 4: users.Users.GetFiltered:input_type -> common.User
-	1, // 5: users.Users.SignIn:output_type -> users.SignInResponse
-	3, // 6: users.Users.Authorize:output_type -> users.AuthResponse
-	4, // 7: users.Users.SignUp:output_type -> users.SignUpResponse
-	5, // 8: users.Users.GetFiltered:output_type -> common.User
-	5, // [5:9] is the sub-list for method output_type
-	1, // [1:5] is the sub-list for method input_type
+	4, // 3: users.Users.RefreshTokens:input_type -> users.RefreshRequest
+	7, // 4: users.Users.SignUp:input_type -> common.User
+	7, // 5: users.Users.GetFiltered:input_type -> common.User
+	1, // 6: users.Users.SignIn:output_type -> users.SignInResponse
+	3, // 7: users.Users.Authorize:output_type -> users.AuthResponse
+	5, // 8: users.Users.RefreshTokens:output_type -> users.RefreshResponse
+	6, // 9: users.Users.SignUp:output_type -> users.SignUpResponse
+	7, // 10: users.Users.GetFiltered:output_type -> common.User
+	6, // [6:11] is the sub-list for method output_type
+	1, // [1:6] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
 	1, // [1:1] is the sub-list for extension extendee
 	0, // [0:1] is the sub-list for field type_name
@@ -384,7 +463,7 @@ func file_user_service_user_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_user_service_user_service_proto_rawDesc), len(file_user_service_user_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   5,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
