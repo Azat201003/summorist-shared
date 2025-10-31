@@ -4,6 +4,7 @@ option go_package = "github.com/Azat201003/summorist-share/gen/go;users";
 package users;
 
 import "common/user.proto";
+import "tagger/tagger.proto";
 
 service Users {
   rpc SignIn(SignInRequest) returns (SignInResponse);
@@ -15,7 +16,7 @@ service Users {
 
 message SignInRequest {
   string username = 1;
-  bytes password_hash = 2;
+  bytes password_hash = 2 [(tagger.tags) = "gorm:\"type:bytea\""];
 }
 
 message SignInResponse {
