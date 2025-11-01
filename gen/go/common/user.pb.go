@@ -7,6 +7,7 @@
 package common
 
 import (
+	_ "github.com/srikrsna/protoc-gen-gotag/tagger"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -24,7 +25,7 @@ const (
 type User struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
-	PasswordHash  []byte                 `protobuf:"bytes,2,opt,name=password_hash,json=passwordHash,proto3" json:"password_hash,omitempty"`
+	PasswordHash  []byte                 `protobuf:"bytes,2,opt,name=password_hash,json=passwordHash,proto3" json:"password_hash,omitempty" gorm:"type:bytea"`
 	RefreshToken  string                 `protobuf:"bytes,3,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
 	Id            uint64                 `protobuf:"varint,4,opt,name=id,proto3" json:"id,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -145,10 +146,10 @@ var File_common_user_proto protoreflect.FileDescriptor
 
 const file_common_user_proto_rawDesc = "" +
 	"\n" +
-	"\x11common/user.proto\x12\x06common\"|\n" +
+	"\x11common/user.proto\x12\x06common\x1a\x13tagger/tagger.proto\"\x94\x01\n" +
 	"\x04User\x12\x1a\n" +
-	"\busername\x18\x01 \x01(\tR\busername\x12#\n" +
-	"\rpassword_hash\x18\x02 \x01(\fR\fpasswordHash\x12#\n" +
+	"\busername\x18\x01 \x01(\tR\busername\x12;\n" +
+	"\rpassword_hash\x18\x02 \x01(\fB\x16\x9a\x84\x9e\x03\x11gorm:\"type:bytea\"R\fpasswordHash\x12#\n" +
 	"\rrefresh_token\x18\x03 \x01(\tR\frefreshToken\x12\x0e\n" +
 	"\x02id\x18\x04 \x01(\x04R\x02id\"C\n" +
 	"\fRefreshToken\x12\x0e\n" +
