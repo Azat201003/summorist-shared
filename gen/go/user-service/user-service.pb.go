@@ -287,6 +287,7 @@ type RefreshResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	RefreshToken  string                 `protobuf:"bytes,1,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
 	JwtToken      string                 `protobuf:"bytes,2,opt,name=jwt_token,json=jwtToken,proto3" json:"jwt_token,omitempty"`
+	Code          int32                  `protobuf:"varint,3,opt,name=code,proto3" json:"code,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -333,6 +334,13 @@ func (x *RefreshResponse) GetJwtToken() string {
 		return x.JwtToken
 	}
 	return ""
+}
+
+func (x *RefreshResponse) GetCode() int32 {
+	if x != nil {
+		return x.Code
+	}
+	return 0
 }
 
 type SignUpResponse struct {
@@ -406,10 +414,11 @@ const file_user_service_user_service_proto_rawDesc = "" +
 	"\x04code\x18\x02 \x01(\x05R\x04code\"Q\n" +
 	"\x0eRefreshRequest\x12\x1a\n" +
 	"\busername\x18\x01 \x01(\tR\busername\x12#\n" +
-	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"S\n" +
+	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"g\n" +
 	"\x0fRefreshResponse\x12#\n" +
 	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\x12\x1b\n" +
-	"\tjwt_token\x18\x02 \x01(\tR\bjwtToken\"F\n" +
+	"\tjwt_token\x18\x02 \x01(\tR\bjwtToken\x12\x12\n" +
+	"\x04code\x18\x03 \x01(\x05R\x04code\"F\n" +
 	"\x0eSignUpResponse\x12 \n" +
 	"\x04user\x18\x01 \x01(\v2\f.common.UserR\x04user\x12\x12\n" +
 	"\x04code\x18\x02 \x01(\x05R\x04code2\x90\x02\n" +

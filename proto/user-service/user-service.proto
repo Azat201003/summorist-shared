@@ -44,6 +44,7 @@ message RefreshRequest {
 message RefreshResponse {
   string refresh_token = 1;
   string jwt_token = 2;
+  int32 code = 3;
 }
 
 
