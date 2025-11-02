@@ -37,7 +37,8 @@ message AuthResponse {
 
 
 message RefreshRequest {
-  string refresh_token = 1;
+  string username = 1;
+  string refresh_token = 2;
 }
 
 message RefreshResponse {
