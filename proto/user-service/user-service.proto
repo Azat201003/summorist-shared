@@ -49,7 +49,6 @@ message RefreshResponse {
 
 
 message SignUpResponse {
-  common.User user = 1;
   int32 code = 2;
 }
 
