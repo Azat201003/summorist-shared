@@ -10,7 +10,7 @@ gen-proto: $(PROTO_FILES)
 		--go_out=$(GEN_GO_DIR) --go_opt=paths=source_relative \
 		--go-grpc_out=$(GEN_GO_DIR) --go-grpc_opt=paths=source_relative \
 		$(PROTO_FILES)
-	protoc -I $(PROTO_DIR) -I /usr/include \
+	protoc -I $(PROTO_DIR) \
 		--gotag_out=outdir="$(GEN_GO_DIR)":. \
 		--gotag_opt=paths=source_relative \
 		$(PROTO_FILES)

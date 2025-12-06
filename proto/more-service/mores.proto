@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+option go_package = "github.com/Azat201003/summorist-shared/gen/go;mores";
+package mores;
+
+service Mores {
+  rpc GetFiltered(Meta) returns (stream Meta);
+  rpc DownloadMore(DownloadRequest) returns (stream Part);
+  rpc UploadMore(stream UploadRequest) returns (Meta);
+}
+
+message Meta {
+  string title = 1;
+  uint64 creator_id = 2;
+  uint64 more_id = 3;
+}
+
+message ExchangeData {  
+  uint32 count = 2;
+  uint32 size = 3;
+}
+
+message DownloadRequest {
+  Meta meta = 1;
+  ExchangeData data = 2;
+  bool converted = 3;
+}
+
+message UploadRequest {
+  oneof request {
+    Part part = 1;
+    ExchangeData data = 2;
+  }
+}
+
+message Part {
+  uint32 number = 1;
+  uint32 size = 2;
+  bytes data = 3;
+}
+
