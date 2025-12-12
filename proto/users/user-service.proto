@@ -3,7 +3,6 @@ syntax = "proto3";
 option go_package = "github.com/Azat201003/summorist-share/gen/go/users;users";
 package users;
 
-import "users/common.proto";
 import "tagger/tagger.proto";
 
 service Users {
@@ -62,5 +61,24 @@ message RefreshResponse {
 message UpdateRequest {
   User user = 1; // Searching by id
   string refresh_token = 2;
+}
+
+
+
+message User {
+    string username = 1;
+    bytes password_hash = 2 [(tagger.tags) = "gorm:\"type:bytea\""];
+    string refresh_token = 3;
+    uint64 id = 4;
+}
+
+message RefreshToken {
+    uint64 id = 1;
+    string refresh_token = 2;    
+}
+
+// Response contains only status code
+message StatusResponse {
+    int32 code = 1;
 }
 
