@@ -22,15 +22,21 @@ const (
 	Mores_GetFiltered_FullMethodName  = "/mores.Mores/GetFiltered"
 	Mores_DownloadMore_FullMethodName = "/mores.Mores/DownloadMore"
 	Mores_UploadMore_FullMethodName   = "/mores.Mores/UploadMore"
+	Mores_RemoveMore_FullMethodName   = "/mores.Mores/RemoveMore"
 )
 
 // MoresClient is the client API for Mores service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type MoresClient interface {
+	// Get list of metas by filter
 	GetFiltered(ctx context.Context, in *Meta, opts ...grpc.CallOption) (grpc.ServerStreamingClient[Meta], error)
+	// Downloading by parts, if you have permissions
 	DownloadMore(ctx context.Context, in *DownloadRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[Part], error)
+	// Uploading new more or updating that exists, if you have permissions
 	UploadMore(ctx context.Context, opts ...grpc.CallOption) (grpc.ClientStreamingClient[UploadRequest, Meta], error)
+	// Removing more(mark as removed), if you have permissions, returns meta of deleted more
+	RemoveMore(ctx context.Context, in *RemoveRequest, opts ...grpc.CallOption) (*Meta, error)
 }
 
 type moresClient struct {
@@ -92,13 +98,28 @@ func (c *moresClient) UploadMore(ctx context.Context, opts ...grpc.CallOption) (
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type Mores_UploadMoreClient = grpc.ClientStreamingClient[UploadRequest, Meta]
 
+func (c *moresClient) RemoveMore(ctx context.Context, in *RemoveRequest, opts ...grpc.CallOption) (*Meta, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Meta)
+	err := c.cc.Invoke(ctx, Mores_RemoveMore_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MoresServer is the server API for Mores service.
 // All implementations must embed UnimplementedMoresServer
 // for forward compatibility.
 type MoresServer interface {
+	// Get list of metas by filter
 	GetFiltered(*Meta, grpc.ServerStreamingServer[Meta]) error
+	// Downloading by parts, if you have permissions
 	DownloadMore(*DownloadRequest, grpc.ServerStreamingServer[Part]) error
+	// Uploading new more or updating that exists, if you have permissions
 	UploadMore(grpc.ClientStreamingServer[UploadRequest, Meta]) error
+	// Removing more(mark as removed), if you have permissions, returns meta of deleted more
+	RemoveMore(context.Context, *RemoveRequest) (*Meta, error)
 	mustEmbedUnimplementedMoresServer()
 }
 
@@ -117,6 +138,9 @@ func (UnimplementedMoresServer) DownloadMore(*DownloadRequest, grpc.ServerStream
 }
 func (UnimplementedMoresServer) UploadMore(grpc.ClientStreamingServer[UploadRequest, Meta]) error {
 	return status.Errorf(codes.Unimplemented, "method UploadMore not implemented")
+}
+func (UnimplementedMoresServer) RemoveMore(context.Context, *RemoveRequest) (*Meta, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveMore not implemented")
 }
 func (UnimplementedMoresServer) mustEmbedUnimplementedMoresServer() {}
 func (UnimplementedMoresServer) testEmbeddedByValue()               {}
@@ -168,13 +192,36 @@ func _Mores_UploadMore_Handler(srv interface{}, stream grpc.ServerStream) error 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type Mores_UploadMoreServer = grpc.ClientStreamingServer[UploadRequest, Meta]
 
+func _Mores_RemoveMore_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MoresServer).RemoveMore(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Mores_RemoveMore_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MoresServer).RemoveMore(ctx, req.(*RemoveRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Mores_ServiceDesc is the grpc.ServiceDesc for Mores service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Mores_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "mores.Mores",
 	HandlerType: (*MoresServer)(nil),
-	Methods:     []grpc.MethodDesc{},
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "RemoveMore",
+			Handler:    _Mores_RemoveMore_Handler,
+		},
+	},
 	Streams: []grpc.StreamDesc{
 		{
 			StreamName:    "GetFiltered",

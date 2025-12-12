@@ -8,7 +8,7 @@ package users
 
 import (
 	context "context"
-	common "github.com/Azat201003/summorist-shared/gen/go/common"
+	users "github.com/Azat201003/summorist-shared/gen/go/users"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -25,17 +25,25 @@ const (
 	Users_RefreshTokens_FullMethodName = "/users.Users/RefreshTokens"
 	Users_SignUp_FullMethodName        = "/users.Users/SignUp"
 	Users_GetFiltered_FullMethodName   = "/users.Users/GetFiltered"
+	Users_UpdateUser_FullMethodName    = "/users.Users/UpdateUser"
 )
 
 // UsersClient is the client API for Users service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UsersClient interface {
+	// By user creditionals, he gets tokens
 	SignIn(ctx context.Context, in *SignInRequest, opts ...grpc.CallOption) (*SignInResponse, error)
+	// By user token, he gets data of him
 	Authorize(ctx context.Context, in *AuthRequest, opts ...grpc.CallOption) (*AuthResponse, error)
+	// Generating new token
 	RefreshTokens(ctx context.Context, in *RefreshRequest, opts ...grpc.CallOption) (*RefreshResponse, error)
-	SignUp(ctx context.Context, in *common.User, opts ...grpc.CallOption) (*SignUpResponse, error)
-	GetFiltered(ctx context.Context, in *common.User, opts ...grpc.CallOption) (grpc.ServerStreamingClient[common.User], error)
+	// Creating new user
+	SignUp(ctx context.Context, in *users.User, opts ...grpc.CallOption) (*users.StatusResponse, error)
+	// Getting list of users with filter
+	GetFiltered(ctx context.Context, in *users.User, opts ...grpc.CallOption) (grpc.ServerStreamingClient[users.User], error)
+	// Changing user, if you have permissions
+	UpdateUser(ctx context.Context, in *users.User, opts ...grpc.CallOption) (*users.StatusResponse, error)
 }
 
 type usersClient struct {
@@ -76,9 +84,9 @@ func (c *usersClient) RefreshTokens(ctx context.Context, in *RefreshRequest, opt
 	return out, nil
 }
 
-func (c *usersClient) SignUp(ctx context.Context, in *common.User, opts ...grpc.CallOption) (*SignUpResponse, error) {
+func (c *usersClient) SignUp(ctx context.Context, in *users.User, opts ...grpc.CallOption) (*users.StatusResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(SignUpResponse)
+	out := new(users.StatusResponse)
 	err := c.cc.Invoke(ctx, Users_SignUp_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -86,13 +94,13 @@ func (c *usersClient) SignUp(ctx context.Context, in *common.User, opts ...grpc.
 	return out, nil
 }
 
-func (c *usersClient) GetFiltered(ctx context.Context, in *common.User, opts ...grpc.CallOption) (grpc.ServerStreamingClient[common.User], error) {
+func (c *usersClient) GetFiltered(ctx context.Context, in *users.User, opts ...grpc.CallOption) (grpc.ServerStreamingClient[users.User], error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	stream, err := c.cc.NewStream(ctx, &Users_ServiceDesc.Streams[0], Users_GetFiltered_FullMethodName, cOpts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &grpc.GenericClientStream[common.User, common.User]{ClientStream: stream}
+	x := &grpc.GenericClientStream[users.User, users.User]{ClientStream: stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -103,17 +111,34 @@ func (c *usersClient) GetFiltered(ctx context.Context, in *common.User, opts ...
 }
 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
-type Users_GetFilteredClient = grpc.ServerStreamingClient[common.User]
+type Users_GetFilteredClient = grpc.ServerStreamingClient[users.User]
+
+func (c *usersClient) UpdateUser(ctx context.Context, in *users.User, opts ...grpc.CallOption) (*users.StatusResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(users.StatusResponse)
+	err := c.cc.Invoke(ctx, Users_UpdateUser_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
 
 // UsersServer is the server API for Users service.
 // All implementations must embed UnimplementedUsersServer
 // for forward compatibility.
 type UsersServer interface {
+	// By user creditionals, he gets tokens
 	SignIn(context.Context, *SignInRequest) (*SignInResponse, error)
+	// By user token, he gets data of him
 	Authorize(context.Context, *AuthRequest) (*AuthResponse, error)
+	// Generating new token
 	RefreshTokens(context.Context, *RefreshRequest) (*RefreshResponse, error)
-	SignUp(context.Context, *common.User) (*SignUpResponse, error)
-	GetFiltered(*common.User, grpc.ServerStreamingServer[common.User]) error
+	// Creating new user
+	SignUp(context.Context, *users.User) (*users.StatusResponse, error)
+	// Getting list of users with filter
+	GetFiltered(*users.User, grpc.ServerStreamingServer[users.User]) error
+	// Changing user, if you have permissions
+	UpdateUser(context.Context, *users.User) (*users.StatusResponse, error)
 	mustEmbedUnimplementedUsersServer()
 }
 
@@ -133,11 +158,14 @@ func (UnimplementedUsersServer) Authorize(context.Context, *AuthRequest) (*AuthR
 func (UnimplementedUsersServer) RefreshTokens(context.Context, *RefreshRequest) (*RefreshResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RefreshTokens not implemented")
 }
-func (UnimplementedUsersServer) SignUp(context.Context, *common.User) (*SignUpResponse, error) {
+func (UnimplementedUsersServer) SignUp(context.Context, *users.User) (*users.StatusResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SignUp not implemented")
 }
-func (UnimplementedUsersServer) GetFiltered(*common.User, grpc.ServerStreamingServer[common.User]) error {
+func (UnimplementedUsersServer) GetFiltered(*users.User, grpc.ServerStreamingServer[users.User]) error {
 	return status.Errorf(codes.Unimplemented, "method GetFiltered not implemented")
+}
+func (UnimplementedUsersServer) UpdateUser(context.Context, *users.User) (*users.StatusResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateUser not implemented")
 }
 func (UnimplementedUsersServer) mustEmbedUnimplementedUsersServer() {}
 func (UnimplementedUsersServer) testEmbeddedByValue()               {}
@@ -215,7 +243,7 @@ func _Users_RefreshTokens_Handler(srv interface{}, ctx context.Context, dec func
 }
 
 func _Users_SignUp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(common.User)
+	in := new(users.User)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -227,21 +255,39 @@ func _Users_SignUp_Handler(srv interface{}, ctx context.Context, dec func(interf
 		FullMethod: Users_SignUp_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UsersServer).SignUp(ctx, req.(*common.User))
+		return srv.(UsersServer).SignUp(ctx, req.(*users.User))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Users_GetFiltered_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(common.User)
+	m := new(users.User)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(UsersServer).GetFiltered(m, &grpc.GenericServerStream[common.User, common.User]{ServerStream: stream})
+	return srv.(UsersServer).GetFiltered(m, &grpc.GenericServerStream[users.User, users.User]{ServerStream: stream})
 }
 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
-type Users_GetFilteredServer = grpc.ServerStreamingServer[common.User]
+type Users_GetFilteredServer = grpc.ServerStreamingServer[users.User]
+
+func _Users_UpdateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(users.User)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UsersServer).UpdateUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Users_UpdateUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UsersServer).UpdateUser(ctx, req.(*users.User))
+	}
+	return interceptor(ctx, in, info, handler)
+}
 
 // Users_ServiceDesc is the grpc.ServiceDesc for Users service.
 // It's only intended for direct use with grpc.RegisterService,
@@ -265,6 +311,10 @@ var Users_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SignUp",
 			Handler:    _Users_SignUp_Handler,
+		},
+		{
+			MethodName: "UpdateUser",
+			Handler:    _Users_UpdateUser_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

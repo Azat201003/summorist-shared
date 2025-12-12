@@ -7,7 +7,7 @@
 package users
 
 import (
-	common "github.com/Azat201003/summorist-shared/gen/go/common"
+	users "github.com/Azat201003/summorist-shared/gen/go/users"
 	_ "github.com/srikrsna/protoc-gen-gotag/tagger"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -23,6 +23,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// SignIn
 type SignInRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
@@ -135,6 +136,7 @@ func (x *SignInResponse) GetCode() int32 {
 	return 0
 }
 
+// Authorize
 type AuthRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	JwtToken      string                 `protobuf:"bytes,1,opt,name=jwt_token,json=jwtToken,proto3" json:"jwt_token,omitempty"`
@@ -231,6 +233,7 @@ func (x *AuthResponse) GetCode() int32 {
 	return 0
 }
 
+// RefreshToken
 type RefreshRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
@@ -343,27 +346,29 @@ func (x *RefreshResponse) GetCode() int32 {
 	return 0
 }
 
-type SignUpResponse struct {
+// UpdateUser
+type UpdateRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Code          int32                  `protobuf:"varint,2,opt,name=code,proto3" json:"code,omitempty"`
+	User          *users.User            `protobuf:"bytes,1,opt,name=user,proto3" json:"user,omitempty"` // Searching by id
+	RefreshToken  string                 `protobuf:"bytes,2,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *SignUpResponse) Reset() {
-	*x = SignUpResponse{}
+func (x *UpdateRequest) Reset() {
+	*x = UpdateRequest{}
 	mi := &file_user_service_user_service_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *SignUpResponse) String() string {
+func (x *UpdateRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*SignUpResponse) ProtoMessage() {}
+func (*UpdateRequest) ProtoMessage() {}
 
-func (x *SignUpResponse) ProtoReflect() protoreflect.Message {
+func (x *UpdateRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_user_service_user_service_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -375,23 +380,30 @@ func (x *SignUpResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use SignUpResponse.ProtoReflect.Descriptor instead.
-func (*SignUpResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use UpdateRequest.ProtoReflect.Descriptor instead.
+func (*UpdateRequest) Descriptor() ([]byte, []int) {
 	return file_user_service_user_service_proto_rawDescGZIP(), []int{6}
 }
 
-func (x *SignUpResponse) GetCode() int32 {
+func (x *UpdateRequest) GetUser() *users.User {
 	if x != nil {
-		return x.Code
+		return x.User
 	}
-	return 0
+	return nil
+}
+
+func (x *UpdateRequest) GetRefreshToken() string {
+	if x != nil {
+		return x.RefreshToken
+	}
+	return ""
 }
 
 var File_user_service_user_service_proto protoreflect.FileDescriptor
 
 const file_user_service_user_service_proto_rawDesc = "" +
 	"\n" +
-	"\x1fuser-service/user-service.proto\x12\x05users\x1a\x11common/user.proto\x1a\x13tagger/tagger.proto\"h\n" +
+	"\x1fuser-service/user-service.proto\x12\x05users\x1a\x19user-service/common.proto\x1a\x13tagger/tagger.proto\"h\n" +
 	"\rSignInRequest\x12\x1a\n" +
 	"\busername\x18\x01 \x01(\tR\busername\x12;\n" +
 	"\rpassword_hash\x18\x02 \x01(\fB\x16\x9a\x84\x9e\x03\x11gorm:\"type:bytea\"R\fpasswordHash\"f\n" +
@@ -410,15 +422,18 @@ const file_user_service_user_service_proto_rawDesc = "" +
 	"\x0fRefreshResponse\x12#\n" +
 	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\x12\x1b\n" +
 	"\tjwt_token\x18\x02 \x01(\tR\bjwtToken\x12\x12\n" +
-	"\x04code\x18\x03 \x01(\x05R\x04code\"$\n" +
-	"\x0eSignUpResponse\x12\x12\n" +
-	"\x04code\x18\x02 \x01(\x05R\x04code2\x90\x02\n" +
+	"\x04code\x18\x03 \x01(\x05R\x04code\"V\n" +
+	"\rUpdateRequest\x12 \n" +
+	"\x04user\x18\x01 \x01(\v2\f.common.UserR\x04user\x12#\n" +
+	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken2\xc5\x02\n" +
 	"\x05Users\x125\n" +
 	"\x06SignIn\x12\x14.users.SignInRequest\x1a\x15.users.SignInResponse\x124\n" +
 	"\tAuthorize\x12\x12.users.AuthRequest\x1a\x13.users.AuthResponse\x12>\n" +
-	"\rRefreshTokens\x12\x15.users.RefreshRequest\x1a\x16.users.RefreshResponse\x12-\n" +
-	"\x06SignUp\x12\f.common.User\x1a\x15.users.SignUpResponse\x12+\n" +
-	"\vGetFiltered\x12\f.common.User\x1a\f.common.User0\x01B4Z2github.com/Azat201003/summorist-share/gen/go;usersb\x06proto3"
+	"\rRefreshTokens\x12\x15.users.RefreshRequest\x1a\x16.users.RefreshResponse\x12.\n" +
+	"\x06SignUp\x12\f.common.User\x1a\x16.common.StatusResponse\x12+\n" +
+	"\vGetFiltered\x12\f.common.User\x1a\f.common.User0\x01\x122\n" +
+	"\n" +
+	"UpdateUser\x12\f.common.User\x1a\x16.common.StatusResponseB:Z8github.com/Azat201003/summorist-share/gen/go/users;usersb\x06proto3"
 
 var (
 	file_user_service_user_service_proto_rawDescOnce sync.Once
@@ -434,31 +449,35 @@ func file_user_service_user_service_proto_rawDescGZIP() []byte {
 
 var file_user_service_user_service_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_user_service_user_service_proto_goTypes = []any{
-	(*SignInRequest)(nil),   // 0: users.SignInRequest
-	(*SignInResponse)(nil),  // 1: users.SignInResponse
-	(*AuthRequest)(nil),     // 2: users.AuthRequest
-	(*AuthResponse)(nil),    // 3: users.AuthResponse
-	(*RefreshRequest)(nil),  // 4: users.RefreshRequest
-	(*RefreshResponse)(nil), // 5: users.RefreshResponse
-	(*SignUpResponse)(nil),  // 6: users.SignUpResponse
-	(*common.User)(nil),     // 7: common.User
+	(*SignInRequest)(nil),        // 0: users.SignInRequest
+	(*SignInResponse)(nil),       // 1: users.SignInResponse
+	(*AuthRequest)(nil),          // 2: users.AuthRequest
+	(*AuthResponse)(nil),         // 3: users.AuthResponse
+	(*RefreshRequest)(nil),       // 4: users.RefreshRequest
+	(*RefreshResponse)(nil),      // 5: users.RefreshResponse
+	(*UpdateRequest)(nil),        // 6: users.UpdateRequest
+	(*users.User)(nil),           // 7: common.User
+	(*users.StatusResponse)(nil), // 8: common.StatusResponse
 }
 var file_user_service_user_service_proto_depIdxs = []int32{
-	0, // 0: users.Users.SignIn:input_type -> users.SignInRequest
-	2, // 1: users.Users.Authorize:input_type -> users.AuthRequest
-	4, // 2: users.Users.RefreshTokens:input_type -> users.RefreshRequest
-	7, // 3: users.Users.SignUp:input_type -> common.User
-	7, // 4: users.Users.GetFiltered:input_type -> common.User
-	1, // 5: users.Users.SignIn:output_type -> users.SignInResponse
-	3, // 6: users.Users.Authorize:output_type -> users.AuthResponse
-	5, // 7: users.Users.RefreshTokens:output_type -> users.RefreshResponse
-	6, // 8: users.Users.SignUp:output_type -> users.SignUpResponse
-	7, // 9: users.Users.GetFiltered:output_type -> common.User
-	5, // [5:10] is the sub-list for method output_type
-	0, // [0:5] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	7, // 0: users.UpdateRequest.user:type_name -> common.User
+	0, // 1: users.Users.SignIn:input_type -> users.SignInRequest
+	2, // 2: users.Users.Authorize:input_type -> users.AuthRequest
+	4, // 3: users.Users.RefreshTokens:input_type -> users.RefreshRequest
+	7, // 4: users.Users.SignUp:input_type -> common.User
+	7, // 5: users.Users.GetFiltered:input_type -> common.User
+	7, // 6: users.Users.UpdateUser:input_type -> common.User
+	1, // 7: users.Users.SignIn:output_type -> users.SignInResponse
+	3, // 8: users.Users.Authorize:output_type -> users.AuthResponse
+	5, // 9: users.Users.RefreshTokens:output_type -> users.RefreshResponse
+	8, // 10: users.Users.SignUp:output_type -> common.StatusResponse
+	7, // 11: users.Users.GetFiltered:output_type -> common.User
+	8, // 12: users.Users.UpdateUser:output_type -> common.StatusResponse
+	7, // [7:13] is the sub-list for method output_type
+	1, // [1:7] is the sub-list for method input_type
+	1, // [1:1] is the sub-list for extension type_name
+	1, // [1:1] is the sub-list for extension extendee
+	0, // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_user_service_user_service_proto_init() }

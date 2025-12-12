@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package="github.com/Azat201003/summorist-shared/gen/go/common;common";
+option go_package="github.com/Azat201003/summorist-shared/gen/go/users;users";
 package common;
 
 import "tagger/tagger.proto";
@@ -15,5 +15,10 @@ message User {
 message RefreshToken {
     uint64 id = 1;
     string refresh_token = 2;    
+}
+
+// Response contains only status code
+message StatusResponse {
+    int32 code = 1;
 }
 

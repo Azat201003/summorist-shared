@@ -1,19 +1,27 @@
 syntax = "proto3";
 
-option go_package = "github.com/Azat201003/summorist-share/gen/go;users";
+option go_package = "github.com/Azat201003/summorist-share/gen/go/users;users";
 package users;
 
-import "common/user.proto";
+import "user-service/common.proto";
 import "tagger/tagger.proto";
 
 service Users {
+  // By user creditionals, he gets tokens
   rpc SignIn(SignInRequest) returns (SignInResponse);
+  // By user token, he gets data of him
   rpc Authorize(AuthRequest) returns (AuthResponse);
+  // Generating new token
   rpc RefreshTokens(RefreshRequest) returns (RefreshResponse);
-  rpc SignUp(common.User) returns (SignUpResponse);
+  // Creating new user
+  rpc SignUp(common.User) returns (common.StatusResponse);
+  // Getting list of users with filter
   rpc GetFiltered(common.User) returns (stream common.User);
+  // Changing user, if you have permissions
+  rpc UpdateUser(common.User) returns (common.StatusResponse); 
 }
 
+// SignIn
 message SignInRequest {
   string username = 1;
   bytes password_hash = 2 [(tagger.tags) = "gorm:\"type:bytea\""];
@@ -26,6 +34,7 @@ message SignInResponse {
 }
 
 
+// Authorize
 message AuthRequest {
   string jwt_token = 1;
 }
@@ -36,6 +45,7 @@ message AuthResponse {
 }
 
 
+// RefreshToken
 message RefreshRequest {
   string username = 1;
   string refresh_token = 2;
@@ -48,7 +58,9 @@ message RefreshResponse {
 }
 
 
-message SignUpResponse {
-  int32 code = 2;
+// UpdateUser
+message UpdateRequest {
+  common.User user = 1; // Searching by id
+  string refresh_token = 2;
 }
 

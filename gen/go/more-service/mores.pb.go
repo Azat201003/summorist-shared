@@ -83,8 +83,9 @@ func (x *Meta) GetMoreId() uint64 {
 
 type ExchangeData struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Count         uint32                 `protobuf:"varint,2,opt,name=count,proto3" json:"count,omitempty"`
-	Size          uint32                 `protobuf:"varint,3,opt,name=size,proto3" json:"size,omitempty"`
+	Count         uint32                 `protobuf:"varint,1,opt,name=count,proto3" json:"count,omitempty"`
+	Size          uint32                 `protobuf:"varint,2,opt,name=size,proto3" json:"size,omitempty"`
+	JwtToken      string                 `protobuf:"bytes,3,opt,name=jwt_token,json=jwtToken,proto3" json:"jwt_token,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -131,6 +132,13 @@ func (x *ExchangeData) GetSize() uint32 {
 		return x.Size
 	}
 	return 0
+}
+
+func (x *ExchangeData) GetJwtToken() string {
+	if x != nil {
+		return x.JwtToken
+	}
+	return ""
 }
 
 type DownloadRequest struct {
@@ -275,6 +283,58 @@ func (*UploadRequest_Part) isUploadRequest_Request() {}
 
 func (*UploadRequest_Data) isUploadRequest_Request() {}
 
+type RemoveRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *Meta                  `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	JwtToken      string                 `protobuf:"bytes,2,opt,name=jwt_token,json=jwtToken,proto3" json:"jwt_token,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RemoveRequest) Reset() {
+	*x = RemoveRequest{}
+	mi := &file_more_service_mores_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RemoveRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RemoveRequest) ProtoMessage() {}
+
+func (x *RemoveRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_more_service_mores_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RemoveRequest.ProtoReflect.Descriptor instead.
+func (*RemoveRequest) Descriptor() ([]byte, []int) {
+	return file_more_service_mores_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *RemoveRequest) GetMeta() *Meta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *RemoveRequest) GetJwtToken() string {
+	if x != nil {
+		return x.JwtToken
+	}
+	return ""
+}
+
 type Part struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Number        uint32                 `protobuf:"varint,1,opt,name=number,proto3" json:"number,omitempty"`
@@ -286,7 +346,7 @@ type Part struct {
 
 func (x *Part) Reset() {
 	*x = Part{}
-	mi := &file_more_service_mores_proto_msgTypes[4]
+	mi := &file_more_service_mores_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -298,7 +358,7 @@ func (x *Part) String() string {
 func (*Part) ProtoMessage() {}
 
 func (x *Part) ProtoReflect() protoreflect.Message {
-	mi := &file_more_service_mores_proto_msgTypes[4]
+	mi := &file_more_service_mores_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -311,7 +371,7 @@ func (x *Part) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Part.ProtoReflect.Descriptor instead.
 func (*Part) Descriptor() ([]byte, []int) {
-	return file_more_service_mores_proto_rawDescGZIP(), []int{4}
+	return file_more_service_mores_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *Part) GetNumber() uint32 {
@@ -344,10 +404,11 @@ const file_more_service_mores_proto_rawDesc = "" +
 	"\x05title\x18\x01 \x01(\tR\x05title\x12\x1d\n" +
 	"\n" +
 	"creator_id\x18\x02 \x01(\x04R\tcreatorId\x12\x17\n" +
-	"\amore_id\x18\x03 \x01(\x04R\x06moreId\"8\n" +
+	"\amore_id\x18\x03 \x01(\x04R\x06moreId\"U\n" +
 	"\fExchangeData\x12\x14\n" +
-	"\x05count\x18\x02 \x01(\rR\x05count\x12\x12\n" +
-	"\x04size\x18\x03 \x01(\rR\x04size\"y\n" +
+	"\x05count\x18\x01 \x01(\rR\x05count\x12\x12\n" +
+	"\x04size\x18\x02 \x01(\rR\x04size\x12\x1b\n" +
+	"\tjwt_token\x18\x03 \x01(\tR\bjwtToken\"y\n" +
 	"\x0fDownloadRequest\x12\x1f\n" +
 	"\x04meta\x18\x01 \x01(\v2\v.mores.MetaR\x04meta\x12'\n" +
 	"\x04data\x18\x02 \x01(\v2\x13.mores.ExchangeDataR\x04data\x12\x1c\n" +
@@ -355,16 +416,21 @@ const file_more_service_mores_proto_rawDesc = "" +
 	"\rUploadRequest\x12!\n" +
 	"\x04part\x18\x01 \x01(\v2\v.mores.PartH\x00R\x04part\x12)\n" +
 	"\x04data\x18\x02 \x01(\v2\x13.mores.ExchangeDataH\x00R\x04dataB\t\n" +
-	"\arequest\"F\n" +
+	"\arequest\"M\n" +
+	"\rRemoveRequest\x12\x1f\n" +
+	"\x04meta\x18\x01 \x01(\v2\v.mores.MetaR\x04meta\x12\x1b\n" +
+	"\tjwt_token\x18\x02 \x01(\tR\bjwtToken\"F\n" +
 	"\x04Part\x12\x16\n" +
 	"\x06number\x18\x01 \x01(\rR\x06number\x12\x12\n" +
 	"\x04size\x18\x02 \x01(\rR\x04size\x12\x12\n" +
-	"\x04data\x18\x03 \x01(\fR\x04data2\x9c\x01\n" +
+	"\x04data\x18\x03 \x01(\fR\x04data2\xcd\x01\n" +
 	"\x05Mores\x12)\n" +
 	"\vGetFiltered\x12\v.mores.Meta\x1a\v.mores.Meta0\x01\x125\n" +
 	"\fDownloadMore\x12\x16.mores.DownloadRequest\x1a\v.mores.Part0\x01\x121\n" +
 	"\n" +
-	"UploadMore\x12\x14.mores.UploadRequest\x1a\v.mores.Meta(\x01B5Z3github.com/Azat201003/summorist-shared/gen/go;moresb\x06proto3"
+	"UploadMore\x12\x14.mores.UploadRequest\x1a\v.mores.Meta(\x01\x12/\n" +
+	"\n" +
+	"RemoveMore\x12\x14.mores.RemoveRequest\x1a\v.mores.MetaB;Z9github.com/Azat201003/summorist-shared/gen/go/mores;moresb\x06proto3"
 
 var (
 	file_more_service_mores_proto_rawDescOnce sync.Once
@@ -378,30 +444,34 @@ func file_more_service_mores_proto_rawDescGZIP() []byte {
 	return file_more_service_mores_proto_rawDescData
 }
 
-var file_more_service_mores_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_more_service_mores_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_more_service_mores_proto_goTypes = []any{
 	(*Meta)(nil),            // 0: mores.Meta
 	(*ExchangeData)(nil),    // 1: mores.ExchangeData
 	(*DownloadRequest)(nil), // 2: mores.DownloadRequest
 	(*UploadRequest)(nil),   // 3: mores.UploadRequest
-	(*Part)(nil),            // 4: mores.Part
+	(*RemoveRequest)(nil),   // 4: mores.RemoveRequest
+	(*Part)(nil),            // 5: mores.Part
 }
 var file_more_service_mores_proto_depIdxs = []int32{
 	0, // 0: mores.DownloadRequest.meta:type_name -> mores.Meta
 	1, // 1: mores.DownloadRequest.data:type_name -> mores.ExchangeData
-	4, // 2: mores.UploadRequest.part:type_name -> mores.Part
+	5, // 2: mores.UploadRequest.part:type_name -> mores.Part
 	1, // 3: mores.UploadRequest.data:type_name -> mores.ExchangeData
-	0, // 4: mores.Mores.GetFiltered:input_type -> mores.Meta
-	2, // 5: mores.Mores.DownloadMore:input_type -> mores.DownloadRequest
-	3, // 6: mores.Mores.UploadMore:input_type -> mores.UploadRequest
-	0, // 7: mores.Mores.GetFiltered:output_type -> mores.Meta
-	4, // 8: mores.Mores.DownloadMore:output_type -> mores.Part
-	0, // 9: mores.Mores.UploadMore:output_type -> mores.Meta
-	7, // [7:10] is the sub-list for method output_type
-	4, // [4:7] is the sub-list for method input_type
-	4, // [4:4] is the sub-list for extension type_name
-	4, // [4:4] is the sub-list for extension extendee
-	0, // [0:4] is the sub-list for field type_name
+	0, // 4: mores.RemoveRequest.meta:type_name -> mores.Meta
+	0, // 5: mores.Mores.GetFiltered:input_type -> mores.Meta
+	2, // 6: mores.Mores.DownloadMore:input_type -> mores.DownloadRequest
+	3, // 7: mores.Mores.UploadMore:input_type -> mores.UploadRequest
+	4, // 8: mores.Mores.RemoveMore:input_type -> mores.RemoveRequest
+	0, // 9: mores.Mores.GetFiltered:output_type -> mores.Meta
+	5, // 10: mores.Mores.DownloadMore:output_type -> mores.Part
+	0, // 11: mores.Mores.UploadMore:output_type -> mores.Meta
+	0, // 12: mores.Mores.RemoveMore:output_type -> mores.Meta
+	9, // [9:13] is the sub-list for method output_type
+	5, // [5:9] is the sub-list for method input_type
+	5, // [5:5] is the sub-list for extension type_name
+	5, // [5:5] is the sub-list for extension extendee
+	0, // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_more_service_mores_proto_init() }
@@ -419,7 +489,7 @@ func file_more_service_mores_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_more_service_mores_proto_rawDesc), len(file_more_service_mores_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   5,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
