@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             v4.25.2
-// source: user-service/user-service.proto
+// source: users/user-service.proto
 
 package users
 
@@ -324,5 +324,5 @@ var Users_ServiceDesc = grpc.ServiceDesc{
 			ServerStreams: true,
 		},
 	},
-	Metadata: "user-service/user-service.proto",
+	Metadata: "users/user-service.proto",
 }

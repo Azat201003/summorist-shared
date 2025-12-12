@@ -3,7 +3,7 @@ syntax = "proto3";
 option go_package = "github.com/Azat201003/summorist-share/gen/go/users;users";
 package users;
 
-import "user-service/common.proto";
+import "users/common.proto";
 import "tagger/tagger.proto";
 
 service Users {
@@ -14,11 +14,11 @@ service Users {
   // Generating new token
   rpc RefreshTokens(RefreshRequest) returns (RefreshResponse);
   // Creating new user
-  rpc SignUp(common.User) returns (common.StatusResponse);
+  rpc SignUp(User) returns (StatusResponse);
   // Getting list of users with filter
-  rpc GetFiltered(common.User) returns (stream common.User);
+  rpc GetFiltered(User) returns (stream User);
   // Changing user, if you have permissions
-  rpc UpdateUser(common.User) returns (common.StatusResponse); 
+  rpc UpdateUser(User) returns (StatusResponse); 
 }
 
 // SignIn
@@ -60,7 +60,7 @@ message RefreshResponse {
 
 // UpdateUser
 message UpdateRequest {
-  common.User user = 1; // Searching by id
+  User user = 1; // Searching by id
   string refresh_token = 2;
 }
 

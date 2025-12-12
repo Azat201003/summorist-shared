@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 option go_package="github.com/Azat201003/summorist-shared/gen/go/users;users";
-package common;
+package users;
 
 import "tagger/tagger.proto";
 

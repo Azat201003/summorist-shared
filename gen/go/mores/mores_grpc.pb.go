@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             v4.25.2
-// source: more-service/mores.proto
+// source: mores/mores.proto
 
 package mores
 
@@ -239,5 +239,5 @@ var Mores_ServiceDesc = grpc.ServiceDesc{
 			ClientStreams: true,
 		},
 	},
-	Metadata: "more-service/mores.proto",
+	Metadata: "mores/mores.proto",
 }
