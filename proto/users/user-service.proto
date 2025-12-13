@@ -19,7 +19,7 @@ service Users {
   // Change user, if you have permissions
   rpc UpdateUser(UpdateRequest) returns (StatusResponse); 
   // Remove user by id, if you have permissions
-  rpc RemoveUser(RemoveRequest) returns (User);
+  rpc RemoveUser(RemoveRequest) returns (StatusResponse);
 }
 
 // SignIn

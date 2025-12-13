@@ -45,7 +45,7 @@ type UsersClient interface {
 	// Change user, if you have permissions
 	UpdateUser(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*StatusResponse, error)
 	// Remove user by id, if you have permissions
-	RemoveUser(ctx context.Context, in *RemoveRequest, opts ...grpc.CallOption) (*User, error)
+	RemoveUser(ctx context.Context, in *RemoveRequest, opts ...grpc.CallOption) (*StatusResponse, error)
 }
 
 type usersClient struct {
@@ -125,9 +125,9 @@ func (c *usersClient) UpdateUser(ctx context.Context, in *UpdateRequest, opts ..
 	return out, nil
 }
 
-func (c *usersClient) RemoveUser(ctx context.Context, in *RemoveRequest, opts ...grpc.CallOption) (*User, error) {
+func (c *usersClient) RemoveUser(ctx context.Context, in *RemoveRequest, opts ...grpc.CallOption) (*StatusResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(User)
+	out := new(StatusResponse)
 	err := c.cc.Invoke(ctx, Users_RemoveUser_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -152,7 +152,7 @@ type UsersServer interface {
 	// Change user, if you have permissions
 	UpdateUser(context.Context, *UpdateRequest) (*StatusResponse, error)
 	// Remove user by id, if you have permissions
-	RemoveUser(context.Context, *RemoveRequest) (*User, error)
+	RemoveUser(context.Context, *RemoveRequest) (*StatusResponse, error)
 	mustEmbedUnimplementedUsersServer()
 }
 
@@ -181,7 +181,7 @@ func (UnimplementedUsersServer) GetFiltered(*User, grpc.ServerStreamingServer[Us
 func (UnimplementedUsersServer) UpdateUser(context.Context, *UpdateRequest) (*StatusResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateUser not implemented")
 }
-func (UnimplementedUsersServer) RemoveUser(context.Context, *RemoveRequest) (*User, error) {
+func (UnimplementedUsersServer) RemoveUser(context.Context, *RemoveRequest) (*StatusResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RemoveUser not implemented")
 }
 func (UnimplementedUsersServer) mustEmbedUnimplementedUsersServer() {}

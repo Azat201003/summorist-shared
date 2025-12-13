@@ -655,7 +655,7 @@ const file_users_user_service_proto_rawDesc = "" +
 	"\x02id\x18\x01 \x01(\x04R\x02id\x12#\n" +
 	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"$\n" +
 	"\x0eStatusResponse\x12\x12\n" +
-	"\x04code\x18\x01 \x01(\x05R\x04code2\xf9\x02\n" +
+	"\x04code\x18\x01 \x01(\x05R\x04code2\x83\x03\n" +
 	"\x05Users\x125\n" +
 	"\x06SignIn\x12\x14.users.SignInRequest\x1a\x15.users.SignInResponse\x124\n" +
 	"\tAuthorize\x12\x12.users.AuthRequest\x1a\x13.users.AuthResponse\x12>\n" +
@@ -663,9 +663,9 @@ const file_users_user_service_proto_rawDesc = "" +
 	"\x06SignUp\x12\v.users.User\x1a\x15.users.StatusResponse\x12)\n" +
 	"\vGetFiltered\x12\v.users.User\x1a\v.users.User0\x01\x129\n" +
 	"\n" +
-	"UpdateUser\x12\x14.users.UpdateRequest\x1a\x15.users.StatusResponse\x12/\n" +
+	"UpdateUser\x12\x14.users.UpdateRequest\x1a\x15.users.StatusResponse\x129\n" +
 	"\n" +
-	"RemoveUser\x12\x14.users.RemoveRequest\x1a\v.users.UserB:Z8github.com/Azat201003/summorist-share/gen/go/users;usersb\x06proto3"
+	"RemoveUser\x12\x14.users.RemoveRequest\x1a\x15.users.StatusResponseB:Z8github.com/Azat201003/summorist-share/gen/go/users;usersb\x06proto3"
 
 var (
 	file_users_user_service_proto_rawDescOnce sync.Once
@@ -708,7 +708,7 @@ var file_users_user_service_proto_depIdxs = []int32{
 	10, // 11: users.Users.SignUp:output_type -> users.StatusResponse
 	8,  // 12: users.Users.GetFiltered:output_type -> users.User
 	10, // 13: users.Users.UpdateUser:output_type -> users.StatusResponse
-	8,  // 14: users.Users.RemoveUser:output_type -> users.User
+	10, // 14: users.Users.RemoveUser:output_type -> users.StatusResponse
 	8,  // [8:15] is the sub-list for method output_type
 	1,  // [1:8] is the sub-list for method input_type
 	1,  // [1:1] is the sub-list for extension type_name
