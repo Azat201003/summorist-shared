@@ -16,8 +16,10 @@ service Users {
   rpc SignUp(User) returns (StatusResponse);
   // Getting list of users with filter
   rpc GetFiltered(User) returns (stream User);
-  // Changing user, if you have permissions
-  rpc UpdateUser(User) returns (StatusResponse); 
+  // Change user, if you have permissions
+  rpc UpdateUser(UpdateRequest) returns (StatusResponse); 
+  // Remove user by id, if you have permissions
+  rpc RemoveUser(RemoveRequest) returns (User);
 }
 
 // SignIn
@@ -60,7 +62,14 @@ message RefreshResponse {
 // UpdateUser
 message UpdateRequest {
   User user = 1; // Searching by id
-  string refresh_token = 2;
+  string jwt_token = 2;
+}
+
+
+// RemoveUser
+message RemoveRequest {
+  uint64 user_id = 1;
+  string jwt_token = 2;
 }
 
 

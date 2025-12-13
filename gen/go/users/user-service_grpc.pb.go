@@ -25,6 +25,7 @@ const (
 	Users_SignUp_FullMethodName        = "/users.Users/SignUp"
 	Users_GetFiltered_FullMethodName   = "/users.Users/GetFiltered"
 	Users_UpdateUser_FullMethodName    = "/users.Users/UpdateUser"
+	Users_RemoveUser_FullMethodName    = "/users.Users/RemoveUser"
 )
 
 // UsersClient is the client API for Users service.
@@ -41,8 +42,10 @@ type UsersClient interface {
 	SignUp(ctx context.Context, in *User, opts ...grpc.CallOption) (*StatusResponse, error)
 	// Getting list of users with filter
 	GetFiltered(ctx context.Context, in *User, opts ...grpc.CallOption) (grpc.ServerStreamingClient[User], error)
-	// Changing user, if you have permissions
-	UpdateUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*StatusResponse, error)
+	// Change user, if you have permissions
+	UpdateUser(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*StatusResponse, error)
+	// Remove user by id, if you have permissions
+	RemoveUser(ctx context.Context, in *RemoveRequest, opts ...grpc.CallOption) (*User, error)
 }
 
 type usersClient struct {
@@ -112,10 +115,20 @@ func (c *usersClient) GetFiltered(ctx context.Context, in *User, opts ...grpc.Ca
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type Users_GetFilteredClient = grpc.ServerStreamingClient[User]
 
-func (c *usersClient) UpdateUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*StatusResponse, error) {
+func (c *usersClient) UpdateUser(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*StatusResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(StatusResponse)
 	err := c.cc.Invoke(ctx, Users_UpdateUser_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *usersClient) RemoveUser(ctx context.Context, in *RemoveRequest, opts ...grpc.CallOption) (*User, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(User)
+	err := c.cc.Invoke(ctx, Users_RemoveUser_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -136,8 +149,10 @@ type UsersServer interface {
 	SignUp(context.Context, *User) (*StatusResponse, error)
 	// Getting list of users with filter
 	GetFiltered(*User, grpc.ServerStreamingServer[User]) error
-	// Changing user, if you have permissions
-	UpdateUser(context.Context, *User) (*StatusResponse, error)
+	// Change user, if you have permissions
+	UpdateUser(context.Context, *UpdateRequest) (*StatusResponse, error)
+	// Remove user by id, if you have permissions
+	RemoveUser(context.Context, *RemoveRequest) (*User, error)
 	mustEmbedUnimplementedUsersServer()
 }
 
@@ -163,8 +178,11 @@ func (UnimplementedUsersServer) SignUp(context.Context, *User) (*StatusResponse,
 func (UnimplementedUsersServer) GetFiltered(*User, grpc.ServerStreamingServer[User]) error {
 	return status.Errorf(codes.Unimplemented, "method GetFiltered not implemented")
 }
-func (UnimplementedUsersServer) UpdateUser(context.Context, *User) (*StatusResponse, error) {
+func (UnimplementedUsersServer) UpdateUser(context.Context, *UpdateRequest) (*StatusResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateUser not implemented")
+}
+func (UnimplementedUsersServer) RemoveUser(context.Context, *RemoveRequest) (*User, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveUser not implemented")
 }
 func (UnimplementedUsersServer) mustEmbedUnimplementedUsersServer() {}
 func (UnimplementedUsersServer) testEmbeddedByValue()               {}
@@ -271,7 +289,7 @@ func _Users_GetFiltered_Handler(srv interface{}, stream grpc.ServerStream) error
 type Users_GetFilteredServer = grpc.ServerStreamingServer[User]
 
 func _Users_UpdateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(User)
+	in := new(UpdateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -283,7 +301,25 @@ func _Users_UpdateUser_Handler(srv interface{}, ctx context.Context, dec func(in
 		FullMethod: Users_UpdateUser_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UsersServer).UpdateUser(ctx, req.(*User))
+		return srv.(UsersServer).UpdateUser(ctx, req.(*UpdateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Users_RemoveUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UsersServer).RemoveUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Users_RemoveUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UsersServer).RemoveUser(ctx, req.(*RemoveRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -314,6 +350,10 @@ var Users_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateUser",
 			Handler:    _Users_UpdateUser_Handler,
+		},
+		{
+			MethodName: "RemoveUser",
+			Handler:    _Users_RemoveUser_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

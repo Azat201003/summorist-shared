@@ -35,7 +35,7 @@ type MoresClient interface {
 	DownloadMore(ctx context.Context, in *DownloadRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[Part], error)
 	// Uploading new more or updating that exists, if you have permissions
 	UploadMore(ctx context.Context, opts ...grpc.CallOption) (grpc.ClientStreamingClient[UploadRequest, Meta], error)
-	// Removing more(mark as removed), if you have permissions, returns meta of deleted more
+	// Removing more(mark as removed) by id, if you have permissions, returns meta of deleted more
 	RemoveMore(ctx context.Context, in *RemoveRequest, opts ...grpc.CallOption) (*Meta, error)
 }
 
@@ -118,7 +118,7 @@ type MoresServer interface {
 	DownloadMore(*DownloadRequest, grpc.ServerStreamingServer[Part]) error
 	// Uploading new more or updating that exists, if you have permissions
 	UploadMore(grpc.ClientStreamingServer[UploadRequest, Meta]) error
-	// Removing more(mark as removed), if you have permissions, returns meta of deleted more
+	// Removing more(mark as removed) by id, if you have permissions, returns meta of deleted more
 	RemoveMore(context.Context, *RemoveRequest) (*Meta, error)
 	mustEmbedUnimplementedMoresServer()
 }

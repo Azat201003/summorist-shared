@@ -285,7 +285,7 @@ func (*UploadRequest_Data) isUploadRequest_Request() {}
 
 type RemoveRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *Meta                  `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	MoreId        uint64                 `protobuf:"varint,1,opt,name=more_id,json=moreId,proto3" json:"more_id,omitempty"`
 	JwtToken      string                 `protobuf:"bytes,2,opt,name=jwt_token,json=jwtToken,proto3" json:"jwt_token,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -321,11 +321,11 @@ func (*RemoveRequest) Descriptor() ([]byte, []int) {
 	return file_mores_mores_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *RemoveRequest) GetMeta() *Meta {
+func (x *RemoveRequest) GetMoreId() uint64 {
 	if x != nil {
-		return x.Meta
+		return x.MoreId
 	}
-	return nil
+	return 0
 }
 
 func (x *RemoveRequest) GetJwtToken() string {
@@ -416,9 +416,9 @@ const file_mores_mores_proto_rawDesc = "" +
 	"\rUploadRequest\x12!\n" +
 	"\x04part\x18\x01 \x01(\v2\v.mores.PartH\x00R\x04part\x12)\n" +
 	"\x04data\x18\x02 \x01(\v2\x13.mores.ExchangeDataH\x00R\x04dataB\t\n" +
-	"\arequest\"M\n" +
-	"\rRemoveRequest\x12\x1f\n" +
-	"\x04meta\x18\x01 \x01(\v2\v.mores.MetaR\x04meta\x12\x1b\n" +
+	"\arequest\"E\n" +
+	"\rRemoveRequest\x12\x17\n" +
+	"\amore_id\x18\x01 \x01(\x04R\x06moreId\x12\x1b\n" +
 	"\tjwt_token\x18\x02 \x01(\tR\bjwtToken\"F\n" +
 	"\x04Part\x12\x16\n" +
 	"\x06number\x18\x01 \x01(\rR\x06number\x12\x12\n" +
@@ -458,20 +458,19 @@ var file_mores_mores_proto_depIdxs = []int32{
 	1, // 1: mores.DownloadRequest.data:type_name -> mores.ExchangeData
 	5, // 2: mores.UploadRequest.part:type_name -> mores.Part
 	1, // 3: mores.UploadRequest.data:type_name -> mores.ExchangeData
-	0, // 4: mores.RemoveRequest.meta:type_name -> mores.Meta
-	0, // 5: mores.Mores.GetFiltered:input_type -> mores.Meta
-	2, // 6: mores.Mores.DownloadMore:input_type -> mores.DownloadRequest
-	3, // 7: mores.Mores.UploadMore:input_type -> mores.UploadRequest
-	4, // 8: mores.Mores.RemoveMore:input_type -> mores.RemoveRequest
-	0, // 9: mores.Mores.GetFiltered:output_type -> mores.Meta
-	5, // 10: mores.Mores.DownloadMore:output_type -> mores.Part
-	0, // 11: mores.Mores.UploadMore:output_type -> mores.Meta
-	0, // 12: mores.Mores.RemoveMore:output_type -> mores.Meta
-	9, // [9:13] is the sub-list for method output_type
-	5, // [5:9] is the sub-list for method input_type
-	5, // [5:5] is the sub-list for extension type_name
-	5, // [5:5] is the sub-list for extension extendee
-	0, // [0:5] is the sub-list for field type_name
+	0, // 4: mores.Mores.GetFiltered:input_type -> mores.Meta
+	2, // 5: mores.Mores.DownloadMore:input_type -> mores.DownloadRequest
+	3, // 6: mores.Mores.UploadMore:input_type -> mores.UploadRequest
+	4, // 7: mores.Mores.RemoveMore:input_type -> mores.RemoveRequest
+	0, // 8: mores.Mores.GetFiltered:output_type -> mores.Meta
+	5, // 9: mores.Mores.DownloadMore:output_type -> mores.Part
+	0, // 10: mores.Mores.UploadMore:output_type -> mores.Meta
+	0, // 11: mores.Mores.RemoveMore:output_type -> mores.Meta
+	8, // [8:12] is the sub-list for method output_type
+	4, // [4:8] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_mores_mores_proto_init() }

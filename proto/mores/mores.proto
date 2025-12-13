@@ -10,7 +10,7 @@ service Mores {
   rpc DownloadMore(DownloadRequest) returns (stream Part);
   // Uploading new more or updating that exists, if you have permissions
   rpc UploadMore(stream UploadRequest) returns (Meta);
-  // Removing more(mark as removed), if you have permissions, returns meta of deleted more
+  // Removing more(mark as removed) by id, if you have permissions, returns meta of deleted more
   rpc RemoveMore(RemoveRequest) returns (Meta);
 }
 
@@ -40,8 +40,8 @@ message UploadRequest {
 }
 
 message RemoveRequest {
-    Meta meta = 1;
-    string jwt_token = 2;
+  uint64 more_id = 1;  
+  string jwt_token = 2;
 }
 
 message Part {
