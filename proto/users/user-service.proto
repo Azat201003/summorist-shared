@@ -14,8 +14,8 @@ service Users {
   rpc RefreshTokens(RefreshRequest) returns (RefreshResponse);
   // Creating new user
   rpc SignUp(User) returns (StatusResponse);
-  // Getting list of users with filter
-  rpc GetFiltered(User) returns (stream User);
+  // Getting list of users with filter, with permissions
+  rpc GetFiltered(GetFilteredRequest) returns (stream User);
   // Change user, if you have permissions
   rpc UpdateUser(UpdateRequest) returns (StatusResponse); 
   // Remove user by id, if you have permissions
@@ -66,6 +66,13 @@ message UpdateRequest {
 }
 
 
+// GetFiltered
+message GetFilteredRequest {
+  User filter = 1;
+  string jwt_token = 2;
+}
+
+
 // RemoveUser
 message RemoveRequest {
   uint64 user_id = 1;
@@ -73,7 +80,7 @@ message RemoveRequest {
 }
 
 
-
+// Common
 message User {
     string username = 1;
     bytes password_hash = 2 [(tagger.tags) = "gorm:\"type:bytea\""];
@@ -85,6 +92,7 @@ message RefreshToken {
     uint64 refresh_id = 1;
     string refresh_token = 2;    
 }
+
 
 // Response contains only status code
 message StatusResponse {

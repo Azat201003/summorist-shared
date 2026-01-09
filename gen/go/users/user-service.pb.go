@@ -398,6 +398,59 @@ func (x *UpdateRequest) GetJwtToken() string {
 	return ""
 }
 
+// GetFiltered
+type GetFilteredRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Filter        *User                  `protobuf:"bytes,1,opt,name=filter,proto3" json:"filter,omitempty"`
+	JwtToken      string                 `protobuf:"bytes,2,opt,name=jwt_token,json=jwtToken,proto3" json:"jwt_token,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetFilteredRequest) Reset() {
+	*x = GetFilteredRequest{}
+	mi := &file_users_user_service_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetFilteredRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetFilteredRequest) ProtoMessage() {}
+
+func (x *GetFilteredRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_users_user_service_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetFilteredRequest.ProtoReflect.Descriptor instead.
+func (*GetFilteredRequest) Descriptor() ([]byte, []int) {
+	return file_users_user_service_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *GetFilteredRequest) GetFilter() *User {
+	if x != nil {
+		return x.Filter
+	}
+	return nil
+}
+
+func (x *GetFilteredRequest) GetJwtToken() string {
+	if x != nil {
+		return x.JwtToken
+	}
+	return ""
+}
+
 // RemoveUser
 type RemoveRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
@@ -409,7 +462,7 @@ type RemoveRequest struct {
 
 func (x *RemoveRequest) Reset() {
 	*x = RemoveRequest{}
-	mi := &file_users_user_service_proto_msgTypes[7]
+	mi := &file_users_user_service_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -421,7 +474,7 @@ func (x *RemoveRequest) String() string {
 func (*RemoveRequest) ProtoMessage() {}
 
 func (x *RemoveRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_users_user_service_proto_msgTypes[7]
+	mi := &file_users_user_service_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -434,7 +487,7 @@ func (x *RemoveRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RemoveRequest.ProtoReflect.Descriptor instead.
 func (*RemoveRequest) Descriptor() ([]byte, []int) {
-	return file_users_user_service_proto_rawDescGZIP(), []int{7}
+	return file_users_user_service_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *RemoveRequest) GetUserId() uint64 {
@@ -451,6 +504,7 @@ func (x *RemoveRequest) GetJwtToken() string {
 	return ""
 }
 
+// Common
 type User struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
@@ -463,7 +517,7 @@ type User struct {
 
 func (x *User) Reset() {
 	*x = User{}
-	mi := &file_users_user_service_proto_msgTypes[8]
+	mi := &file_users_user_service_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -475,7 +529,7 @@ func (x *User) String() string {
 func (*User) ProtoMessage() {}
 
 func (x *User) ProtoReflect() protoreflect.Message {
-	mi := &file_users_user_service_proto_msgTypes[8]
+	mi := &file_users_user_service_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -488,7 +542,7 @@ func (x *User) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use User.ProtoReflect.Descriptor instead.
 func (*User) Descriptor() ([]byte, []int) {
-	return file_users_user_service_proto_rawDescGZIP(), []int{8}
+	return file_users_user_service_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *User) GetUsername() string {
@@ -529,7 +583,7 @@ type RefreshToken struct {
 
 func (x *RefreshToken) Reset() {
 	*x = RefreshToken{}
-	mi := &file_users_user_service_proto_msgTypes[9]
+	mi := &file_users_user_service_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -541,7 +595,7 @@ func (x *RefreshToken) String() string {
 func (*RefreshToken) ProtoMessage() {}
 
 func (x *RefreshToken) ProtoReflect() protoreflect.Message {
-	mi := &file_users_user_service_proto_msgTypes[9]
+	mi := &file_users_user_service_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -554,7 +608,7 @@ func (x *RefreshToken) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RefreshToken.ProtoReflect.Descriptor instead.
 func (*RefreshToken) Descriptor() ([]byte, []int) {
-	return file_users_user_service_proto_rawDescGZIP(), []int{9}
+	return file_users_user_service_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *RefreshToken) GetRefreshId() uint64 {
@@ -581,7 +635,7 @@ type StatusResponse struct {
 
 func (x *StatusResponse) Reset() {
 	*x = StatusResponse{}
-	mi := &file_users_user_service_proto_msgTypes[10]
+	mi := &file_users_user_service_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -593,7 +647,7 @@ func (x *StatusResponse) String() string {
 func (*StatusResponse) ProtoMessage() {}
 
 func (x *StatusResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_users_user_service_proto_msgTypes[10]
+	mi := &file_users_user_service_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -606,7 +660,7 @@ func (x *StatusResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StatusResponse.ProtoReflect.Descriptor instead.
 func (*StatusResponse) Descriptor() ([]byte, []int) {
-	return file_users_user_service_proto_rawDescGZIP(), []int{10}
+	return file_users_user_service_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *StatusResponse) GetCode() int32 {
@@ -642,6 +696,9 @@ const file_users_user_service_proto_rawDesc = "" +
 	"\x04code\x18\x03 \x01(\x05R\x04code\"M\n" +
 	"\rUpdateRequest\x12\x1f\n" +
 	"\x04user\x18\x01 \x01(\v2\v.users.UserR\x04user\x12\x1b\n" +
+	"\tjwt_token\x18\x02 \x01(\tR\bjwtToken\"V\n" +
+	"\x12GetFilteredRequest\x12#\n" +
+	"\x06filter\x18\x01 \x01(\v2\v.users.UserR\x06filter\x12\x1b\n" +
 	"\tjwt_token\x18\x02 \x01(\tR\bjwtToken\"E\n" +
 	"\rRemoveRequest\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\x04R\x06userId\x12\x1b\n" +
@@ -656,13 +713,13 @@ const file_users_user_service_proto_rawDesc = "" +
 	"refresh_id\x18\x01 \x01(\x04R\trefreshId\x12#\n" +
 	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"$\n" +
 	"\x0eStatusResponse\x12\x12\n" +
-	"\x04code\x18\x01 \x01(\x05R\x04code2\x83\x03\n" +
+	"\x04code\x18\x01 \x01(\x05R\x04code2\x91\x03\n" +
 	"\x05Users\x125\n" +
 	"\x06SignIn\x12\x14.users.SignInRequest\x1a\x15.users.SignInResponse\x124\n" +
 	"\tAuthorize\x12\x12.users.AuthRequest\x1a\x13.users.AuthResponse\x12>\n" +
 	"\rRefreshTokens\x12\x15.users.RefreshRequest\x1a\x16.users.RefreshResponse\x12,\n" +
-	"\x06SignUp\x12\v.users.User\x1a\x15.users.StatusResponse\x12)\n" +
-	"\vGetFiltered\x12\v.users.User\x1a\v.users.User0\x01\x129\n" +
+	"\x06SignUp\x12\v.users.User\x1a\x15.users.StatusResponse\x127\n" +
+	"\vGetFiltered\x12\x19.users.GetFilteredRequest\x1a\v.users.User0\x01\x129\n" +
 	"\n" +
 	"UpdateUser\x12\x14.users.UpdateRequest\x1a\x15.users.StatusResponse\x129\n" +
 	"\n" +
@@ -680,41 +737,43 @@ func file_users_user_service_proto_rawDescGZIP() []byte {
 	return file_users_user_service_proto_rawDescData
 }
 
-var file_users_user_service_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+var file_users_user_service_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_users_user_service_proto_goTypes = []any{
-	(*SignInRequest)(nil),   // 0: users.SignInRequest
-	(*SignInResponse)(nil),  // 1: users.SignInResponse
-	(*AuthRequest)(nil),     // 2: users.AuthRequest
-	(*AuthResponse)(nil),    // 3: users.AuthResponse
-	(*RefreshRequest)(nil),  // 4: users.RefreshRequest
-	(*RefreshResponse)(nil), // 5: users.RefreshResponse
-	(*UpdateRequest)(nil),   // 6: users.UpdateRequest
-	(*RemoveRequest)(nil),   // 7: users.RemoveRequest
-	(*User)(nil),            // 8: users.User
-	(*RefreshToken)(nil),    // 9: users.RefreshToken
-	(*StatusResponse)(nil),  // 10: users.StatusResponse
+	(*SignInRequest)(nil),      // 0: users.SignInRequest
+	(*SignInResponse)(nil),     // 1: users.SignInResponse
+	(*AuthRequest)(nil),        // 2: users.AuthRequest
+	(*AuthResponse)(nil),       // 3: users.AuthResponse
+	(*RefreshRequest)(nil),     // 4: users.RefreshRequest
+	(*RefreshResponse)(nil),    // 5: users.RefreshResponse
+	(*UpdateRequest)(nil),      // 6: users.UpdateRequest
+	(*GetFilteredRequest)(nil), // 7: users.GetFilteredRequest
+	(*RemoveRequest)(nil),      // 8: users.RemoveRequest
+	(*User)(nil),               // 9: users.User
+	(*RefreshToken)(nil),       // 10: users.RefreshToken
+	(*StatusResponse)(nil),     // 11: users.StatusResponse
 }
 var file_users_user_service_proto_depIdxs = []int32{
-	8,  // 0: users.UpdateRequest.user:type_name -> users.User
-	0,  // 1: users.Users.SignIn:input_type -> users.SignInRequest
-	2,  // 2: users.Users.Authorize:input_type -> users.AuthRequest
-	4,  // 3: users.Users.RefreshTokens:input_type -> users.RefreshRequest
-	8,  // 4: users.Users.SignUp:input_type -> users.User
-	8,  // 5: users.Users.GetFiltered:input_type -> users.User
-	6,  // 6: users.Users.UpdateUser:input_type -> users.UpdateRequest
-	7,  // 7: users.Users.RemoveUser:input_type -> users.RemoveRequest
-	1,  // 8: users.Users.SignIn:output_type -> users.SignInResponse
-	3,  // 9: users.Users.Authorize:output_type -> users.AuthResponse
-	5,  // 10: users.Users.RefreshTokens:output_type -> users.RefreshResponse
-	10, // 11: users.Users.SignUp:output_type -> users.StatusResponse
-	8,  // 12: users.Users.GetFiltered:output_type -> users.User
-	10, // 13: users.Users.UpdateUser:output_type -> users.StatusResponse
-	10, // 14: users.Users.RemoveUser:output_type -> users.StatusResponse
-	8,  // [8:15] is the sub-list for method output_type
-	1,  // [1:8] is the sub-list for method input_type
-	1,  // [1:1] is the sub-list for extension type_name
-	1,  // [1:1] is the sub-list for extension extendee
-	0,  // [0:1] is the sub-list for field type_name
+	9,  // 0: users.UpdateRequest.user:type_name -> users.User
+	9,  // 1: users.GetFilteredRequest.filter:type_name -> users.User
+	0,  // 2: users.Users.SignIn:input_type -> users.SignInRequest
+	2,  // 3: users.Users.Authorize:input_type -> users.AuthRequest
+	4,  // 4: users.Users.RefreshTokens:input_type -> users.RefreshRequest
+	9,  // 5: users.Users.SignUp:input_type -> users.User
+	7,  // 6: users.Users.GetFiltered:input_type -> users.GetFilteredRequest
+	6,  // 7: users.Users.UpdateUser:input_type -> users.UpdateRequest
+	8,  // 8: users.Users.RemoveUser:input_type -> users.RemoveRequest
+	1,  // 9: users.Users.SignIn:output_type -> users.SignInResponse
+	3,  // 10: users.Users.Authorize:output_type -> users.AuthResponse
+	5,  // 11: users.Users.RefreshTokens:output_type -> users.RefreshResponse
+	11, // 12: users.Users.SignUp:output_type -> users.StatusResponse
+	9,  // 13: users.Users.GetFiltered:output_type -> users.User
+	11, // 14: users.Users.UpdateUser:output_type -> users.StatusResponse
+	11, // 15: users.Users.RemoveUser:output_type -> users.StatusResponse
+	9,  // [9:16] is the sub-list for method output_type
+	2,  // [2:9] is the sub-list for method input_type
+	2,  // [2:2] is the sub-list for extension type_name
+	2,  // [2:2] is the sub-list for extension extendee
+	0,  // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_users_user_service_proto_init() }
@@ -728,7 +787,7 @@ func file_users_user_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_users_user_service_proto_rawDesc), len(file_users_user_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   11,
+			NumMessages:   12,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
