@@ -235,7 +235,7 @@ func (x *AuthResponse) GetCode() int32 {
 // RefreshToken
 type RefreshRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
+	UserId        uint64                 `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	RefreshToken  string                 `protobuf:"bytes,2,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -271,11 +271,11 @@ func (*RefreshRequest) Descriptor() ([]byte, []int) {
 	return file_users_user_service_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *RefreshRequest) GetUsername() string {
+func (x *RefreshRequest) GetUserId() uint64 {
 	if x != nil {
-		return x.Username
+		return x.UserId
 	}
-	return ""
+	return 0
 }
 
 func (x *RefreshRequest) GetRefreshToken() string {
@@ -456,7 +456,7 @@ type User struct {
 	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
 	PasswordHash  []byte                 `protobuf:"bytes,2,opt,name=password_hash,json=passwordHash,proto3" json:"password_hash,omitempty" gorm:"type:bytea"`
 	RefreshToken  string                 `protobuf:"bytes,3,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
-	Id            uint64                 `protobuf:"varint,4,opt,name=id,proto3" json:"id,omitempty"`
+	UserId        uint64                 `protobuf:"varint,4,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -512,16 +512,16 @@ func (x *User) GetRefreshToken() string {
 	return ""
 }
 
-func (x *User) GetId() uint64 {
+func (x *User) GetUserId() uint64 {
 	if x != nil {
-		return x.Id
+		return x.UserId
 	}
 	return 0
 }
 
 type RefreshToken struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            uint64                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	RefreshId     uint64                 `protobuf:"varint,1,opt,name=refresh_id,json=refreshId,proto3" json:"refresh_id,omitempty"`
 	RefreshToken  string                 `protobuf:"bytes,2,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -557,9 +557,9 @@ func (*RefreshToken) Descriptor() ([]byte, []int) {
 	return file_users_user_service_proto_rawDescGZIP(), []int{9}
 }
 
-func (x *RefreshToken) GetId() uint64 {
+func (x *RefreshToken) GetRefreshId() uint64 {
 	if x != nil {
-		return x.Id
+		return x.RefreshId
 	}
 	return 0
 }
@@ -632,9 +632,9 @@ const file_users_user_service_proto_rawDesc = "" +
 	"\tjwt_token\x18\x01 \x01(\tR\bjwtToken\";\n" +
 	"\fAuthResponse\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\x04R\x06userId\x12\x12\n" +
-	"\x04code\x18\x02 \x01(\x05R\x04code\"Q\n" +
-	"\x0eRefreshRequest\x12\x1a\n" +
-	"\busername\x18\x01 \x01(\tR\busername\x12#\n" +
+	"\x04code\x18\x02 \x01(\x05R\x04code\"N\n" +
+	"\x0eRefreshRequest\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\x04R\x06userId\x12#\n" +
 	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"g\n" +
 	"\x0fRefreshResponse\x12#\n" +
 	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\x12\x1b\n" +
@@ -645,14 +645,15 @@ const file_users_user_service_proto_rawDesc = "" +
 	"\tjwt_token\x18\x02 \x01(\tR\bjwtToken\"E\n" +
 	"\rRemoveRequest\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\x04R\x06userId\x12\x1b\n" +
-	"\tjwt_token\x18\x02 \x01(\tR\bjwtToken\"\x94\x01\n" +
+	"\tjwt_token\x18\x02 \x01(\tR\bjwtToken\"\x9d\x01\n" +
 	"\x04User\x12\x1a\n" +
 	"\busername\x18\x01 \x01(\tR\busername\x12;\n" +
 	"\rpassword_hash\x18\x02 \x01(\fB\x16\x9a\x84\x9e\x03\x11gorm:\"type:bytea\"R\fpasswordHash\x12#\n" +
-	"\rrefresh_token\x18\x03 \x01(\tR\frefreshToken\x12\x0e\n" +
-	"\x02id\x18\x04 \x01(\x04R\x02id\"C\n" +
-	"\fRefreshToken\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x04R\x02id\x12#\n" +
+	"\rrefresh_token\x18\x03 \x01(\tR\frefreshToken\x12\x17\n" +
+	"\auser_id\x18\x04 \x01(\x04R\x06userId\"R\n" +
+	"\fRefreshToken\x12\x1d\n" +
+	"\n" +
+	"refresh_id\x18\x01 \x01(\x04R\trefreshId\x12#\n" +
 	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"$\n" +
 	"\x0eStatusResponse\x12\x12\n" +
 	"\x04code\x18\x01 \x01(\x05R\x04code2\x83\x03\n" +

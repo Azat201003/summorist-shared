@@ -48,7 +48,7 @@ message AuthResponse {
 
 // RefreshToken
 message RefreshRequest {
-  string username = 1;
+  uint64 user_id = 1;
   string refresh_token = 2;
 }
 
@@ -78,11 +78,11 @@ message User {
     string username = 1;
     bytes password_hash = 2 [(tagger.tags) = "gorm:\"type:bytea\""];
     string refresh_token = 3;
-    uint64 id = 4;
+    uint64 user_id = 4;
 }
 
 message RefreshToken {
-    uint64 id = 1;
+    uint64 refresh_id = 1;
     string refresh_token = 2;    
 }
 
