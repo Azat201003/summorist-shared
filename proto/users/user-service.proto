@@ -86,6 +86,7 @@ message User {
     bytes password_hash = 2 [(tagger.tags) = "gorm:\"type:bytea\""];
     string refresh_token = 3;
     uint64 user_id = 4;
+    bool is_admin = 5;
 }
 
 message RefreshToken {

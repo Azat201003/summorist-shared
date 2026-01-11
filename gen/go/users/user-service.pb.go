@@ -511,6 +511,7 @@ type User struct {
 	PasswordHash  []byte                 `protobuf:"bytes,2,opt,name=password_hash,json=passwordHash,proto3" json:"password_hash,omitempty" gorm:"type:bytea"`
 	RefreshToken  string                 `protobuf:"bytes,3,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
 	UserId        uint64                 `protobuf:"varint,4,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	IsAdmin       bool                   `protobuf:"varint,5,opt,name=is_admin,json=isAdmin,proto3" json:"is_admin,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -571,6 +572,13 @@ func (x *User) GetUserId() uint64 {
 		return x.UserId
 	}
 	return 0
+}
+
+func (x *User) GetIsAdmin() bool {
+	if x != nil {
+		return x.IsAdmin
+	}
+	return false
 }
 
 type RefreshToken struct {
@@ -702,12 +710,13 @@ const file_users_user_service_proto_rawDesc = "" +
 	"\tjwt_token\x18\x02 \x01(\tR\bjwtToken\"E\n" +
 	"\rRemoveRequest\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\x04R\x06userId\x12\x1b\n" +
-	"\tjwt_token\x18\x02 \x01(\tR\bjwtToken\"\x9d\x01\n" +
+	"\tjwt_token\x18\x02 \x01(\tR\bjwtToken\"\xb8\x01\n" +
 	"\x04User\x12\x1a\n" +
 	"\busername\x18\x01 \x01(\tR\busername\x12;\n" +
 	"\rpassword_hash\x18\x02 \x01(\fB\x16\x9a\x84\x9e\x03\x11gorm:\"type:bytea\"R\fpasswordHash\x12#\n" +
 	"\rrefresh_token\x18\x03 \x01(\tR\frefreshToken\x12\x17\n" +
-	"\auser_id\x18\x04 \x01(\x04R\x06userId\"R\n" +
+	"\auser_id\x18\x04 \x01(\x04R\x06userId\x12\x19\n" +
+	"\bis_admin\x18\x05 \x01(\bR\aisAdmin\"R\n" +
 	"\fRefreshToken\x12\x1d\n" +
 	"\n" +
 	"refresh_id\x18\x01 \x01(\x04R\trefreshId\x12#\n" +
