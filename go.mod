@@ -3,12 +3,13 @@ module github.com/Azat201003/summorist-shared
 go 1.25.0
 
 require (
+	github.com/joho/godotenv v1.5.1
+	github.com/srikrsna/protoc-gen-gotag v1.0.2
 	google.golang.org/grpc v1.75.0
 	google.golang.org/protobuf v1.36.8
 )
 
 require (
-	github.com/favadi/protoc-go-inject-tag v1.4.0 // indirect
 	golang.org/x/net v0.41.0 // indirect
 	golang.org/x/sys v0.33.0 // indirect
 	golang.org/x/text v0.26.0 // indirect

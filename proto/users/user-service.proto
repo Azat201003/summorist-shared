@@ -85,7 +85,7 @@ message User {
     string username = 1;
     bytes password_hash = 2 [(tagger.tags) = "gorm:\"type:bytea\""];
     string refresh_token = 3;
-    uint64 user_id = 4;
+    uint64 user_id = 4 [(tagger.tags) = "gorm:\"primaryKey;autoIncrement\""];
     bool is_admin = 5;
 }
 
