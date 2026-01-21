@@ -6,10 +6,10 @@ import (
 )
 
 type config struct {
-	UserServerHost
-	UserServerPort
-	MoreServerHost
-	MoreServerPort
+	UserServerHost string
+	UserServerPort string
+	MoreServerHost string
+	MoreServerPort string
 }
 
 var Config config
@@ -27,7 +27,8 @@ func GenerateConfig(deployMode bool) error {
 	
 	Config.UserServerHost = os.Getenv("USER_SERVER_HOST")
 	Config.UserServerPort = os.Getenv("USER_SERVER_PORT")
-	Config.MoreServerHost = os.Getenv("More_SERVER_HOST")
-	Config.MoreServerPort = os.Getenv("More_SERVER_PORT")
+	Config.MoreServerHost = os.Getenv("MORE_SERVER_HOST")
+	Config.MoreServerPort = os.Getenv("MORE_SERVER_PORT")
+	return nil
 }
 
