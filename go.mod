@@ -3,8 +3,8 @@ module github.com/Azat201003/summorist-shared
 go 1.25.0
 
 require (
-	github.com/joho/godotenv v1.5.1
 	github.com/srikrsna/protoc-gen-gotag v1.0.2
+	go.uber.org/mock v0.6.0
 	google.golang.org/grpc v1.75.0
 	google.golang.org/protobuf v1.36.8
 )

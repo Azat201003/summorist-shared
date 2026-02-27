@@ -17,4 +17,6 @@ gen-proto: $(PROTO_FILES)
 		--gotag_out=outdir="$(GEN_GO_DIR)":. \
 		--gotag_opt=paths=source_relative \
 		$(PROTO_FILES)
+	scripts/gen-mocks.sh
 	@echo "✓ Proto files generated"
+
