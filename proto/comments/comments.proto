@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+option go_package = "github.com/Azat201003/summorist-shared/gen/go/comments;comments";
+package comments;
+
+service Comments {
+  rpc GetComments(GetRequest) returns (stream Comment);
+  rpc AddComment(CreateRequest) returns (Comment);
+}
+
+message Comment {
+  uint64 comment_id = 1;
+  uint64 creator_id = 2;
+  string content = 3;
+  uint32 breadth = 4; // Count of comments, that have this as parent
+  uint32 depth = 5;
+  uint64 parent_id = 6; // Id of previous comment
+                        // or -1, if it is first comment below more
+  uint64 more_id = 7; // Id of more, for what it was written.
+  uint64 created_at = 8;
+}
+
+message GetRequest {
+  uint32 depth = 1;
+  uint32 breadth = 2;
+  uint64 parent_id = 3; // Id of previous comment
+                        // or -1, if you wanna read all comments of more
+  uint64 more_id = 4; // Id of more, that comment you wanna read.
+                      // Set as -1, if you wanna read subcomments of comment
+}
+
+message CreateRequest {
+  uint64 creator_id = 1;
+  string content = 2;
+  uint64 parent_id = 3; // Id of previous comment
+                        // or -1, if it is under more
+  uint64 more_id = 4; // Id of more, that will have this comment
+  string jwt = 5;
+}
+

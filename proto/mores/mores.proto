@@ -11,7 +11,7 @@ service Mores {
   // Uploading new more or updating that exists, if you have permissions
   rpc UploadMore(stream UploadRequest) returns (Meta);
   // Removing more(mark as removed) by id, if you have permissions, returns meta of deleted more
-  rpc RemoveMore(RemoveRequest) returns (Meta);
+  rpc RemoveMore(RemoveRequest) returns (Meta); // TODO add comments deletion
 }
 
 message Meta {

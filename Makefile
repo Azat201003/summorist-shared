@@ -1,5 +1,6 @@
 PROTO_DIR := proto
 GEN_GO_DIR := gen/go
+GEN_CPP_DIR := gen/cpp
 PROTO_FILES := $(shell find $(PROTO_DIR) -name '*.proto')
 
 all: clear gen-proto
@@ -10,6 +11,7 @@ clear:
 gen-proto: $(PROTO_FILES)
 	@mkdir -p $(GEN_GO_DIR)
 	protoc -I $(PROTO_DIR) \
+		--cpp_out=$(GEN_CPP_DIR) \
 		--go_out=$(GEN_GO_DIR) --go_opt=paths=source_relative \
 		--go-grpc_out=$(GEN_GO_DIR) --go-grpc_opt=paths=source_relative \
 		$(PROTO_FILES)
