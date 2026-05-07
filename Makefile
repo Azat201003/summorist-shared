@@ -9,6 +9,7 @@ clear:
 	rm -rf $(GEN_GO_DIR)/*
 
 gen-proto: $(PROTO_FILES)
+	# Golang
 	@mkdir -p $(GEN_GO_DIR)
 	protoc -I $(PROTO_DIR) \
 		--cpp_out=$(GEN_CPP_DIR) \
@@ -19,6 +20,13 @@ gen-proto: $(PROTO_FILES)
 		--gotag_out=outdir="$(GEN_GO_DIR)":. \
 		--gotag_opt=paths=source_relative \
 		$(PROTO_FILES)
+	
+	# C++
+	@mkdir -p $(GEN_CPP_DIR)
+	protoc -I $(PROTO_DIR) \
+		--cpp_out=$(GEN_CPP_DIR) $(PROTO_FILES)
+	protoc -I=$(PROTO_DIR) --grpc_out=$(GEN_CPP_DIR) --plugin=protoc-gen-grpc=`which grpc_cpp_plugin` $(PROTO_FILES)
+	
 	scripts/gen-mocks.sh
 	@echo "✓ Proto files generated"
 
