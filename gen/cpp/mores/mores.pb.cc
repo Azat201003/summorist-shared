@@ -708,21 +708,21 @@ constexpr UploadRequest::ParseTableT_ UploadRequest::InternalGenerateParseTable_
     }}, {{
       65535, 65535
     }}, {{
-      // .mores.Part part = 1;
-      {PROTOBUF_FIELD_OFFSET(UploadRequest, _impl_.request_.part_), _Internal::kOneofCaseOffset + 0, 0, (0 | ::_fl::kFcOneof | ::_fl::kMessage | ::_fl::kTvTable)},
-      // .mores.ExchangeData data = 2;
-      {PROTOBUF_FIELD_OFFSET(UploadRequest, _impl_.request_.data_), _Internal::kOneofCaseOffset + 0, 1, (0 | ::_fl::kFcOneof | ::_fl::kMessage | ::_fl::kTvTable)},
+      // .mores.ExchangeData data = 1;
+      {PROTOBUF_FIELD_OFFSET(UploadRequest, _impl_.request_.data_), _Internal::kOneofCaseOffset + 0, 0, (0 | ::_fl::kFcOneof | ::_fl::kMessage | ::_fl::kTvTable)},
+      // .mores.Part part = 2;
+      {PROTOBUF_FIELD_OFFSET(UploadRequest, _impl_.request_.part_), _Internal::kOneofCaseOffset + 0, 1, (0 | ::_fl::kFcOneof | ::_fl::kMessage | ::_fl::kTvTable)},
     }},
     {{
-        #ifndef PROTOBUF_MESSAGE_GLOBALS
-        {::_pbi::TcParser::GetTable<::mores::Part>()},
-        #else
-        {::_pbi::FieldAuxMessageGlobals(), &::mores::Part_globals_},
-        #endif
         #ifndef PROTOBUF_MESSAGE_GLOBALS
         {::_pbi::TcParser::GetTable<::mores::ExchangeData>()},
         #else
         {::_pbi::FieldAuxMessageGlobals(), &::mores::ExchangeData_globals_},
+        #endif
+        #ifndef PROTOBUF_MESSAGE_GLOBALS
+        {::_pbi::TcParser::GetTable<::mores::Part>()},
+        #else
+        {::_pbi::FieldAuxMessageGlobals(), &::mores::Part_globals_},
         #endif
     }},
     {{
@@ -1066,8 +1066,8 @@ const char descriptor_table_protodef_mores_2fmores_2eproto[] ABSL_ATTRIBUTE_SECT
     "\022\n\nblock_size\030\002 \001(\r\022\021\n\tjwt_token\030\003 \001(\t\"G"
     "\n\017DownloadRequest\022!\n\004data\030\001 \001(\0132\023.mores."
     "ExchangeData\022\021\n\tconverted\030\002 \001(\010\"\\\n\rUploa"
-    "dRequest\022\033\n\004part\030\001 \001(\0132\013.mores.PartH\000\022#\n"
-    "\004data\030\002 \001(\0132\023.mores.ExchangeDataH\000B\t\n\007re"
+    "dRequest\022#\n\004data\030\001 \001(\0132\023.mores.ExchangeD"
+    "ataH\000\022\033\n\004part\030\002 \001(\0132\013.mores.PartH\000B\t\n\007re"
     "quest\"3\n\rRemoveRequest\022\017\n\007more_id\030\001 \001(\004\022"
     "\021\n\tjwt_token\030\002 \001(\t\"2\n\004Part\022\016\n\006number\030\001 \001"
     "(\r\022\014\n\004size\030\002 \001(\r\022\014\n\004data\030\003 \001(\0142\315\001\n\005Mores"
@@ -1911,19 +1911,6 @@ void DownloadRequest::InternalSwap(DownloadRequest* PROTOBUF_RESTRICT PROTOBUF_N
 }
 // ===================================================================
 
-void UploadRequest::set_allocated_part(::mores::Part* PROTOBUF_NULLABLE part) {
-  ::google::protobuf::Arena* message_arena = GetArena();
-  clear_request();
-  if (part) {
-    ::google::protobuf::Arena* submessage_arena = part->GetArena();
-    if (message_arena != submessage_arena) {
-      part = ::google::protobuf::internal::GetOwnedMessage(message_arena, part, submessage_arena);
-    }
-    set_has_part();
-    _impl_.request_.part_ = part;
-  }
-  // @@protoc_insertion_point(field_set_allocated:mores.UploadRequest.part)
-}
 void UploadRequest::set_allocated_data(::mores::ExchangeData* PROTOBUF_NULLABLE data) {
   ::google::protobuf::Arena* message_arena = GetArena();
   clear_request();
@@ -1936,6 +1923,19 @@ void UploadRequest::set_allocated_data(::mores::ExchangeData* PROTOBUF_NULLABLE 
     _impl_.request_.data_ = data;
   }
   // @@protoc_insertion_point(field_set_allocated:mores.UploadRequest.data)
+}
+void UploadRequest::set_allocated_part(::mores::Part* PROTOBUF_NULLABLE part) {
+  ::google::protobuf::Arena* message_arena = GetArena();
+  clear_request();
+  if (part) {
+    ::google::protobuf::Arena* submessage_arena = part->GetArena();
+    if (message_arena != submessage_arena) {
+      part = ::google::protobuf::internal::GetOwnedMessage(message_arena, part, submessage_arena);
+    }
+    set_has_part();
+    _impl_.request_.part_ = part;
+  }
+  // @@protoc_insertion_point(field_set_allocated:mores.UploadRequest.part)
 }
 UploadRequest::UploadRequest(::google::protobuf::Arena* PROTOBUF_NULLABLE arena)
 #if defined(PROTOBUF_CUSTOM_VTABLE)
@@ -1971,11 +1971,11 @@ UploadRequest::UploadRequest(
   switch (request_case()) {
     case REQUEST_NOT_SET:
       break;
-      case kPart:
-        _impl_.request_.part_ = ::google::protobuf::Message::CopyConstruct(arena, *from._impl_.request_.part_);
-        break;
       case kData:
         _impl_.request_.data_ = ::google::protobuf::Message::CopyConstruct(arena, *from._impl_.request_.data_);
+        break;
+      case kPart:
+        _impl_.request_.part_ = ::google::protobuf::Message::CopyConstruct(arena, *from._impl_.request_.part_);
         break;
   }
 
@@ -2012,19 +2012,19 @@ void UploadRequest::clear_request() {
 // @@protoc_insertion_point(one_of_clear_start:mores.UploadRequest)
   ::google::protobuf::internal::TSanWrite(&_impl_);
   switch (request_case()) {
-    case kPart: {
-      if (GetArena() == nullptr) {
-        delete _impl_.request_.part_;
-      } else if (::google::protobuf::internal::DebugHardenClearOneofMessageOnArena()) {
-        ::google::protobuf::internal::MaybePoisonAfterClear(_impl_.request_.part_);
-      }
-      break;
-    }
     case kData: {
       if (GetArena() == nullptr) {
         delete _impl_.request_.data_;
       } else if (::google::protobuf::internal::DebugHardenClearOneofMessageOnArena()) {
         ::google::protobuf::internal::MaybePoisonAfterClear(_impl_.request_.data_);
+      }
+      break;
+    }
+    case kPart: {
+      if (GetArena() == nullptr) {
+        delete _impl_.request_.part_;
+      } else if (::google::protobuf::internal::DebugHardenClearOneofMessageOnArena()) {
+        ::google::protobuf::internal::MaybePoisonAfterClear(_impl_.request_.part_);
       }
       break;
     }
@@ -2092,15 +2092,15 @@ PROTOBUF_NOINLINE void UploadRequest::Clear() {
   (void)cached_has_bits;
 
   switch (this_.request_case()) {
-    case kPart: {
+    case kData: {
       target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
-          1, *this_._impl_.request_.part_, this_._impl_.request_.part_->GetCachedSize(), target,
+          1, *this_._impl_.request_.data_, this_._impl_.request_.data_->GetCachedSize(), target,
           stream);
       break;
     }
-    case kData: {
+    case kPart: {
       target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
-          2, *this_._impl_.request_.data_, this_._impl_.request_.data_->GetCachedSize(), target,
+          2, *this_._impl_.request_.part_, this_._impl_.request_.part_->GetCachedSize(), target,
           stream);
       break;
     }
@@ -2131,16 +2131,16 @@ PROTOBUF_NOINLINE void UploadRequest::Clear() {
   (void)cached_has_bits;
 
   switch (this_.request_case()) {
-    // .mores.Part part = 1;
-    case kPart: {
-      total_size += 1 +
-                    ::google::protobuf::internal::WireFormatLite::MessageSize(*this_._impl_.request_.part_);
-      break;
-    }
-    // .mores.ExchangeData data = 2;
+    // .mores.ExchangeData data = 1;
     case kData: {
       total_size += 1 +
                     ::google::protobuf::internal::WireFormatLite::MessageSize(*this_._impl_.request_.data_);
+      break;
+    }
+    // .mores.Part part = 2;
+    case kPart: {
+      total_size += 1 +
+                    ::google::protobuf::internal::WireFormatLite::MessageSize(*this_._impl_.request_.part_);
       break;
     }
     case REQUEST_NOT_SET: {
@@ -2176,19 +2176,19 @@ void UploadRequest::MergeImpl(::google::protobuf::MessageLite& to_msg,
     }
 
     switch (oneof_from_case) {
-      case kPart: {
-        if (oneof_needs_init) {
-          _this->_impl_.request_.part_ = ::google::protobuf::Message::CopyConstruct(arena, *from._impl_.request_.part_);
-        } else {
-          _this->_impl_.request_.part_->MergeFrom(*from._impl_.request_.part_);
-        }
-        break;
-      }
       case kData: {
         if (oneof_needs_init) {
           _this->_impl_.request_.data_ = ::google::protobuf::Message::CopyConstruct(arena, *from._impl_.request_.data_);
         } else {
           _this->_impl_.request_.data_->MergeFrom(*from._impl_.request_.data_);
+        }
+        break;
+      }
+      case kPart: {
+        if (oneof_needs_init) {
+          _this->_impl_.request_.part_ = ::google::protobuf::Message::CopyConstruct(arena, *from._impl_.request_.part_);
+        } else {
+          _this->_impl_.request_.part_->MergeFrom(*from._impl_.request_.part_);
         }
         break;
       }

@@ -21,12 +21,13 @@ gen-proto: $(PROTO_FILES)
 		--gotag_opt=paths=source_relative \
 		$(PROTO_FILES)
 	
+	scripts/gen-mocks.sh
+	
 	# C++
 	@mkdir -p $(GEN_CPP_DIR)
 	protoc -I $(PROTO_DIR) \
 		--cpp_out=$(GEN_CPP_DIR) $(PROTO_FILES)
 	protoc -I=$(PROTO_DIR) --grpc_out=$(GEN_CPP_DIR) --plugin=protoc-gen-grpc=`which grpc_cpp_plugin` $(PROTO_FILES)
 	
-	scripts/gen-mocks.sh
 	@echo "✓ Proto files generated"
 

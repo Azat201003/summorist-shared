@@ -33,8 +33,8 @@ message DownloadRequest {
 
 message UploadRequest {
   oneof request {
-    Part part = 1;
-    ExchangeData data = 2;
+    ExchangeData data = 1; // Only first message
+    Part part = 2;
   }
 }
 

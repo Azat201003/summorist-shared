@@ -1080,8 +1080,8 @@ class  PROTOBUF_FUTURE_ADD_EARLY_WARN_UNUSED UploadRequest final : public ::goog
     return *::google::protobuf::internal::MessageGlobalsBase::ToDefaultInstance<UploadRequest>(&UploadRequest_globals_);
   }
   enum RequestCase {
-    kPart = 1,
-    kData = 2,
+    kData = 1,
+    kPart = 2,
     REQUEST_NOT_SET = 0,
   };
   static constexpr int kIndexInFileMessages = 3;
@@ -1176,30 +1176,10 @@ class  PROTOBUF_FUTURE_ADD_EARLY_WARN_UNUSED UploadRequest final : public ::goog
 
   // accessors -------------------------------------------------------
   enum : int {
-    kPartFieldNumber = 1,
-    kDataFieldNumber = 2,
+    kDataFieldNumber = 1,
+    kPartFieldNumber = 2,
   };
-  // .mores.Part part = 1;
-  [[nodiscard]] bool has_part()
-      const;
-  private:
-  bool _internal_has_part() const;
-
-  public:
-  void clear_part() ;
-  [[nodiscard]] const ::mores::Part& part() const;
-  [[nodiscard]] ::mores::Part* PROTOBUF_NULLABLE release_part();
-  ::mores::Part* PROTOBUF_NONNULL mutable_part();
-  void set_allocated_part(::mores::Part* PROTOBUF_NULLABLE value);
-  void unsafe_arena_set_allocated_part(::mores::Part* PROTOBUF_NULLABLE value);
-  ::mores::Part* PROTOBUF_NULLABLE unsafe_arena_release_part();
-
-  private:
-  const ::mores::Part& _internal_part() const;
-  ::mores::Part* PROTOBUF_NONNULL _internal_mutable_part();
-
-  public:
-  // .mores.ExchangeData data = 2;
+  // .mores.ExchangeData data = 1;
   [[nodiscard]] bool has_data()
       const;
   private:
@@ -1219,13 +1199,33 @@ class  PROTOBUF_FUTURE_ADD_EARLY_WARN_UNUSED UploadRequest final : public ::goog
   ::mores::ExchangeData* PROTOBUF_NONNULL _internal_mutable_data();
 
   public:
+  // .mores.Part part = 2;
+  [[nodiscard]] bool has_part()
+      const;
+  private:
+  bool _internal_has_part() const;
+
+  public:
+  void clear_part() ;
+  [[nodiscard]] const ::mores::Part& part() const;
+  [[nodiscard]] ::mores::Part* PROTOBUF_NULLABLE release_part();
+  ::mores::Part* PROTOBUF_NONNULL mutable_part();
+  void set_allocated_part(::mores::Part* PROTOBUF_NULLABLE value);
+  void unsafe_arena_set_allocated_part(::mores::Part* PROTOBUF_NULLABLE value);
+  ::mores::Part* PROTOBUF_NULLABLE unsafe_arena_release_part();
+
+  private:
+  const ::mores::Part& _internal_part() const;
+  ::mores::Part* PROTOBUF_NONNULL _internal_mutable_part();
+
+  public:
   void clear_request();
   RequestCase request_case() const;
   // @@protoc_insertion_point(class_scope:mores.UploadRequest)
  private:
   class _Internal;
-  void set_has_part();
   void set_has_data();
+  void set_has_part();
   [[nodiscard]] inline bool has_request() const;
   inline void clear_has_request();
   using ParseTableT_ =
@@ -1259,8 +1259,8 @@ class  PROTOBUF_FUTURE_ADD_EARLY_WARN_UNUSED UploadRequest final : public ::goog
     union RequestUnion {
       constexpr RequestUnion() : _constinit_{} {}
       ::google::protobuf::internal::ConstantInitialized _constinit_;
-      ::mores::Part* PROTOBUF_NULLABLE part_;
       ::mores::ExchangeData* PROTOBUF_NULLABLE data_;
+      ::mores::Part* PROTOBUF_NULLABLE part_;
     } request_;
     ::google::protobuf::internal::CachedSize _cached_size_;
     ::uint32_t _oneof_case_[1];
@@ -1863,89 +1863,7 @@ inline void DownloadRequest::_internal_set_converted(bool value) {
 
 // UploadRequest
 
-// .mores.Part part = 1;
-inline bool UploadRequest::has_part() const {
-  return request_case() == kPart;
-}
-inline bool UploadRequest::_internal_has_part() const {
-  return request_case() == kPart;
-}
-inline void UploadRequest::set_has_part() {
-  _impl_._oneof_case_[0] = kPart;
-}
-inline void UploadRequest::clear_part() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  if (request_case() == kPart) {
-    if (GetArena() == nullptr) {
-      delete _impl_.request_.part_;
-    } else if (::google::protobuf::internal::DebugHardenClearOneofMessageOnArena()) {
-      ::google::protobuf::internal::MaybePoisonAfterClear(_impl_.request_.part_);
-    }
-    clear_has_request();
-  }
-}
-inline ::mores::Part* PROTOBUF_NULLABLE UploadRequest::release_part() {
-  // @@protoc_insertion_point(field_release:mores.UploadRequest.part)
-  if (request_case() == kPart) {
-    clear_has_request();
-    auto* temp = _impl_.request_.part_;
-    if (GetArena() != nullptr) {
-      temp = ::google::protobuf::internal::DuplicateIfNonNull(temp);
-    }
-    _impl_.request_.part_ = nullptr;
-    return temp;
-  } else {
-    return nullptr;
-  }
-}
-inline const ::mores::Part& UploadRequest::_internal_part() const {
-  return request_case() == kPart ? static_cast<const ::mores::Part&>(*_impl_.request_.part_)
-                     : *::google::protobuf::internal::MessageGlobalsBase::ToDefaultInstance<::mores::Part>(&::mores::Part_globals_);
-}
-inline const ::mores::Part& UploadRequest::part() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:mores.UploadRequest.part)
-  return _internal_part();
-}
-inline ::mores::Part* PROTOBUF_NULLABLE UploadRequest::unsafe_arena_release_part() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:mores.UploadRequest.part)
-  if (request_case() == kPart) {
-    clear_has_request();
-    auto* temp = _impl_.request_.part_;
-    _impl_.request_.part_ = nullptr;
-    return temp;
-  } else {
-    return nullptr;
-  }
-}
-inline void UploadRequest::unsafe_arena_set_allocated_part(
-    ::mores::Part* PROTOBUF_NULLABLE value) {
-  // We rely on the oneof clear method to free the earlier contents
-  // of this oneof. We can directly use the pointer we're given to
-  // set the new value.
-  clear_request();
-  if (value) {
-    set_has_part();
-    _impl_.request_.part_ = value;
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:mores.UploadRequest.part)
-}
-inline ::mores::Part* PROTOBUF_NONNULL UploadRequest::_internal_mutable_part() {
-  if (request_case() != kPart) {
-    clear_request();
-    set_has_part();
-    _impl_.request_.part_ = 
-        ::google::protobuf::Message::DefaultConstruct<::mores::Part>(GetArena());
-  }
-  return _impl_.request_.part_;
-}
-inline ::mores::Part* PROTOBUF_NONNULL UploadRequest::mutable_part()
-    ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  ::mores::Part* _msg = _internal_mutable_part();
-  // @@protoc_insertion_point(field_mutable:mores.UploadRequest.part)
-  return _msg;
-}
-
-// .mores.ExchangeData data = 2;
+// .mores.ExchangeData data = 1;
 inline bool UploadRequest::has_data() const {
   return request_case() == kData;
 }
@@ -2024,6 +1942,88 @@ inline ::mores::ExchangeData* PROTOBUF_NONNULL UploadRequest::mutable_data()
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
   ::mores::ExchangeData* _msg = _internal_mutable_data();
   // @@protoc_insertion_point(field_mutable:mores.UploadRequest.data)
+  return _msg;
+}
+
+// .mores.Part part = 2;
+inline bool UploadRequest::has_part() const {
+  return request_case() == kPart;
+}
+inline bool UploadRequest::_internal_has_part() const {
+  return request_case() == kPart;
+}
+inline void UploadRequest::set_has_part() {
+  _impl_._oneof_case_[0] = kPart;
+}
+inline void UploadRequest::clear_part() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (request_case() == kPart) {
+    if (GetArena() == nullptr) {
+      delete _impl_.request_.part_;
+    } else if (::google::protobuf::internal::DebugHardenClearOneofMessageOnArena()) {
+      ::google::protobuf::internal::MaybePoisonAfterClear(_impl_.request_.part_);
+    }
+    clear_has_request();
+  }
+}
+inline ::mores::Part* PROTOBUF_NULLABLE UploadRequest::release_part() {
+  // @@protoc_insertion_point(field_release:mores.UploadRequest.part)
+  if (request_case() == kPart) {
+    clear_has_request();
+    auto* temp = _impl_.request_.part_;
+    if (GetArena() != nullptr) {
+      temp = ::google::protobuf::internal::DuplicateIfNonNull(temp);
+    }
+    _impl_.request_.part_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::mores::Part& UploadRequest::_internal_part() const {
+  return request_case() == kPart ? static_cast<const ::mores::Part&>(*_impl_.request_.part_)
+                     : *::google::protobuf::internal::MessageGlobalsBase::ToDefaultInstance<::mores::Part>(&::mores::Part_globals_);
+}
+inline const ::mores::Part& UploadRequest::part() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:mores.UploadRequest.part)
+  return _internal_part();
+}
+inline ::mores::Part* PROTOBUF_NULLABLE UploadRequest::unsafe_arena_release_part() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:mores.UploadRequest.part)
+  if (request_case() == kPart) {
+    clear_has_request();
+    auto* temp = _impl_.request_.part_;
+    _impl_.request_.part_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void UploadRequest::unsafe_arena_set_allocated_part(
+    ::mores::Part* PROTOBUF_NULLABLE value) {
+  // We rely on the oneof clear method to free the earlier contents
+  // of this oneof. We can directly use the pointer we're given to
+  // set the new value.
+  clear_request();
+  if (value) {
+    set_has_part();
+    _impl_.request_.part_ = value;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:mores.UploadRequest.part)
+}
+inline ::mores::Part* PROTOBUF_NONNULL UploadRequest::_internal_mutable_part() {
+  if (request_case() != kPart) {
+    clear_request();
+    set_has_part();
+    _impl_.request_.part_ = 
+        ::google::protobuf::Message::DefaultConstruct<::mores::Part>(GetArena());
+  }
+  return _impl_.request_.part_;
+}
+inline ::mores::Part* PROTOBUF_NONNULL UploadRequest::mutable_part()
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  ::mores::Part* _msg = _internal_mutable_part();
+  // @@protoc_insertion_point(field_mutable:mores.UploadRequest.part)
   return _msg;
 }
 

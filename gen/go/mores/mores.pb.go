@@ -197,8 +197,8 @@ type UploadRequest struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// Types that are valid to be assigned to Request:
 	//
-	//	*UploadRequest_Part
 	//	*UploadRequest_Data
+	//	*UploadRequest_Part
 	Request       isUploadRequest_Request `protobuf_oneof:"request"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -241,15 +241,6 @@ func (x *UploadRequest) GetRequest() isUploadRequest_Request {
 	return nil
 }
 
-func (x *UploadRequest) GetPart() *Part {
-	if x != nil {
-		if x, ok := x.Request.(*UploadRequest_Part); ok {
-			return x.Part
-		}
-	}
-	return nil
-}
-
 func (x *UploadRequest) GetData() *ExchangeData {
 	if x != nil {
 		if x, ok := x.Request.(*UploadRequest_Data); ok {
@@ -259,21 +250,30 @@ func (x *UploadRequest) GetData() *ExchangeData {
 	return nil
 }
 
+func (x *UploadRequest) GetPart() *Part {
+	if x != nil {
+		if x, ok := x.Request.(*UploadRequest_Part); ok {
+			return x.Part
+		}
+	}
+	return nil
+}
+
 type isUploadRequest_Request interface {
 	isUploadRequest_Request()
 }
 
-type UploadRequest_Part struct {
-	Part *Part `protobuf:"bytes,1,opt,name=part,proto3,oneof"`
-}
-
 type UploadRequest_Data struct {
-	Data *ExchangeData `protobuf:"bytes,2,opt,name=data,proto3,oneof"`
+	Data *ExchangeData `protobuf:"bytes,1,opt,name=data,proto3,oneof"` // Only first message
 }
 
-func (*UploadRequest_Part) isUploadRequest_Request() {}
+type UploadRequest_Part struct {
+	Part *Part `protobuf:"bytes,2,opt,name=part,proto3,oneof"`
+}
 
 func (*UploadRequest_Data) isUploadRequest_Request() {}
+
+func (*UploadRequest_Part) isUploadRequest_Request() {}
 
 type RemoveRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
@@ -405,9 +405,9 @@ const file_mores_mores_proto_rawDesc = "" +
 	"\x0fDownloadRequest\x12'\n" +
 	"\x04data\x18\x01 \x01(\v2\x13.mores.ExchangeDataR\x04data\x12\x1c\n" +
 	"\tconverted\x18\x02 \x01(\bR\tconverted\"h\n" +
-	"\rUploadRequest\x12!\n" +
-	"\x04part\x18\x01 \x01(\v2\v.mores.PartH\x00R\x04part\x12)\n" +
-	"\x04data\x18\x02 \x01(\v2\x13.mores.ExchangeDataH\x00R\x04dataB\t\n" +
+	"\rUploadRequest\x12)\n" +
+	"\x04data\x18\x01 \x01(\v2\x13.mores.ExchangeDataH\x00R\x04data\x12!\n" +
+	"\x04part\x18\x02 \x01(\v2\v.mores.PartH\x00R\x04partB\t\n" +
 	"\arequest\"E\n" +
 	"\rRemoveRequest\x12\x17\n" +
 	"\amore_id\x18\x01 \x01(\x04R\x06moreId\x12\x1b\n" +
@@ -447,8 +447,8 @@ var file_mores_mores_proto_goTypes = []any{
 }
 var file_mores_mores_proto_depIdxs = []int32{
 	1, // 0: mores.DownloadRequest.data:type_name -> mores.ExchangeData
-	5, // 1: mores.UploadRequest.part:type_name -> mores.Part
-	1, // 2: mores.UploadRequest.data:type_name -> mores.ExchangeData
+	1, // 1: mores.UploadRequest.data:type_name -> mores.ExchangeData
+	5, // 2: mores.UploadRequest.part:type_name -> mores.Part
 	0, // 3: mores.Mores.GetFiltered:input_type -> mores.Meta
 	2, // 4: mores.Mores.DownloadMore:input_type -> mores.DownloadRequest
 	3, // 5: mores.Mores.UploadMore:input_type -> mores.UploadRequest
@@ -470,8 +470,8 @@ func file_mores_mores_proto_init() {
 		return
 	}
 	file_mores_mores_proto_msgTypes[3].OneofWrappers = []any{
-		(*UploadRequest_Part)(nil),
 		(*UploadRequest_Data)(nil),
+		(*UploadRequest_Part)(nil),
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
