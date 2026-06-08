@@ -20,16 +20,15 @@ message Meta {
   uint64 more_id = 3;
 }
 
-message ExchangeData {  
-  uint32 count = 1;
-  uint32 size = 2;
+message ExchangeData {
+	uint64 more_id = 1;
+  uint32 block_size = 2;
   string jwt_token = 3;
 }
 
 message DownloadRequest {
-  Meta meta = 1;
-  ExchangeData data = 2;
-  bool converted = 3;
+  ExchangeData data = 1;
+  bool converted = 2;
 }
 
 message UploadRequest {
