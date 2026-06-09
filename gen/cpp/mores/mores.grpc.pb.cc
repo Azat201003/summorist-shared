@@ -27,6 +27,7 @@ static const char* Mores_method_names[] = {
   "/mores.Mores/DownloadMore",
   "/mores.Mores/UploadMore",
   "/mores.Mores/RemoveMore",
+  "/mores.Mores/CreateMore",
 };
 
 std::unique_ptr< Mores::Stub> Mores::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -40,6 +41,7 @@ Mores::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, con
   , rpcmethod_DownloadMore_(Mores_method_names[1], options.suffix_for_stats(),::grpc::internal::RpcMethod::SERVER_STREAMING, channel)
   , rpcmethod_UploadMore_(Mores_method_names[2], options.suffix_for_stats(),::grpc::internal::RpcMethod::CLIENT_STREAMING, channel)
   , rpcmethod_RemoveMore_(Mores_method_names[3], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_CreateMore_(Mores_method_names[4], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::ClientReader< ::mores::Meta>* Mores::Stub::GetFilteredRaw(::grpc::ClientContext* context, const ::mores::Meta& request) {
@@ -113,6 +115,29 @@ void Mores::Stub::async::RemoveMore(::grpc::ClientContext* context, const ::more
   return result;
 }
 
+::grpc::Status Mores::Stub::CreateMore(::grpc::ClientContext* context, const ::mores::CreateRequest& request, ::mores::Meta* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::mores::CreateRequest, ::mores::Meta, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_CreateMore_, context, request, response);
+}
+
+void Mores::Stub::async::CreateMore(::grpc::ClientContext* context, const ::mores::CreateRequest* request, ::mores::Meta* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::mores::CreateRequest, ::mores::Meta, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CreateMore_, context, request, response, std::move(f));
+}
+
+void Mores::Stub::async::CreateMore(::grpc::ClientContext* context, const ::mores::CreateRequest* request, ::mores::Meta* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CreateMore_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::mores::Meta>* Mores::Stub::PrepareAsyncCreateMoreRaw(::grpc::ClientContext* context, const ::mores::CreateRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::mores::Meta, ::mores::CreateRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_CreateMore_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::mores::Meta>* Mores::Stub::AsyncCreateMoreRaw(::grpc::ClientContext* context, const ::mores::CreateRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncCreateMoreRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
 Mores::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Mores_method_names[0],
@@ -154,6 +179,16 @@ Mores::Service::Service() {
              ::mores::Meta* resp) {
                return service->RemoveMore(ctx, req, resp);
              }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      Mores_method_names[4],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< Mores::Service, ::mores::CreateRequest, ::mores::Meta, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Mores::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::mores::CreateRequest* req,
+             ::mores::Meta* resp) {
+               return service->CreateMore(ctx, req, resp);
+             }, this)));
 }
 
 Mores::Service::~Service() {
@@ -181,6 +216,13 @@ Mores::Service::~Service() {
 }
 
 ::grpc::Status Mores::Service::RemoveMore(::grpc::ServerContext* context, const ::mores::RemoveRequest* request, ::mores::Meta* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status Mores::Service::CreateMore(::grpc::ServerContext* context, const ::mores::CreateRequest* request, ::mores::Meta* response) {
   (void) context;
   (void) request;
   (void) response;

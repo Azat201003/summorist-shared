@@ -56,7 +56,7 @@ class Mores final {
     std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::mores::Part>> PrepareAsyncDownloadMore(::grpc::ClientContext* context, const ::mores::DownloadRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::mores::Part>>(PrepareAsyncDownloadMoreRaw(context, request, cq));
     }
-    // Uploading new more or updating that exists, if you have permissions
+    // Uploading an existing more, if you have permissions
     std::unique_ptr< ::grpc::ClientWriterInterface< ::mores::UploadRequest>> UploadMore(::grpc::ClientContext* context, ::mores::Meta* response) {
       return std::unique_ptr< ::grpc::ClientWriterInterface< ::mores::UploadRequest>>(UploadMoreRaw(context, response));
     }
@@ -75,6 +75,14 @@ class Mores final {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mores::Meta>>(PrepareAsyncRemoveMoreRaw(context, request, cq));
     }
     // TODO add comments deletion
+    // Create more
+    virtual ::grpc::Status CreateMore(::grpc::ClientContext* context, const ::mores::CreateRequest& request, ::mores::Meta* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mores::Meta>> AsyncCreateMore(::grpc::ClientContext* context, const ::mores::CreateRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mores::Meta>>(AsyncCreateMoreRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mores::Meta>> PrepareAsyncCreateMore(::grpc::ClientContext* context, const ::mores::CreateRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mores::Meta>>(PrepareAsyncCreateMoreRaw(context, request, cq));
+    }
     class async_interface {
      public:
       virtual ~async_interface() {}
@@ -82,12 +90,15 @@ class Mores final {
       virtual void GetFiltered(::grpc::ClientContext* context, const ::mores::Meta* request, ::grpc::ClientReadReactor< ::mores::Meta>* reactor) = 0;
       // Downloading by parts, if you have permissions
       virtual void DownloadMore(::grpc::ClientContext* context, const ::mores::DownloadRequest* request, ::grpc::ClientReadReactor< ::mores::Part>* reactor) = 0;
-      // Uploading new more or updating that exists, if you have permissions
+      // Uploading an existing more, if you have permissions
       virtual void UploadMore(::grpc::ClientContext* context, ::mores::Meta* response, ::grpc::ClientWriteReactor< ::mores::UploadRequest>* reactor) = 0;
       // Removing more(mark as removed) by id, if you have permissions, returns meta of deleted more
       virtual void RemoveMore(::grpc::ClientContext* context, const ::mores::RemoveRequest* request, ::mores::Meta* response, std::function<void(::grpc::Status)>) = 0;
       virtual void RemoveMore(::grpc::ClientContext* context, const ::mores::RemoveRequest* request, ::mores::Meta* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // TODO add comments deletion
+      // Create more
+      virtual void CreateMore(::grpc::ClientContext* context, const ::mores::CreateRequest* request, ::mores::Meta* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void CreateMore(::grpc::ClientContext* context, const ::mores::CreateRequest* request, ::mores::Meta* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
@@ -104,6 +115,8 @@ class Mores final {
     virtual ::grpc::ClientAsyncWriterInterface< ::mores::UploadRequest>* PrepareAsyncUploadMoreRaw(::grpc::ClientContext* context, ::mores::Meta* response, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::mores::Meta>* AsyncRemoveMoreRaw(::grpc::ClientContext* context, const ::mores::RemoveRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::mores::Meta>* PrepareAsyncRemoveMoreRaw(::grpc::ClientContext* context, const ::mores::RemoveRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mores::Meta>* AsyncCreateMoreRaw(::grpc::ClientContext* context, const ::mores::CreateRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mores::Meta>* PrepareAsyncCreateMoreRaw(::grpc::ClientContext* context, const ::mores::CreateRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -142,6 +155,13 @@ class Mores final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mores::Meta>> PrepareAsyncRemoveMore(::grpc::ClientContext* context, const ::mores::RemoveRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mores::Meta>>(PrepareAsyncRemoveMoreRaw(context, request, cq));
     }
+    ::grpc::Status CreateMore(::grpc::ClientContext* context, const ::mores::CreateRequest& request, ::mores::Meta* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mores::Meta>> AsyncCreateMore(::grpc::ClientContext* context, const ::mores::CreateRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mores::Meta>>(AsyncCreateMoreRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mores::Meta>> PrepareAsyncCreateMore(::grpc::ClientContext* context, const ::mores::CreateRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mores::Meta>>(PrepareAsyncCreateMoreRaw(context, request, cq));
+    }
     class async final :
       public StubInterface::async_interface {
      public:
@@ -150,6 +170,8 @@ class Mores final {
       void UploadMore(::grpc::ClientContext* context, ::mores::Meta* response, ::grpc::ClientWriteReactor< ::mores::UploadRequest>* reactor) override;
       void RemoveMore(::grpc::ClientContext* context, const ::mores::RemoveRequest* request, ::mores::Meta* response, std::function<void(::grpc::Status)>) override;
       void RemoveMore(::grpc::ClientContext* context, const ::mores::RemoveRequest* request, ::mores::Meta* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void CreateMore(::grpc::ClientContext* context, const ::mores::CreateRequest* request, ::mores::Meta* response, std::function<void(::grpc::Status)>) override;
+      void CreateMore(::grpc::ClientContext* context, const ::mores::CreateRequest* request, ::mores::Meta* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit async(Stub* stub): stub_(stub) { }
@@ -172,10 +194,13 @@ class Mores final {
     ::grpc::ClientAsyncWriter< ::mores::UploadRequest>* PrepareAsyncUploadMoreRaw(::grpc::ClientContext* context, ::mores::Meta* response, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::mores::Meta>* AsyncRemoveMoreRaw(::grpc::ClientContext* context, const ::mores::RemoveRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::mores::Meta>* PrepareAsyncRemoveMoreRaw(::grpc::ClientContext* context, const ::mores::RemoveRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mores::Meta>* AsyncCreateMoreRaw(::grpc::ClientContext* context, const ::mores::CreateRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mores::Meta>* PrepareAsyncCreateMoreRaw(::grpc::ClientContext* context, const ::mores::CreateRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_GetFiltered_;
     const ::grpc::internal::RpcMethod rpcmethod_DownloadMore_;
     const ::grpc::internal::RpcMethod rpcmethod_UploadMore_;
     const ::grpc::internal::RpcMethod rpcmethod_RemoveMore_;
+    const ::grpc::internal::RpcMethod rpcmethod_CreateMore_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -187,11 +212,13 @@ class Mores final {
     virtual ::grpc::Status GetFiltered(::grpc::ServerContext* context, const ::mores::Meta* request, ::grpc::ServerWriter< ::mores::Meta>* writer);
     // Downloading by parts, if you have permissions
     virtual ::grpc::Status DownloadMore(::grpc::ServerContext* context, const ::mores::DownloadRequest* request, ::grpc::ServerWriter< ::mores::Part>* writer);
-    // Uploading new more or updating that exists, if you have permissions
+    // Uploading an existing more, if you have permissions
     virtual ::grpc::Status UploadMore(::grpc::ServerContext* context, ::grpc::ServerReader< ::mores::UploadRequest>* reader, ::mores::Meta* response);
     // Removing more(mark as removed) by id, if you have permissions, returns meta of deleted more
     virtual ::grpc::Status RemoveMore(::grpc::ServerContext* context, const ::mores::RemoveRequest* request, ::mores::Meta* response);
     // TODO add comments deletion
+    // Create more
+    virtual ::grpc::Status CreateMore(::grpc::ServerContext* context, const ::mores::CreateRequest* request, ::mores::Meta* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_GetFiltered : public BaseClass {
@@ -273,7 +300,27 @@ class Mores final {
       ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_GetFiltered<WithAsyncMethod_DownloadMore<WithAsyncMethod_UploadMore<WithAsyncMethod_RemoveMore<Service > > > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_CreateMore : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_CreateMore() {
+      ::grpc::Service::MarkMethodAsync(4);
+    }
+    ~WithAsyncMethod_CreateMore() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateMore(::grpc::ServerContext* /*context*/, const ::mores::CreateRequest* /*request*/, ::mores::Meta* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestCreateMore(::grpc::ServerContext* context, ::mores::CreateRequest* request, ::grpc::ServerAsyncResponseWriter< ::mores::Meta>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_GetFiltered<WithAsyncMethod_DownloadMore<WithAsyncMethod_UploadMore<WithAsyncMethod_RemoveMore<WithAsyncMethod_CreateMore<Service > > > > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_GetFiltered : public BaseClass {
    private:
@@ -367,7 +414,34 @@ class Mores final {
     virtual ::grpc::ServerUnaryReactor* RemoveMore(
       ::grpc::CallbackServerContext* /*context*/, const ::mores::RemoveRequest* /*request*/, ::mores::Meta* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_GetFiltered<WithCallbackMethod_DownloadMore<WithCallbackMethod_UploadMore<WithCallbackMethod_RemoveMore<Service > > > > CallbackService;
+  template <class BaseClass>
+  class WithCallbackMethod_CreateMore : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_CreateMore() {
+      ::grpc::Service::MarkMethodCallback(4,
+          new ::grpc::internal::CallbackUnaryHandler< ::mores::CreateRequest, ::mores::Meta>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::mores::CreateRequest* request, ::mores::Meta* response) { return this->CreateMore(context, request, response); }));}
+    void SetMessageAllocatorFor_CreateMore(
+        ::grpc::MessageAllocator< ::mores::CreateRequest, ::mores::Meta>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::mores::CreateRequest, ::mores::Meta>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_CreateMore() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateMore(::grpc::ServerContext* /*context*/, const ::mores::CreateRequest* /*request*/, ::mores::Meta* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* CreateMore(
+      ::grpc::CallbackServerContext* /*context*/, const ::mores::CreateRequest* /*request*/, ::mores::Meta* /*response*/)  { return nullptr; }
+  };
+  typedef WithCallbackMethod_GetFiltered<WithCallbackMethod_DownloadMore<WithCallbackMethod_UploadMore<WithCallbackMethod_RemoveMore<WithCallbackMethod_CreateMore<Service > > > > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_GetFiltered : public BaseClass {
@@ -433,6 +507,23 @@ class Mores final {
     }
     // disable synchronous version of this method
     ::grpc::Status RemoveMore(::grpc::ServerContext* /*context*/, const ::mores::RemoveRequest* /*request*/, ::mores::Meta* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_CreateMore : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_CreateMore() {
+      ::grpc::Service::MarkMethodGeneric(4);
+    }
+    ~WithGenericMethod_CreateMore() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateMore(::grpc::ServerContext* /*context*/, const ::mores::CreateRequest* /*request*/, ::mores::Meta* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -515,6 +606,26 @@ class Mores final {
     }
     void RequestRemoveMore(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_CreateMore : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_CreateMore() {
+      ::grpc::Service::MarkMethodRaw(4);
+    }
+    ~WithRawMethod_CreateMore() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateMore(::grpc::ServerContext* /*context*/, const ::mores::CreateRequest* /*request*/, ::mores::Meta* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestCreateMore(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -606,6 +717,28 @@ class Mores final {
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
+  class WithRawCallbackMethod_CreateMore : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_CreateMore() {
+      ::grpc::Service::MarkMethodRawCallback(4,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateMore(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_CreateMore() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateMore(::grpc::ServerContext* /*context*/, const ::mores::CreateRequest* /*request*/, ::mores::Meta* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* CreateMore(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_RemoveMore : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
@@ -632,7 +765,34 @@ class Mores final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedRemoveMore(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mores::RemoveRequest,::mores::Meta>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_RemoveMore<Service > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_CreateMore : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_CreateMore() {
+      ::grpc::Service::MarkMethodStreamed(4,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::mores::CreateRequest, ::mores::Meta>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::mores::CreateRequest, ::mores::Meta>* streamer) {
+                       return this->StreamedCreateMore(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_CreateMore() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status CreateMore(::grpc::ServerContext* /*context*/, const ::mores::CreateRequest* /*request*/, ::mores::Meta* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedCreateMore(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mores::CreateRequest,::mores::Meta>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_RemoveMore<WithStreamedUnaryMethod_CreateMore<Service > > StreamedUnaryService;
   template <class BaseClass>
   class WithSplitStreamingMethod_GetFiltered : public BaseClass {
    private:
@@ -688,7 +848,7 @@ class Mores final {
     virtual ::grpc::Status StreamedDownloadMore(::grpc::ServerContext* context, ::grpc::ServerSplitStreamer< ::mores::DownloadRequest,::mores::Part>* server_split_streamer) = 0;
   };
   typedef WithSplitStreamingMethod_GetFiltered<WithSplitStreamingMethod_DownloadMore<Service > > SplitStreamedService;
-  typedef WithSplitStreamingMethod_GetFiltered<WithSplitStreamingMethod_DownloadMore<WithStreamedUnaryMethod_RemoveMore<Service > > > StreamedService;
+  typedef WithSplitStreamingMethod_GetFiltered<WithSplitStreamingMethod_DownloadMore<WithStreamedUnaryMethod_RemoveMore<WithStreamedUnaryMethod_CreateMore<Service > > > > StreamedService;
 };
 
 }  // namespace mores

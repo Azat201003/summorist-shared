@@ -29,6 +29,8 @@ namespace _fl = ::google::protobuf::internal::field_layout;
 namespace {
 PROTOBUF_CONSTINIT ::google::protobuf::internal::ReflectionData
     file_reflection_data[] = {
+        // ::mores::CreateRequest
+        {&::_pbi::kDescriptorMethods, &::descriptor_table_mores_2fmores_2eproto, /* tracker*/ nullptr,},
         // ::mores::Meta
         {&::_pbi::kDescriptorMethods, &::descriptor_table_mores_2fmores_2eproto, /* tracker*/ nullptr,},
         // ::mores::ExchangeData
@@ -147,7 +149,7 @@ constexpr auto RemoveRequest::InternalGenerateClassData_(
           false,
       },
 #ifdef PROTOBUF_MESSAGE_GLOBALS
-      &file_reflection_data[4],
+      &file_reflection_data[5],
 #else   // !PROTOBUF_MESSAGE_GLOBALS
       &::_pbi::kDescriptorMethods,
       &descriptor_table_mores_2fmores_2eproto,
@@ -305,7 +307,7 @@ constexpr auto Part::InternalGenerateClassData_(
           false,
       },
 #ifdef PROTOBUF_MESSAGE_GLOBALS
-      &file_reflection_data[5],
+      &file_reflection_data[6],
 #else   // !PROTOBUF_MESSAGE_GLOBALS
       &::_pbi::kDescriptorMethods,
       &descriptor_table_mores_2fmores_2eproto,
@@ -466,7 +468,7 @@ constexpr auto Meta::InternalGenerateClassData_(
           false,
       },
 #ifdef PROTOBUF_MESSAGE_GLOBALS
-      &file_reflection_data[0],
+      &file_reflection_data[1],
 #else   // !PROTOBUF_MESSAGE_GLOBALS
       &::_pbi::kDescriptorMethods,
       &descriptor_table_mores_2fmores_2eproto,
@@ -627,7 +629,7 @@ constexpr auto ExchangeData::InternalGenerateClassData_(
           false,
       },
 #ifdef PROTOBUF_MESSAGE_GLOBALS
-      &file_reflection_data[1],
+      &file_reflection_data[2],
 #else   // !PROTOBUF_MESSAGE_GLOBALS
       &::_pbi::kDescriptorMethods,
       &descriptor_table_mores_2fmores_2eproto,
@@ -674,6 +676,162 @@ const ::_pbi::ClassData* ExchangeData_get_class_data() {
   return ExchangeData_globals_.GetClassData();
 #else
   return ExchangeData_class_data_.base();
+#endif  // PROTOBUF_MESSAGE_GLOBALS
+}
+}  // namespace
+#endif  // PROTOBUF_CUSTOM_VTABLE
+class CreateRequest::_Internal {
+ public:
+  using HasBits = decltype(::std::declval<CreateRequest>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+      8 * PROTOBUF_FIELD_OFFSET(CreateRequest, _impl_._has_bits_);
+};
+
+constexpr CreateRequest::ParseTableT_ CreateRequest::InternalGenerateParseTable_(const ::_pbi::ClassData* class_data) {
+  return ParseTableT_{
+    {
+      PROTOBUF_FIELD_OFFSET(CreateRequest, _impl_._has_bits_),
+      0, // no _extensions_
+      2, 8,  // max_field_number, fast_idx_mask
+      offsetof(ParseTableT_, field_lookup_table),
+      4294967292,  // skipmap
+      offsetof(ParseTableT_, field_entries),
+      2,  // num_field_entries
+      0,  // num_aux_entries
+      offsetof(ParseTableT_, field_names),  // no aux_entries
+      class_data,
+      nullptr,  // post_loop_handler
+      ::_pbi::TcParser::GenericFallback,  // fallback
+      #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+      ::_pbi::TcParser::GetTable<::mores::CreateRequest>(),  // to_prefetch
+      #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+    }, {{
+      // string jwt_token = 2;
+      {::_pbi::TcParser::FastUS1,
+       {18, 1, 0,
+        PROTOBUF_FIELD_OFFSET(CreateRequest, _impl_.jwt_token_)}},
+      // string title = 1;
+      {::_pbi::TcParser::FastUS1,
+       {10, 0, 0,
+        PROTOBUF_FIELD_OFFSET(CreateRequest, _impl_.title_)}},
+    }}, {{
+      65535, 65535
+    }}, {{
+      // string title = 1;
+      {PROTOBUF_FIELD_OFFSET(CreateRequest, _impl_.title_), _Internal::kHasBitsOffset + 0, 0, (0 | ::_fl::kFcOptional | ::_fl::kUtf8String | ::_fl::kRepAString)},
+      // string jwt_token = 2;
+      {PROTOBUF_FIELD_OFFSET(CreateRequest, _impl_.jwt_token_), _Internal::kHasBitsOffset + 1, 0, (0 | ::_fl::kFcOptional | ::_fl::kUtf8String | ::_fl::kRepAString)},
+    }},
+    // no aux_entries
+    {{
+      "\23\5\11\0\0\0\0\0"
+      "mores.CreateRequest"
+      "title"
+      "jwt_token"
+    }},
+  };
+}
+
+
+inline constexpr CreateRequest::Impl_::Impl_(
+    [[maybe_unused]] ::google::protobuf::internal::InternalVisibility visibility,
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        title_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        jwt_token_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()) {}
+
+template <typename>
+constexpr CreateRequest::CreateRequest(::_pbi::ConstantInitialized,
+                       const ::_pbi::ClassData* PROTOBUF_NONNULL class_data)
+    : ::google::protobuf::Message(
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+          class_data
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          ),
+      _impl_(internal_visibility(), ::_pbi::ConstantInitialized()) {
+}
+inline void* PROTOBUF_NONNULL CreateRequest::PlacementNew_(
+    const void* PROTOBUF_NONNULL, void* PROTOBUF_NONNULL mem,
+    ::google::protobuf::Arena* PROTOBUF_NULLABLE arena) {
+  return ::new (mem) CreateRequest(arena);
+}
+constexpr auto CreateRequest::InternalNewImpl_() {
+  return ::google::protobuf::internal::MessageCreator::CopyInit(sizeof(CreateRequest), alignof(CreateRequest));
+}
+constexpr auto CreateRequest::InternalGenerateClassData_(
+    const MessageLite& prototype,
+    const ::google::protobuf::internal::TcParseTableBase* tc_table) {
+  return ::google::protobuf::internal::ClassDataFull{
+      ::google::protobuf::internal::ClassData{
+          &prototype,
+#ifndef PROTOBUF_MESSAGE_GLOBALS
+          &_table_.header,
+#else
+          tc_table,
+#endif
+          nullptr,  // IsInitialized
+          &CreateRequest::MergeImpl,
+          ::google::protobuf::Message::GetNewImpl<CreateRequest>(),
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+          &CreateRequest::SharedDtor,
+          ::google::protobuf::Message::GetClearImpl<CreateRequest>(), &CreateRequest::ByteSizeLong,
+              &CreateRequest::_InternalSerialize,
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          PROTOBUF_FIELD_OFFSET(CreateRequest, _impl_._cached_size_),
+          false,
+      },
+#ifdef PROTOBUF_MESSAGE_GLOBALS
+      &file_reflection_data[0],
+#else   // !PROTOBUF_MESSAGE_GLOBALS
+      &::_pbi::kDescriptorMethods,
+      &descriptor_table_mores_2fmores_2eproto,
+      nullptr,  // tracker
+#endif  // PROTOBUF_MESSAGE_GLOBALS
+  };
+}
+struct CreateRequestGlobalsTypeInternal : ::_pbi::MessageGlobalsBase {
+  constexpr CreateRequestGlobalsTypeInternal()
+      :
+#ifndef PROTOBUF_MESSAGE_GLOBALS
+        _default(::_pbi::ConstantInitialized{},
+                 CreateRequest_class_data_.base())
+#else   // !PROTOBUF_MESSAGE_GLOBALS
+        MessageGlobalsBase(CreateRequest::InternalGenerateClassData_(
+            _default, &CreateRequest_globals_._table.header)),
+        _default(::_pbi::ConstantInitialized{}, GetClassData()),
+        _table(::_pbi::PrivateAccess::GenerateParseTable<CreateRequest>(
+            GetClassData()))
+#endif  // PROTOBUF_MESSAGE_GLOBALS
+  {
+  }
+  ~CreateRequestGlobalsTypeInternal() {}
+  union {
+    alignas(::_pbi::kMaxMessageAlignment) CreateRequest _default;
+  };
+#ifdef PROTOBUF_MESSAGE_GLOBALS
+  decltype(::_pbi::PrivateAccess::GenerateParseTable<CreateRequest>(
+      ::std::declval<const ::_pbi::ClassData*>())) _table;
+#endif
+};
+#ifdef PROTOBUF_MESSAGE_GLOBALS
+static_assert(PROTOBUF_FIELD_OFFSET(CreateRequestGlobalsTypeInternal, _default) ==
+              ::_pbi::MessageGlobalsBase::OffsetToDefault());
+#endif  // PROTOBUF_MESSAGE_GLOBALS
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PROTOBUF_MESSAGE_GLOBALS_CONST CreateRequestGlobalsTypeInternal CreateRequest_globals_
+        PROTOBUF_MESSAGE_GLOBALS_SECTION(.data.rel.ro);
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+namespace {
+const ::_pbi::ClassData* CreateRequest_get_class_data() {
+#ifdef PROTOBUF_MESSAGE_GLOBALS
+  return CreateRequest_globals_.GetClassData();
+#else
+  return CreateRequest_class_data_.base();
 #endif  // PROTOBUF_MESSAGE_GLOBALS
 }
 }  // namespace
@@ -779,7 +937,7 @@ constexpr auto UploadRequest::InternalGenerateClassData_(
           false,
       },
 #ifdef PROTOBUF_MESSAGE_GLOBALS
-      &file_reflection_data[3],
+      &file_reflection_data[4],
 #else   // !PROTOBUF_MESSAGE_GLOBALS
       &::_pbi::kDescriptorMethods,
       &descriptor_table_mores_2fmores_2eproto,
@@ -933,7 +1091,7 @@ constexpr auto DownloadRequest::InternalGenerateClassData_(
           false,
       },
 #ifdef PROTOBUF_MESSAGE_GLOBALS
-      &file_reflection_data[2],
+      &file_reflection_data[3],
 #else   // !PROTOBUF_MESSAGE_GLOBALS
       &::_pbi::kDescriptorMethods,
       &descriptor_table_mores_2fmores_2eproto,
@@ -993,6 +1151,13 @@ const ::uint32_t
     TableStruct_mores_2fmores_2eproto::offsets[] ABSL_ATTRIBUTE_SECTION_VARIABLE(
         protodesc_cold) = {
         0x081, // bitmap
+        PROTOBUF_FIELD_OFFSET(::mores::CreateRequest, _impl_._has_bits_),
+        5, // hasbit index offset
+        PROTOBUF_FIELD_OFFSET(::mores::CreateRequest, _impl_.title_),
+        PROTOBUF_FIELD_OFFSET(::mores::CreateRequest, _impl_.jwt_token_),
+        0,
+        1,
+        0x081, // bitmap
         PROTOBUF_FIELD_OFFSET(::mores::Meta, _impl_._has_bits_),
         6, // hasbit index offset
         PROTOBUF_FIELD_OFFSET(::mores::Meta, _impl_.title_),
@@ -1042,15 +1207,17 @@ const ::uint32_t
 
 static const ::_pbi::MigrationSchema
     schemas[] ABSL_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
-        {0, sizeof(::mores::Meta)},
-        {9, sizeof(::mores::ExchangeData)},
-        {18, sizeof(::mores::DownloadRequest)},
-        {25, sizeof(::mores::UploadRequest)},
-        {30, sizeof(::mores::RemoveRequest)},
-        {37, sizeof(::mores::Part)},
+        {0, sizeof(::mores::CreateRequest)},
+        {7, sizeof(::mores::Meta)},
+        {16, sizeof(::mores::ExchangeData)},
+        {25, sizeof(::mores::DownloadRequest)},
+        {32, sizeof(::mores::UploadRequest)},
+        {37, sizeof(::mores::RemoveRequest)},
+        {44, sizeof(::mores::Part)},
 };
 static const ::_pbi::MessageGlobalsBase* PROTOBUF_NONNULL const
     file_message_globals[] = {
+        &::mores::CreateRequest_globals_,
         &::mores::Meta_globals_,
         &::mores::ExchangeData_globals_,
         &::mores::DownloadRequest_globals_,
@@ -1060,36 +1227,39 @@ static const ::_pbi::MessageGlobalsBase* PROTOBUF_NONNULL const
 };
 const char descriptor_table_protodef_mores_2fmores_2eproto[] ABSL_ATTRIBUTE_SECTION_VARIABLE(
     protodesc_cold) = {
-    "\n\021mores/mores.proto\022\005mores\":\n\004Meta\022\r\n\005ti"
-    "tle\030\001 \001(\t\022\022\n\ncreator_id\030\002 \001(\004\022\017\n\007more_id"
-    "\030\003 \001(\004\"F\n\014ExchangeData\022\017\n\007more_id\030\001 \001(\004\022"
-    "\022\n\nblock_size\030\002 \001(\r\022\021\n\tjwt_token\030\003 \001(\t\"G"
-    "\n\017DownloadRequest\022!\n\004data\030\001 \001(\0132\023.mores."
-    "ExchangeData\022\021\n\tconverted\030\002 \001(\010\"\\\n\rUploa"
-    "dRequest\022#\n\004data\030\001 \001(\0132\023.mores.ExchangeD"
-    "ataH\000\022\033\n\004part\030\002 \001(\0132\013.mores.PartH\000B\t\n\007re"
-    "quest\"3\n\rRemoveRequest\022\017\n\007more_id\030\001 \001(\004\022"
-    "\021\n\tjwt_token\030\002 \001(\t\"2\n\004Part\022\016\n\006number\030\001 \001"
-    "(\r\022\014\n\004size\030\002 \001(\r\022\014\n\004data\030\003 \001(\0142\315\001\n\005Mores"
-    "\022)\n\013GetFiltered\022\013.mores.Meta\032\013.mores.Met"
-    "a0\001\0225\n\014DownloadMore\022\026.mores.DownloadRequ"
-    "est\032\013.mores.Part0\001\0221\n\nUploadMore\022\024.mores"
-    ".UploadRequest\032\013.mores.Meta(\001\022/\n\nRemoveM"
-    "ore\022\024.mores.RemoveRequest\032\013.mores.MetaB;"
-    "Z9github.com/Azat201003/summorist-shared"
-    "/gen/go/mores;moresb\006proto3"
+    "\n\021mores/mores.proto\022\005mores\"1\n\rCreateRequ"
+    "est\022\r\n\005title\030\001 \001(\t\022\021\n\tjwt_token\030\002 \001(\t\":\n"
+    "\004Meta\022\r\n\005title\030\001 \001(\t\022\022\n\ncreator_id\030\002 \001(\004"
+    "\022\017\n\007more_id\030\003 \001(\004\"F\n\014ExchangeData\022\017\n\007mor"
+    "e_id\030\001 \001(\004\022\022\n\nblock_size\030\002 \001(\r\022\021\n\tjwt_to"
+    "ken\030\003 \001(\t\"G\n\017DownloadRequest\022!\n\004data\030\001 \001"
+    "(\0132\023.mores.ExchangeData\022\021\n\tconverted\030\002 \001"
+    "(\010\"\\\n\rUploadRequest\022#\n\004data\030\001 \001(\0132\023.more"
+    "s.ExchangeDataH\000\022\033\n\004part\030\002 \001(\0132\013.mores.P"
+    "artH\000B\t\n\007request\"3\n\rRemoveRequest\022\017\n\007mor"
+    "e_id\030\001 \001(\004\022\021\n\tjwt_token\030\002 \001(\t\"2\n\004Part\022\016\n"
+    "\006number\030\001 \001(\r\022\014\n\004size\030\002 \001(\r\022\014\n\004data\030\003 \001("
+    "\0142\376\001\n\005Mores\022)\n\013GetFiltered\022\013.mores.Meta\032"
+    "\013.mores.Meta0\001\0225\n\014DownloadMore\022\026.mores.D"
+    "ownloadRequest\032\013.mores.Part0\001\0221\n\nUploadM"
+    "ore\022\024.mores.UploadRequest\032\013.mores.Meta(\001"
+    "\022/\n\nRemoveMore\022\024.mores.RemoveRequest\032\013.m"
+    "ores.Meta\022/\n\nCreateMore\022\024.mores.CreateRe"
+    "quest\032\013.mores.MetaB;Z9github.com/Azat201"
+    "003/summorist-shared/gen/go/mores;moresb"
+    "\006proto3"
 };
 static ::absl::once_flag descriptor_table_mores_2fmores_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_mores_2fmores_2eproto = {
     false,
     false,
-    707,
+    807,
     descriptor_table_protodef_mores_2fmores_2eproto,
     "mores/mores.proto",
     &descriptor_table_mores_2fmores_2eproto_once,
     nullptr,
     0,
-    6,
+    7,
     schemas,
     file_message_globals,
     TableStruct_mores_2fmores_2eproto::offsets,
@@ -1097,6 +1267,258 @@ PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_mores_2fmores_
     file_level_service_descriptors_mores_2fmores_2eproto,
 };
 namespace mores {
+// ===================================================================
+
+CreateRequest::CreateRequest(::google::protobuf::Arena* PROTOBUF_NULLABLE arena)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, CreateRequest_get_class_data()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:mores.CreateRequest)
+}
+PROTOBUF_NDEBUG_INLINE CreateRequest::Impl_::Impl_(
+    [[maybe_unused]] ::google::protobuf::internal::InternalVisibility visibility,
+    [[maybe_unused]] ::google::protobuf::Arena* PROTOBUF_NULLABLE arena, const Impl_& from,
+    [[maybe_unused]] const ::mores::CreateRequest& from_msg)
+      : _has_bits_{from._has_bits_},
+        _cached_size_{0},
+        title_(arena, from.title_),
+        jwt_token_(arena, from.jwt_token_) {}
+
+CreateRequest::CreateRequest(
+    ::google::protobuf::Arena* PROTOBUF_NULLABLE arena,
+    const CreateRequest& from)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, CreateRequest_get_class_data()) {
+
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  CreateRequest* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+
+  // @@protoc_insertion_point(copy_constructor:mores.CreateRequest)
+}
+PROTOBUF_NDEBUG_INLINE CreateRequest::Impl_::Impl_(
+    [[maybe_unused]] ::google::protobuf::internal::InternalVisibility visibility,
+    [[maybe_unused]] ::google::protobuf::Arena* PROTOBUF_NULLABLE arena)
+      : _cached_size_{0},
+        title_(arena),
+        jwt_token_(arena) {}
+
+inline void CreateRequest::SharedCtor(::_pb::Arena* PROTOBUF_NULLABLE arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+}
+CreateRequest::~CreateRequest() {
+  // @@protoc_insertion_point(destructor:mores.CreateRequest)
+  SharedDtor(*this);
+}
+inline void CreateRequest::SharedDtor(MessageLite& self) {
+  CreateRequest& this_ = static_cast<CreateRequest&>(self);
+  if constexpr (::_pbi::DebugHardenCheckHasBitConsistency()) {
+    this_.CheckHasBitConsistency();
+  }
+  this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  ABSL_DCHECK(this_.GetArena() == nullptr);
+  this_._impl_.title_.Destroy();
+  this_._impl_.jwt_token_.Destroy();
+  this_._impl_.~Impl_();
+}
+
+#ifndef PROTOBUF_MESSAGE_GLOBALS
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const
+    ::google::protobuf::internal::ClassDataFull CreateRequest_class_data_ =
+        CreateRequest::InternalGenerateClassData_(CreateRequest_globals_._default);
+
+PROTOBUF_ATTRIBUTE_WEAK const ::google::protobuf::internal::ClassData* PROTOBUF_NONNULL
+CreateRequest::GetClassData() const {
+  ::google::protobuf::internal::PrefetchToLocalCache(&CreateRequest_class_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(CreateRequest_class_data_.tc_table);
+  return CreateRequest_class_data_.base();
+}
+#else
+PROTOBUF_ATTRIBUTE_WEAK const ::google::protobuf::internal::ClassData* PROTOBUF_NONNULL
+CreateRequest::GetClassData() const {
+  ::google::protobuf::internal::PrefetchToLocalCache(&CreateRequest_globals_);
+  ::google::protobuf::internal::PrefetchToLocalCache(
+      ::google::protobuf::internal::MessageGlobalsBase::ToParseTableBase(&CreateRequest_globals_));
+  return CreateRequest_globals_.GetClassData();
+}
+#endif  // !PROTOBUF_MESSAGE_GLOBALS
+#ifndef PROTOBUF_MESSAGE_GLOBALS
+PROTOBUF_CONSTINIT
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const CreateRequest::ParseTableT_
+    CreateRequest::_table_ =
+        CreateRequest::InternalGenerateParseTable_(CreateRequest_class_data_.base());
+#endif  // !PROTOBUF_MESSAGE_GLOBALS
+PROTOBUF_NOINLINE void CreateRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:mores.CreateRequest)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (BatchCheckHasBit(cached_has_bits, 0x00000003U)) {
+    if (CheckHasBit(cached_has_bits, 0x00000001U)) {
+      _impl_.title_.ClearNonDefaultToEmpty();
+    }
+    if (CheckHasBit(cached_has_bits, 0x00000002U)) {
+      _impl_.jwt_token_.ClearNonDefaultToEmpty();
+    }
+  }
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+::uint8_t* PROTOBUF_NONNULL CreateRequest::_InternalSerialize(
+    const ::google::protobuf::MessageLite& base, ::uint8_t* PROTOBUF_NONNULL target,
+    ::google::protobuf::io::EpsCopyOutputStream* PROTOBUF_NONNULL stream) {
+  const CreateRequest& this_ = static_cast<const CreateRequest&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+::uint8_t* PROTOBUF_NONNULL CreateRequest::_InternalSerialize(
+    ::uint8_t* PROTOBUF_NONNULL target,
+    ::google::protobuf::io::EpsCopyOutputStream* PROTOBUF_NONNULL stream) const {
+  const CreateRequest& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  if constexpr (::_pbi::DebugHardenCheckHasBitConsistency()) {
+    this_.CheckHasBitConsistency();
+  }
+  // @@protoc_insertion_point(serialize_to_array_start:mores.CreateRequest)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = this_._impl_._has_bits_[0];
+  // string title = 1;
+  if (CheckHasBit(cached_has_bits, 0x00000001U)) {
+    if (!this_._internal_title().empty()) {
+      const ::std::string& _s = this_._internal_title();
+      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "mores.CreateRequest.title");
+      target = stream->WriteStringMaybeAliased(1, _s, target);
+    }
+  }
+
+  // string jwt_token = 2;
+  if (CheckHasBit(cached_has_bits, 0x00000002U)) {
+    if (!this_._internal_jwt_token().empty()) {
+      const ::std::string& _s = this_._internal_jwt_token();
+      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "mores.CreateRequest.jwt_token");
+      target = stream->WriteStringMaybeAliased(2, _s, target);
+    }
+  }
+
+  if (ABSL_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:mores.CreateRequest)
+  return target;
+}
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+::size_t CreateRequest::ByteSizeLong(const MessageLite& base) {
+  const CreateRequest& this_ = static_cast<const CreateRequest&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+::size_t CreateRequest::ByteSizeLong() const {
+  const CreateRequest& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  // @@protoc_insertion_point(message_byte_size_start:mores.CreateRequest)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void)cached_has_bits;
+
+  ::_pbi::Prefetch5LinesFrom7Lines(&this_);
+  cached_has_bits = this_._impl_._has_bits_[0];
+  if (BatchCheckHasBit(cached_has_bits, 0x00000003U)) {
+    // string title = 1;
+    if (CheckHasBit(cached_has_bits, 0x00000001U)) {
+      if (!this_._internal_title().empty()) {
+        total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                        this_._internal_title());
+      }
+    }
+    // string jwt_token = 2;
+    if (CheckHasBit(cached_has_bits, 0x00000002U)) {
+      if (!this_._internal_jwt_token().empty()) {
+        total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                        this_._internal_jwt_token());
+      }
+    }
+  }
+  return this_.MaybeComputeUnknownFieldsSize(total_size,
+                                             &this_._impl_._cached_size_);
+}
+
+void CreateRequest::MergeImpl(::google::protobuf::MessageLite& to_msg,
+                      const ::google::protobuf::MessageLite& from_msg) {
+   auto* const _this = static_cast<CreateRequest*>(&to_msg);
+  auto& from = static_cast<const CreateRequest&>(from_msg);
+  if constexpr (::_pbi::DebugHardenCheckHasBitConsistency()) {
+    from.CheckHasBitConsistency();
+  }
+  // @@protoc_insertion_point(class_specific_merge_from_start:mores.CreateRequest)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (BatchCheckHasBit(cached_has_bits, 0x00000003U)) {
+    if (CheckHasBit(cached_has_bits, 0x00000001U)) {
+      if (!from._internal_title().empty()) {
+        _this->_internal_set_title(from._internal_title());
+      } else {
+        if (_this->_impl_.title_.IsDefault()) {
+          _this->_internal_set_title("");
+        }
+      }
+    }
+    if (CheckHasBit(cached_has_bits, 0x00000002U)) {
+      if (!from._internal_jwt_token().empty()) {
+        _this->_internal_set_jwt_token(from._internal_jwt_token());
+      } else {
+        if (_this->_impl_.jwt_token_.IsDefault()) {
+          _this->_internal_set_jwt_token("");
+        }
+      }
+    }
+  }
+  _this->_impl_._has_bits_[0] |= cached_has_bits;
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+}
+
+void CreateRequest::CopyFrom(const CreateRequest& from) {
+  // @@protoc_insertion_point(class_specific_copy_from_start:mores.CreateRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void CreateRequest::InternalSwap(CreateRequest* PROTOBUF_RESTRICT PROTOBUF_NONNULL other) {
+  using ::std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.title_, &other->_impl_.title_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.jwt_token_, &other->_impl_.jwt_token_, arena);
+}
+
+::google::protobuf::Metadata CreateRequest::GetMetadata() const {
+  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
+}
 // ===================================================================
 
 Meta::Meta(::google::protobuf::Arena* PROTOBUF_NULLABLE arena)

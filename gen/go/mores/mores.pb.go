@@ -21,6 +21,58 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type CreateRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Title         string                 `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
+	JwtToken      string                 `protobuf:"bytes,2,opt,name=jwt_token,json=jwtToken,proto3" json:"jwt_token,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateRequest) Reset() {
+	*x = CreateRequest{}
+	mi := &file_mores_mores_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateRequest) ProtoMessage() {}
+
+func (x *CreateRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_mores_mores_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateRequest.ProtoReflect.Descriptor instead.
+func (*CreateRequest) Descriptor() ([]byte, []int) {
+	return file_mores_mores_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *CreateRequest) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *CreateRequest) GetJwtToken() string {
+	if x != nil {
+		return x.JwtToken
+	}
+	return ""
+}
+
 type Meta struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Title         string                 `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
@@ -32,7 +84,7 @@ type Meta struct {
 
 func (x *Meta) Reset() {
 	*x = Meta{}
-	mi := &file_mores_mores_proto_msgTypes[0]
+	mi := &file_mores_mores_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -44,7 +96,7 @@ func (x *Meta) String() string {
 func (*Meta) ProtoMessage() {}
 
 func (x *Meta) ProtoReflect() protoreflect.Message {
-	mi := &file_mores_mores_proto_msgTypes[0]
+	mi := &file_mores_mores_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -57,7 +109,7 @@ func (x *Meta) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Meta.ProtoReflect.Descriptor instead.
 func (*Meta) Descriptor() ([]byte, []int) {
-	return file_mores_mores_proto_rawDescGZIP(), []int{0}
+	return file_mores_mores_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *Meta) GetTitle() string {
@@ -85,14 +137,14 @@ type ExchangeData struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	MoreId        uint64                 `protobuf:"varint,1,opt,name=more_id,json=moreId,proto3" json:"more_id,omitempty"`
 	BlockSize     uint32                 `protobuf:"varint,2,opt,name=block_size,json=blockSize,proto3" json:"block_size,omitempty"`
-	JwtToken      string                 `protobuf:"bytes,3,opt,name=jwt_token,json=jwtToken,proto3" json:"jwt_token,omitempty"`
+	JwtToken      string                 `protobuf:"bytes,3,opt,name=jwt_token,json=jwtToken,proto3" json:"jwt_token,omitempty"` // Only for upload
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *ExchangeData) Reset() {
 	*x = ExchangeData{}
-	mi := &file_mores_mores_proto_msgTypes[1]
+	mi := &file_mores_mores_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -104,7 +156,7 @@ func (x *ExchangeData) String() string {
 func (*ExchangeData) ProtoMessage() {}
 
 func (x *ExchangeData) ProtoReflect() protoreflect.Message {
-	mi := &file_mores_mores_proto_msgTypes[1]
+	mi := &file_mores_mores_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -117,7 +169,7 @@ func (x *ExchangeData) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ExchangeData.ProtoReflect.Descriptor instead.
 func (*ExchangeData) Descriptor() ([]byte, []int) {
-	return file_mores_mores_proto_rawDescGZIP(), []int{1}
+	return file_mores_mores_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *ExchangeData) GetMoreId() uint64 {
@@ -151,7 +203,7 @@ type DownloadRequest struct {
 
 func (x *DownloadRequest) Reset() {
 	*x = DownloadRequest{}
-	mi := &file_mores_mores_proto_msgTypes[2]
+	mi := &file_mores_mores_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -163,7 +215,7 @@ func (x *DownloadRequest) String() string {
 func (*DownloadRequest) ProtoMessage() {}
 
 func (x *DownloadRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_mores_mores_proto_msgTypes[2]
+	mi := &file_mores_mores_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -176,7 +228,7 @@ func (x *DownloadRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DownloadRequest.ProtoReflect.Descriptor instead.
 func (*DownloadRequest) Descriptor() ([]byte, []int) {
-	return file_mores_mores_proto_rawDescGZIP(), []int{2}
+	return file_mores_mores_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *DownloadRequest) GetData() *ExchangeData {
@@ -206,7 +258,7 @@ type UploadRequest struct {
 
 func (x *UploadRequest) Reset() {
 	*x = UploadRequest{}
-	mi := &file_mores_mores_proto_msgTypes[3]
+	mi := &file_mores_mores_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -218,7 +270,7 @@ func (x *UploadRequest) String() string {
 func (*UploadRequest) ProtoMessage() {}
 
 func (x *UploadRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_mores_mores_proto_msgTypes[3]
+	mi := &file_mores_mores_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -231,7 +283,7 @@ func (x *UploadRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UploadRequest.ProtoReflect.Descriptor instead.
 func (*UploadRequest) Descriptor() ([]byte, []int) {
-	return file_mores_mores_proto_rawDescGZIP(), []int{3}
+	return file_mores_mores_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *UploadRequest) GetRequest() isUploadRequest_Request {
@@ -285,7 +337,7 @@ type RemoveRequest struct {
 
 func (x *RemoveRequest) Reset() {
 	*x = RemoveRequest{}
-	mi := &file_mores_mores_proto_msgTypes[4]
+	mi := &file_mores_mores_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -297,7 +349,7 @@ func (x *RemoveRequest) String() string {
 func (*RemoveRequest) ProtoMessage() {}
 
 func (x *RemoveRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_mores_mores_proto_msgTypes[4]
+	mi := &file_mores_mores_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -310,7 +362,7 @@ func (x *RemoveRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RemoveRequest.ProtoReflect.Descriptor instead.
 func (*RemoveRequest) Descriptor() ([]byte, []int) {
-	return file_mores_mores_proto_rawDescGZIP(), []int{4}
+	return file_mores_mores_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *RemoveRequest) GetMoreId() uint64 {
@@ -338,7 +390,7 @@ type Part struct {
 
 func (x *Part) Reset() {
 	*x = Part{}
-	mi := &file_mores_mores_proto_msgTypes[5]
+	mi := &file_mores_mores_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -350,7 +402,7 @@ func (x *Part) String() string {
 func (*Part) ProtoMessage() {}
 
 func (x *Part) ProtoReflect() protoreflect.Message {
-	mi := &file_mores_mores_proto_msgTypes[5]
+	mi := &file_mores_mores_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -363,7 +415,7 @@ func (x *Part) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Part.ProtoReflect.Descriptor instead.
 func (*Part) Descriptor() ([]byte, []int) {
-	return file_mores_mores_proto_rawDescGZIP(), []int{5}
+	return file_mores_mores_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *Part) GetNumber() uint32 {
@@ -391,7 +443,10 @@ var File_mores_mores_proto protoreflect.FileDescriptor
 
 const file_mores_mores_proto_rawDesc = "" +
 	"\n" +
-	"\x11mores/mores.proto\x12\x05mores\"T\n" +
+	"\x11mores/mores.proto\x12\x05mores\"B\n" +
+	"\rCreateRequest\x12\x14\n" +
+	"\x05title\x18\x01 \x01(\tR\x05title\x12\x1b\n" +
+	"\tjwt_token\x18\x02 \x01(\tR\bjwtToken\"T\n" +
 	"\x04Meta\x12\x14\n" +
 	"\x05title\x18\x01 \x01(\tR\x05title\x12\x1d\n" +
 	"\n" +
@@ -415,14 +470,16 @@ const file_mores_mores_proto_rawDesc = "" +
 	"\x04Part\x12\x16\n" +
 	"\x06number\x18\x01 \x01(\rR\x06number\x12\x12\n" +
 	"\x04size\x18\x02 \x01(\rR\x04size\x12\x12\n" +
-	"\x04data\x18\x03 \x01(\fR\x04data2\xcd\x01\n" +
+	"\x04data\x18\x03 \x01(\fR\x04data2\xfe\x01\n" +
 	"\x05Mores\x12)\n" +
 	"\vGetFiltered\x12\v.mores.Meta\x1a\v.mores.Meta0\x01\x125\n" +
 	"\fDownloadMore\x12\x16.mores.DownloadRequest\x1a\v.mores.Part0\x01\x121\n" +
 	"\n" +
 	"UploadMore\x12\x14.mores.UploadRequest\x1a\v.mores.Meta(\x01\x12/\n" +
 	"\n" +
-	"RemoveMore\x12\x14.mores.RemoveRequest\x1a\v.mores.MetaB;Z9github.com/Azat201003/summorist-shared/gen/go/mores;moresb\x06proto3"
+	"RemoveMore\x12\x14.mores.RemoveRequest\x1a\v.mores.Meta\x12/\n" +
+	"\n" +
+	"CreateMore\x12\x14.mores.CreateRequest\x1a\v.mores.MetaB;Z9github.com/Azat201003/summorist-shared/gen/go/mores;moresb\x06proto3"
 
 var (
 	file_mores_mores_proto_rawDescOnce sync.Once
@@ -436,29 +493,32 @@ func file_mores_mores_proto_rawDescGZIP() []byte {
 	return file_mores_mores_proto_rawDescData
 }
 
-var file_mores_mores_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_mores_mores_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_mores_mores_proto_goTypes = []any{
-	(*Meta)(nil),            // 0: mores.Meta
-	(*ExchangeData)(nil),    // 1: mores.ExchangeData
-	(*DownloadRequest)(nil), // 2: mores.DownloadRequest
-	(*UploadRequest)(nil),   // 3: mores.UploadRequest
-	(*RemoveRequest)(nil),   // 4: mores.RemoveRequest
-	(*Part)(nil),            // 5: mores.Part
+	(*CreateRequest)(nil),   // 0: mores.CreateRequest
+	(*Meta)(nil),            // 1: mores.Meta
+	(*ExchangeData)(nil),    // 2: mores.ExchangeData
+	(*DownloadRequest)(nil), // 3: mores.DownloadRequest
+	(*UploadRequest)(nil),   // 4: mores.UploadRequest
+	(*RemoveRequest)(nil),   // 5: mores.RemoveRequest
+	(*Part)(nil),            // 6: mores.Part
 }
 var file_mores_mores_proto_depIdxs = []int32{
-	1, // 0: mores.DownloadRequest.data:type_name -> mores.ExchangeData
-	1, // 1: mores.UploadRequest.data:type_name -> mores.ExchangeData
-	5, // 2: mores.UploadRequest.part:type_name -> mores.Part
-	0, // 3: mores.Mores.GetFiltered:input_type -> mores.Meta
-	2, // 4: mores.Mores.DownloadMore:input_type -> mores.DownloadRequest
-	3, // 5: mores.Mores.UploadMore:input_type -> mores.UploadRequest
-	4, // 6: mores.Mores.RemoveMore:input_type -> mores.RemoveRequest
-	0, // 7: mores.Mores.GetFiltered:output_type -> mores.Meta
-	5, // 8: mores.Mores.DownloadMore:output_type -> mores.Part
-	0, // 9: mores.Mores.UploadMore:output_type -> mores.Meta
-	0, // 10: mores.Mores.RemoveMore:output_type -> mores.Meta
-	7, // [7:11] is the sub-list for method output_type
-	3, // [3:7] is the sub-list for method input_type
+	2, // 0: mores.DownloadRequest.data:type_name -> mores.ExchangeData
+	2, // 1: mores.UploadRequest.data:type_name -> mores.ExchangeData
+	6, // 2: mores.UploadRequest.part:type_name -> mores.Part
+	1, // 3: mores.Mores.GetFiltered:input_type -> mores.Meta
+	3, // 4: mores.Mores.DownloadMore:input_type -> mores.DownloadRequest
+	4, // 5: mores.Mores.UploadMore:input_type -> mores.UploadRequest
+	5, // 6: mores.Mores.RemoveMore:input_type -> mores.RemoveRequest
+	0, // 7: mores.Mores.CreateMore:input_type -> mores.CreateRequest
+	1, // 8: mores.Mores.GetFiltered:output_type -> mores.Meta
+	6, // 9: mores.Mores.DownloadMore:output_type -> mores.Part
+	1, // 10: mores.Mores.UploadMore:output_type -> mores.Meta
+	1, // 11: mores.Mores.RemoveMore:output_type -> mores.Meta
+	1, // 12: mores.Mores.CreateMore:output_type -> mores.Meta
+	8, // [8:13] is the sub-list for method output_type
+	3, // [3:8] is the sub-list for method input_type
 	3, // [3:3] is the sub-list for extension type_name
 	3, // [3:3] is the sub-list for extension extendee
 	0, // [0:3] is the sub-list for field type_name
@@ -469,7 +529,7 @@ func file_mores_mores_proto_init() {
 	if File_mores_mores_proto != nil {
 		return
 	}
-	file_mores_mores_proto_msgTypes[3].OneofWrappers = []any{
+	file_mores_mores_proto_msgTypes[4].OneofWrappers = []any{
 		(*UploadRequest_Data)(nil),
 		(*UploadRequest_Part)(nil),
 	}
@@ -479,7 +539,7 @@ func file_mores_mores_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_mores_mores_proto_rawDesc), len(file_mores_mores_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

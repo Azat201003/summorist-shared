@@ -54,6 +54,14 @@ extern "C" {
 extern const ::google::protobuf::internal::DescriptorTable descriptor_table_mores_2fmores_2eproto;
 }  // extern "C"
 namespace mores {
+class CreateRequest;
+struct CreateRequestGlobalsTypeInternal;
+#ifndef PROTOBUF_MESSAGE_GLOBALS
+extern CreateRequestGlobalsTypeInternal CreateRequest_globals_;
+extern const ::google::protobuf::internal::ClassDataFull CreateRequest_class_data_;
+#else
+extern const CreateRequestGlobalsTypeInternal CreateRequest_globals_;
+#endif  // PROTOBUF_MESSAGE_GLOBALS
 class DownloadRequest;
 struct DownloadRequestGlobalsTypeInternal;
 #ifndef PROTOBUF_MESSAGE_GLOBALS
@@ -171,7 +179,7 @@ class  PROTOBUF_FUTURE_ADD_EARLY_WARN_UNUSED RemoveRequest final : public ::goog
   [[nodiscard]] static const RemoveRequest& default_instance() {
     return *::google::protobuf::internal::MessageGlobalsBase::ToDefaultInstance<RemoveRequest>(&RemoveRequest_globals_);
   }
-  static constexpr int kIndexInFileMessages = 4;
+  static constexpr int kIndexInFileMessages = 5;
   friend void swap(RemoveRequest& a, RemoveRequest& b) { a.Swap(&b); }
   inline void Swap(RemoveRequest* PROTOBUF_NONNULL other) {
     if (other == this) return;
@@ -389,7 +397,7 @@ class  PROTOBUF_FUTURE_ADD_EARLY_WARN_UNUSED Part final : public ::google::proto
   [[nodiscard]] static const Part& default_instance() {
     return *::google::protobuf::internal::MessageGlobalsBase::ToDefaultInstance<Part>(&Part_globals_);
   }
-  static constexpr int kIndexInFileMessages = 5;
+  static constexpr int kIndexInFileMessages = 6;
   friend void swap(Part& a, Part& b) { a.Swap(&b); }
   inline void Swap(Part* PROTOBUF_NONNULL other) {
     if (other == this) return;
@@ -619,7 +627,7 @@ class  PROTOBUF_FUTURE_ADD_EARLY_WARN_UNUSED Meta final : public ::google::proto
   [[nodiscard]] static const Meta& default_instance() {
     return *::google::protobuf::internal::MessageGlobalsBase::ToDefaultInstance<Meta>(&Meta_globals_);
   }
-  static constexpr int kIndexInFileMessages = 0;
+  static constexpr int kIndexInFileMessages = 1;
   friend void swap(Meta& a, Meta& b) { a.Swap(&b); }
   inline void Swap(Meta* PROTOBUF_NONNULL other) {
     if (other == this) return;
@@ -849,7 +857,7 @@ class  PROTOBUF_FUTURE_ADD_EARLY_WARN_UNUSED ExchangeData final : public ::googl
   [[nodiscard]] static const ExchangeData& default_instance() {
     return *::google::protobuf::internal::MessageGlobalsBase::ToDefaultInstance<ExchangeData>(&ExchangeData_globals_);
   }
-  static constexpr int kIndexInFileMessages = 1;
+  static constexpr int kIndexInFileMessages = 2;
   friend void swap(ExchangeData& a, ExchangeData& b) { a.Swap(&b); }
   inline void Swap(ExchangeData* PROTOBUF_NONNULL other) {
     if (other == this) return;
@@ -1023,6 +1031,229 @@ class  PROTOBUF_FUTURE_ADD_EARLY_WARN_UNUSED ExchangeData final : public ::googl
 };
 // -------------------------------------------------------------------
 
+class  PROTOBUF_FUTURE_ADD_EARLY_WARN_UNUSED CreateRequest final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:mores.CreateRequest) */ {
+ public:
+  inline CreateRequest() : CreateRequest(nullptr) {}
+  ~CreateRequest() PROTOBUF_FINAL;
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+  void operator delete(CreateRequest* PROTOBUF_NONNULL msg, ::std::destroying_delete_t) {
+    SharedDtor(*msg);
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(CreateRequest));
+  }
+#endif
+
+  template <typename = void>
+  explicit constexpr CreateRequest(::google::protobuf::internal::ConstantInitialized,
+                           const ::google::protobuf::internal::ClassData* PROTOBUF_NONNULL
+                               class_data);
+
+  inline CreateRequest(const CreateRequest& from) : CreateRequest(nullptr, from) {}
+  inline CreateRequest(CreateRequest&& from) noexcept : CreateRequest(nullptr, ::std::move(from)) {}
+  inline CreateRequest& operator=(const CreateRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CreateRequest& operator=(CreateRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  [[nodiscard]] inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  [[nodiscard]] inline ::google::protobuf::UnknownFieldSet* PROTOBUF_NONNULL
+  mutable_unknown_fields() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  [[nodiscard]] static const ::google::protobuf::Descriptor* PROTOBUF_NONNULL descriptor() {
+    return GetDescriptor();
+  }
+  [[nodiscard]] static const ::google::protobuf::Descriptor* PROTOBUF_NONNULL
+  GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  [[nodiscard]] static const ::google::protobuf::Reflection* PROTOBUF_NONNULL GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  [[nodiscard]] static const CreateRequest& default_instance() {
+    return *::google::protobuf::internal::MessageGlobalsBase::ToDefaultInstance<CreateRequest>(&CreateRequest_globals_);
+  }
+  static constexpr int kIndexInFileMessages = 0;
+  friend void swap(CreateRequest& a, CreateRequest& b) { a.Swap(&b); }
+  inline void Swap(CreateRequest* PROTOBUF_NONNULL other) {
+    if (other == this) return;
+    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CreateRequest* PROTOBUF_NONNULL other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  [[nodiscard]] CreateRequest* PROTOBUF_NONNULL
+  New(::google::protobuf::Arena* PROTOBUF_NULLABLE arena = nullptr) const {
+    return ::google::protobuf::Message::DefaultConstruct<CreateRequest>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const CreateRequest& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom(const CreateRequest& from) { CreateRequest::MergeImpl(*this, from); }
+
+  private:
+  static void MergeImpl(::google::protobuf::MessageLite& to_msg,
+                        const ::google::protobuf::MessageLite& from_msg);
+
+  public:
+  [[nodiscard]] bool IsInitialized() const {
+    return true;
+  }
+  ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
+  #if defined(PROTOBUF_CUSTOM_VTABLE)
+  private:
+  [[nodiscard]] static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
+  [[nodiscard]] static ::uint8_t* PROTOBUF_NONNULL _InternalSerialize(
+      const ::google::protobuf::MessageLite& msg, ::uint8_t* PROTOBUF_NONNULL target,
+      ::google::protobuf::io::EpsCopyOutputStream* PROTOBUF_NONNULL stream);
+
+  public:
+  [[nodiscard]] ::size_t ByteSizeLong() const { return ByteSizeLong(*this); }
+  [[nodiscard]] ::uint8_t* PROTOBUF_NONNULL _InternalSerialize(
+      ::uint8_t* PROTOBUF_NONNULL target,
+      ::google::protobuf::io::EpsCopyOutputStream* PROTOBUF_NONNULL stream) const {
+    return _InternalSerialize(*this, target, stream);
+  }
+  #else   // PROTOBUF_CUSTOM_VTABLE
+  [[nodiscard]] ::size_t ByteSizeLong() const final;
+  [[nodiscard]] ::uint8_t* PROTOBUF_NONNULL _InternalSerialize(
+      ::uint8_t* PROTOBUF_NONNULL target,
+      ::google::protobuf::io::EpsCopyOutputStream* PROTOBUF_NONNULL stream) const final;
+  #endif  // PROTOBUF_CUSTOM_VTABLE
+  [[nodiscard]] int GetCachedSize() const {
+    return _impl_._cached_size_.Get();
+  }
+
+  private:
+  void SharedCtor(::google::protobuf::Arena* PROTOBUF_NULLABLE arena);
+  static void SharedDtor(MessageLite& self);
+  void InternalSwap(CreateRequest* PROTOBUF_NONNULL other);
+ private:
+  template <typename T>
+  friend ::absl::string_view(::google::protobuf::internal::GetAnyMessageName)();
+  static ::absl::string_view FullMessageName() { return "mores.CreateRequest"; }
+
+  explicit CreateRequest(::google::protobuf::Arena* PROTOBUF_NULLABLE arena);
+  CreateRequest(::google::protobuf::Arena* PROTOBUF_NULLABLE arena, const CreateRequest& from);
+  CreateRequest(
+      ::google::protobuf::Arena* PROTOBUF_NULLABLE arena, CreateRequest&& from) noexcept
+      : CreateRequest(arena) {
+    *this = ::std::move(from);
+  }
+  const ::google::protobuf::internal::ClassData* PROTOBUF_NONNULL GetClassData() const PROTOBUF_FINAL;
+  static void* PROTOBUF_NONNULL PlacementNew_(
+      const void* PROTOBUF_NONNULL, void* PROTOBUF_NONNULL mem,
+      ::google::protobuf::Arena* PROTOBUF_NULLABLE arena);
+  static constexpr auto InternalNewImpl_();
+
+ public:
+  static constexpr auto InternalGenerateClassData_(
+      const MessageLite& prototype,
+      const ::google::protobuf::internal::TcParseTableBase* PROTOBUF_NULLABLE tc_table = nullptr);
+
+  [[nodiscard]] ::google::protobuf::Metadata GetMetadata() const;
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+  enum : int {
+    kTitleFieldNumber = 1,
+    kJwtTokenFieldNumber = 2,
+  };
+  // string title = 1;
+  void clear_title() ;
+  [[nodiscard]] const ::std::string& title() const;
+  template <typename Arg_ = const ::std::string&, typename... Args_>
+  void set_title(Arg_&& arg, Args_... args);
+  ::std::string* PROTOBUF_NONNULL mutable_title();
+  [[nodiscard]] ::std::string* PROTOBUF_NULLABLE release_title();
+  void set_allocated_title(::std::string* PROTOBUF_NULLABLE value);
+
+  private:
+  const ::std::string& _internal_title() const;
+  PROTOBUF_ALWAYS_INLINE void _internal_set_title(const ::std::string& value);
+  ::std::string* PROTOBUF_NONNULL _internal_mutable_title();
+
+  public:
+  // string jwt_token = 2;
+  void clear_jwt_token() ;
+  [[nodiscard]] const ::std::string& jwt_token() const;
+  template <typename Arg_ = const ::std::string&, typename... Args_>
+  void set_jwt_token(Arg_&& arg, Args_... args);
+  ::std::string* PROTOBUF_NONNULL mutable_jwt_token();
+  [[nodiscard]] ::std::string* PROTOBUF_NULLABLE release_jwt_token();
+  void set_allocated_jwt_token(::std::string* PROTOBUF_NULLABLE value);
+
+  private:
+  const ::std::string& _internal_jwt_token() const;
+  PROTOBUF_ALWAYS_INLINE void _internal_set_jwt_token(const ::std::string& value);
+  ::std::string* PROTOBUF_NONNULL _internal_mutable_jwt_token();
+
+  public:
+  // @@protoc_insertion_point(class_scope:mores.CreateRequest)
+ private:
+  class _Internal;
+  using ParseTableT_ =
+      ::google::protobuf::internal::TcParseTable<1, 2,
+                          0, 42,
+                          2>;
+  static constexpr ParseTableT_ InternalGenerateParseTable_(
+      const ::google::protobuf::internal::ClassData* PROTOBUF_NONNULL class_data);
+  friend class ::google::protobuf::internal::TcParser;
+  #ifndef PROTOBUF_MESSAGE_GLOBALS
+  static const ParseTableT_ _table_;
+  #endif
+
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  friend ::google::protobuf::internal::PrivateAccess;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+    inline explicit constexpr Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                                    ::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(
+        ::google::protobuf::internal::InternalVisibility visibility,
+        ::google::protobuf::Arena* PROTOBUF_NULLABLE arena);
+    inline explicit Impl_(
+        ::google::protobuf::internal::InternalVisibility visibility,
+        ::google::protobuf::Arena* PROTOBUF_NULLABLE arena, const Impl_& from,
+        const CreateRequest& from_msg);
+    ::google::protobuf::internal::HasBits<1> _has_bits_;
+    ::google::protobuf::internal::CachedSize _cached_size_;
+    ::google::protobuf::internal::ArenaStringPtr title_;
+    ::google::protobuf::internal::ArenaStringPtr jwt_token_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_mores_2fmores_2eproto;
+};
+// -------------------------------------------------------------------
+
 class  PROTOBUF_FUTURE_ADD_EARLY_WARN_UNUSED UploadRequest final : public ::google::protobuf::Message
 /* @@protoc_insertion_point(class_definition:mores.UploadRequest) */ {
  public:
@@ -1084,7 +1315,7 @@ class  PROTOBUF_FUTURE_ADD_EARLY_WARN_UNUSED UploadRequest final : public ::goog
     kPart = 2,
     REQUEST_NOT_SET = 0,
   };
-  static constexpr int kIndexInFileMessages = 3;
+  static constexpr int kIndexInFileMessages = 4;
   friend void swap(UploadRequest& a, UploadRequest& b) { a.Swap(&b); }
   inline void Swap(UploadRequest* PROTOBUF_NONNULL other) {
     if (other == this) return;
@@ -1327,7 +1558,7 @@ class  PROTOBUF_FUTURE_ADD_EARLY_WARN_UNUSED DownloadRequest final : public ::go
   [[nodiscard]] static const DownloadRequest& default_instance() {
     return *::google::protobuf::internal::MessageGlobalsBase::ToDefaultInstance<DownloadRequest>(&DownloadRequest_globals_);
   }
-  static constexpr int kIndexInFileMessages = 2;
+  static constexpr int kIndexInFileMessages = 3;
   friend void swap(DownloadRequest& a, DownloadRequest& b) { a.Swap(&b); }
   inline void Swap(DownloadRequest* PROTOBUF_NONNULL other) {
     if (other == this) return;
@@ -1501,6 +1732,138 @@ class  PROTOBUF_FUTURE_ADD_EARLY_WARN_UNUSED DownloadRequest final : public ::go
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// CreateRequest
+
+// string title = 1;
+inline void CreateRequest::clear_title() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.title_.ClearToEmpty();
+  ClearHasBit(_impl_._has_bits_[0], 0x00000001U);
+}
+inline const ::std::string& CreateRequest::title() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:mores.CreateRequest.title)
+  return _internal_title();
+}
+template <typename Arg_, typename... Args_>
+PROTOBUF_ALWAYS_INLINE void CreateRequest::set_title(Arg_&& arg, Args_... args) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  SetHasBit(_impl_._has_bits_[0], 0x00000001U);
+  _impl_.title_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:mores.CreateRequest.title)
+}
+inline ::std::string* PROTOBUF_NONNULL CreateRequest::mutable_title()
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  SetHasBit(_impl_._has_bits_[0], 0x00000001U);
+  ::std::string* _s = _internal_mutable_title();
+  // @@protoc_insertion_point(field_mutable:mores.CreateRequest.title)
+  return _s;
+}
+inline const ::std::string& CreateRequest::_internal_title() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.title_.Get();
+}
+inline void CreateRequest::_internal_set_title(const ::std::string& value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.title_.Set(value, GetArena());
+}
+inline ::std::string* PROTOBUF_NONNULL CreateRequest::_internal_mutable_title() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  return _impl_.title_.Mutable( GetArena());
+}
+inline ::std::string* PROTOBUF_NULLABLE CreateRequest::release_title() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  // @@protoc_insertion_point(field_release:mores.CreateRequest.title)
+  if (!CheckHasBit(_impl_._has_bits_[0], 0x00000001U)) {
+    return nullptr;
+  }
+  ClearHasBit(_impl_._has_bits_[0], 0x00000001U);
+  auto* released = _impl_.title_.Release();
+  if (::google::protobuf::internal::DebugHardenForceCopyDefaultString()) {
+    _impl_.title_.Set("", GetArena());
+  }
+  return released;
+}
+inline void CreateRequest::set_allocated_title(::std::string* PROTOBUF_NULLABLE value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (value != nullptr) {
+    SetHasBit(_impl_._has_bits_[0], 0x00000001U);
+  } else {
+    ClearHasBit(_impl_._has_bits_[0], 0x00000001U);
+  }
+  _impl_.title_.SetAllocated(value, GetArena());
+  if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() && _impl_.title_.IsDefault()) {
+    _impl_.title_.Set("", GetArena());
+  }
+  // @@protoc_insertion_point(field_set_allocated:mores.CreateRequest.title)
+}
+
+// string jwt_token = 2;
+inline void CreateRequest::clear_jwt_token() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.jwt_token_.ClearToEmpty();
+  ClearHasBit(_impl_._has_bits_[0], 0x00000002U);
+}
+inline const ::std::string& CreateRequest::jwt_token() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:mores.CreateRequest.jwt_token)
+  return _internal_jwt_token();
+}
+template <typename Arg_, typename... Args_>
+PROTOBUF_ALWAYS_INLINE void CreateRequest::set_jwt_token(Arg_&& arg, Args_... args) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  SetHasBit(_impl_._has_bits_[0], 0x00000002U);
+  _impl_.jwt_token_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:mores.CreateRequest.jwt_token)
+}
+inline ::std::string* PROTOBUF_NONNULL CreateRequest::mutable_jwt_token()
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  SetHasBit(_impl_._has_bits_[0], 0x00000002U);
+  ::std::string* _s = _internal_mutable_jwt_token();
+  // @@protoc_insertion_point(field_mutable:mores.CreateRequest.jwt_token)
+  return _s;
+}
+inline const ::std::string& CreateRequest::_internal_jwt_token() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.jwt_token_.Get();
+}
+inline void CreateRequest::_internal_set_jwt_token(const ::std::string& value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.jwt_token_.Set(value, GetArena());
+}
+inline ::std::string* PROTOBUF_NONNULL CreateRequest::_internal_mutable_jwt_token() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  return _impl_.jwt_token_.Mutable( GetArena());
+}
+inline ::std::string* PROTOBUF_NULLABLE CreateRequest::release_jwt_token() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  // @@protoc_insertion_point(field_release:mores.CreateRequest.jwt_token)
+  if (!CheckHasBit(_impl_._has_bits_[0], 0x00000002U)) {
+    return nullptr;
+  }
+  ClearHasBit(_impl_._has_bits_[0], 0x00000002U);
+  auto* released = _impl_.jwt_token_.Release();
+  if (::google::protobuf::internal::DebugHardenForceCopyDefaultString()) {
+    _impl_.jwt_token_.Set("", GetArena());
+  }
+  return released;
+}
+inline void CreateRequest::set_allocated_jwt_token(::std::string* PROTOBUF_NULLABLE value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (value != nullptr) {
+    SetHasBit(_impl_._has_bits_[0], 0x00000002U);
+  } else {
+    ClearHasBit(_impl_._has_bits_[0], 0x00000002U);
+  }
+  _impl_.jwt_token_.SetAllocated(value, GetArena());
+  if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() && _impl_.jwt_token_.IsDefault()) {
+    _impl_.jwt_token_.Set("", GetArena());
+  }
+  // @@protoc_insertion_point(field_set_allocated:mores.CreateRequest.jwt_token)
+}
+
 // -------------------------------------------------------------------
 
 // Meta
