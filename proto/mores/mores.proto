@@ -4,48 +4,55 @@ option go_package = "github.com/Azat201003/summorist-shared/gen/go/mores;mores";
 package mores;
 
 service Mores {
-  // Get list of metas by filter
-  rpc GetFiltered(Meta) returns (stream Meta);
-  // Downloading by parts, if you have permissions
-  rpc DownloadMore(DownloadRequest) returns (stream Part);
-  // Uploading new more or updating that exists, if you have permissions
-  rpc UploadMore(stream UploadRequest) returns (Meta);
-  // Removing more(mark as removed) by id, if you have permissions, returns meta of deleted more
-  rpc RemoveMore(RemoveRequest) returns (Meta); // TODO add comments deletion
+	// Get list of metas by filter
+	rpc GetFiltered(Meta) returns (stream Meta);
+	// Downloading by parts, if you have permissions
+	rpc DownloadMore(DownloadRequest) returns (stream Part);
+	// Uploading an existing more, if you have permissions
+	rpc UploadMore(stream UploadRequest) returns (Meta);
+	// Removing more(mark as removed) by id, if you have permissions, returns meta of deleted more
+	rpc RemoveMore(RemoveRequest) returns (Meta); // TODO add comments deletion
+	// Create more
+	rpc CreateMore(CreateRequest) returns (Meta);
+}
+
+message CreateRequest {
+	string title = 1;
+	string jwt_token = 2;
 }
 
 message Meta {
-  string title = 1;
-  uint64 creator_id = 2;
-  uint64 more_id = 3;
+	string title = 1;
+	uint64 creator_id = 2;
+	uint64 more_id = 3;
 }
 
 message ExchangeData {
 	uint64 more_id = 1;
-  uint32 block_size = 2;
-  string jwt_token = 3;
+	uint32 block_size = 2;
+	string jwt_token = 3; // Only for upload
 }
 
 message DownloadRequest {
-  ExchangeData data = 1;
-  bool converted = 2;
+	ExchangeData data = 1;
+	bool converted = 2;
 }
 
 message UploadRequest {
-  oneof request {
-    ExchangeData data = 1; // Only first message
-    Part part = 2;
-  }
+	oneof request {
+		ExchangeData data = 1; // Only first message
+		Part part = 2;
+	}
 }
 
 message RemoveRequest {
-  uint64 more_id = 1;  
-  string jwt_token = 2;
+	uint64 more_id = 1;	
+	string jwt_token = 2;
 }
 
 message Part {
-  uint32 number = 1;
-  uint32 size = 2;
-  bytes data = 3;
+	uint32 number = 1;
+	uint32 size = 2;
+	bytes data = 3;
 }
 
