@@ -25,7 +25,7 @@ service Users {
 // SignIn
 message SignInRequest {
   string username = 1;
-  bytes password_hash = 2 [(tagger.tags) = "gorm:\"type:bytea\""];
+  bytes password = 2 [(tagger.tags) = "gorm:\"type:bytea\""];
 }
 
 message SignInResponse {
