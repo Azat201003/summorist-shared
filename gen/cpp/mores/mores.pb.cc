@@ -1227,38 +1227,45 @@ static const ::_pbi::MessageGlobalsBase* PROTOBUF_NONNULL const
 };
 const char descriptor_table_protodef_mores_2fmores_2eproto[] ABSL_ATTRIBUTE_SECTION_VARIABLE(
     protodesc_cold) = {
-    "\n\021mores/mores.proto\022\005mores\"1\n\rCreateRequ"
-    "est\022\r\n\005title\030\001 \001(\t\022\021\n\tjwt_token\030\002 \001(\t\":\n"
-    "\004Meta\022\r\n\005title\030\001 \001(\t\022\022\n\ncreator_id\030\002 \001(\004"
-    "\022\017\n\007more_id\030\003 \001(\004\"F\n\014ExchangeData\022\017\n\007mor"
-    "e_id\030\001 \001(\004\022\022\n\nblock_size\030\002 \001(\r\022\021\n\tjwt_to"
-    "ken\030\003 \001(\t\"G\n\017DownloadRequest\022!\n\004data\030\001 \001"
-    "(\0132\023.mores.ExchangeData\022\021\n\tconverted\030\002 \001"
-    "(\010\"\\\n\rUploadRequest\022#\n\004data\030\001 \001(\0132\023.more"
-    "s.ExchangeDataH\000\022\033\n\004part\030\002 \001(\0132\013.mores.P"
-    "artH\000B\t\n\007request\"3\n\rRemoveRequest\022\017\n\007mor"
-    "e_id\030\001 \001(\004\022\021\n\tjwt_token\030\002 \001(\t\"2\n\004Part\022\016\n"
-    "\006number\030\001 \001(\r\022\014\n\004size\030\002 \001(\r\022\014\n\004data\030\003 \001("
-    "\0142\376\001\n\005Mores\022)\n\013GetFiltered\022\013.mores.Meta\032"
-    "\013.mores.Meta0\001\0225\n\014DownloadMore\022\026.mores.D"
-    "ownloadRequest\032\013.mores.Part0\001\0221\n\nUploadM"
-    "ore\022\024.mores.UploadRequest\032\013.mores.Meta(\001"
-    "\022/\n\nRemoveMore\022\024.mores.RemoveRequest\032\013.m"
-    "ores.Meta\022/\n\nCreateMore\022\024.mores.CreateRe"
-    "quest\032\013.mores.MetaB;Z9github.com/Azat201"
-    "003/summorist-shared/gen/go/mores;moresb"
-    "\006proto3"
+    "\n\021mores/mores.proto\022\005mores\032\034google/api/a"
+    "nnotations.proto\"1\n\rCreateRequest\022\r\n\005tit"
+    "le\030\001 \001(\t\022\021\n\tjwt_token\030\002 \001(\t\":\n\004Meta\022\r\n\005t"
+    "itle\030\001 \001(\t\022\022\n\ncreator_id\030\002 \001(\004\022\017\n\007more_i"
+    "d\030\003 \001(\004\"F\n\014ExchangeData\022\017\n\007more_id\030\001 \001(\004"
+    "\022\022\n\nblock_size\030\002 \001(\r\022\021\n\tjwt_token\030\003 \001(\t\""
+    "G\n\017DownloadRequest\022!\n\004data\030\001 \001(\0132\023.mores"
+    ".ExchangeData\022\021\n\tconverted\030\002 \001(\010\"\\\n\rUplo"
+    "adRequest\022#\n\004data\030\001 \001(\0132\023.mores.Exchange"
+    "DataH\000\022\033\n\004part\030\002 \001(\0132\013.mores.PartH\000B\t\n\007r"
+    "equest\"3\n\rRemoveRequest\022\017\n\007more_id\030\001 \001(\004"
+    "\022\021\n\tjwt_token\030\002 \001(\t\"2\n\004Part\022\016\n\006number\030\001 "
+    "\001(\r\022\014\n\004size\030\002 \001(\r\022\014\n\004data\030\003 \001(\0142\366\002\n\005More"
+    "s\0229\n\013GetFiltered\022\013.mores.Meta\032\013.mores.Me"
+    "ta\"\016\202\323\344\223\002\010\022\006/mores0\001\022`\n\014DownloadMore\022\026.m"
+    "ores.DownloadRequest\032\013.mores.Part\")\202\323\344\223\002"
+    "#\"\036/mores/download/{data.more_id}:\001*0\001\022K"
+    "\n\nUploadMore\022\024.mores.UploadRequest\032\013.mor"
+    "es.Meta\"\030\202\323\344\223\002\022\"\r/mores/upload:\001*(\001\022\?\n\nR"
+    "emoveMore\022\024.mores.RemoveRequest\032\013.mores."
+    "Meta\"\016\202\323\344\223\002\010*\006/mores\022B\n\nCreateMore\022\024.mor"
+    "es.CreateRequest\032\013.mores.Meta\"\021\202\323\344\223\002\013\"\006/"
+    "mores:\001*B;Z9github.com/Azat201003/summor"
+    "ist-shared/gen/go/mores;moresb\006proto3"
+};
+static const ::_pbi::DescriptorTable* PROTOBUF_NONNULL const
+    descriptor_table_mores_2fmores_2eproto_deps[1] = {
+        &::descriptor_table_google_2fapi_2fannotations_2eproto,
 };
 static ::absl::once_flag descriptor_table_mores_2fmores_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_mores_2fmores_2eproto = {
     false,
     false,
-    807,
+    957,
     descriptor_table_protodef_mores_2fmores_2eproto,
     "mores/mores.proto",
     &descriptor_table_mores_2fmores_2eproto_once,
-    nullptr,
-    0,
+    descriptor_table_mores_2fmores_2eproto_deps,
+    1,
     7,
     schemas,
     file_message_globals,

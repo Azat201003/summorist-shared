@@ -7,6 +7,7 @@
 package mores
 
 import (
+	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -443,7 +444,7 @@ var File_mores_mores_proto protoreflect.FileDescriptor
 
 const file_mores_mores_proto_rawDesc = "" +
 	"\n" +
-	"\x11mores/mores.proto\x12\x05mores\"B\n" +
+	"\x11mores/mores.proto\x12\x05mores\x1a\x1cgoogle/api/annotations.proto\"B\n" +
 	"\rCreateRequest\x12\x14\n" +
 	"\x05title\x18\x01 \x01(\tR\x05title\x12\x1b\n" +
 	"\tjwt_token\x18\x02 \x01(\tR\bjwtToken\"T\n" +
@@ -470,16 +471,16 @@ const file_mores_mores_proto_rawDesc = "" +
 	"\x04Part\x12\x16\n" +
 	"\x06number\x18\x01 \x01(\rR\x06number\x12\x12\n" +
 	"\x04size\x18\x02 \x01(\rR\x04size\x12\x12\n" +
-	"\x04data\x18\x03 \x01(\fR\x04data2\xfe\x01\n" +
-	"\x05Mores\x12)\n" +
-	"\vGetFiltered\x12\v.mores.Meta\x1a\v.mores.Meta0\x01\x125\n" +
-	"\fDownloadMore\x12\x16.mores.DownloadRequest\x1a\v.mores.Part0\x01\x121\n" +
+	"\x04data\x18\x03 \x01(\fR\x04data2\xf6\x02\n" +
+	"\x05Mores\x129\n" +
+	"\vGetFiltered\x12\v.mores.Meta\x1a\v.mores.Meta\"\x0e\x82\xd3\xe4\x93\x02\b\x12\x06/mores0\x01\x12`\n" +
+	"\fDownloadMore\x12\x16.mores.DownloadRequest\x1a\v.mores.Part\")\x82\xd3\xe4\x93\x02#:\x01*\"\x1e/mores/download/{data.more_id}0\x01\x12K\n" +
 	"\n" +
-	"UploadMore\x12\x14.mores.UploadRequest\x1a\v.mores.Meta(\x01\x12/\n" +
+	"UploadMore\x12\x14.mores.UploadRequest\x1a\v.mores.Meta\"\x18\x82\xd3\xe4\x93\x02\x12:\x01*\"\r/mores/upload(\x01\x12?\n" +
 	"\n" +
-	"RemoveMore\x12\x14.mores.RemoveRequest\x1a\v.mores.Meta\x12/\n" +
+	"RemoveMore\x12\x14.mores.RemoveRequest\x1a\v.mores.Meta\"\x0e\x82\xd3\xe4\x93\x02\b*\x06/mores\x12B\n" +
 	"\n" +
-	"CreateMore\x12\x14.mores.CreateRequest\x1a\v.mores.MetaB;Z9github.com/Azat201003/summorist-shared/gen/go/mores;moresb\x06proto3"
+	"CreateMore\x12\x14.mores.CreateRequest\x1a\v.mores.Meta\"\x11\x82\xd3\xe4\x93\x02\v:\x01*\"\x06/moresB;Z9github.com/Azat201003/summorist-shared/gen/go/mores;moresb\x06proto3"
 
 var (
 	file_mores_mores_proto_rawDescOnce sync.Once

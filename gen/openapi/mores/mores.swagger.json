@@ -15,8 +15,307 @@
   "produces": [
     "application/json"
   ],
-  "paths": {},
+  "paths": {
+    "/mores": {
+      "get": {
+        "summary": "Get list of metas by filter",
+        "operationId": "Mores_GetFiltered",
+        "responses": {
+          "200": {
+            "description": "A successful response.(streaming responses)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "$ref": "#/definitions/moresMeta"
+                },
+                "error": {
+                  "$ref": "#/definitions/rpcStatus"
+                }
+              },
+              "title": "Stream result of moresMeta"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "title",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "creatorId",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "moreId",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "Mores"
+        ]
+      },
+      "delete": {
+        "summary": "Removing more(mark as removed) by id, if you have permissions, returns meta of deleted more",
+        "operationId": "Mores_RemoveMore",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/moresMeta"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "moreId",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "jwtToken",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Mores"
+        ]
+      },
+      "post": {
+        "summary": "Create more",
+        "operationId": "Mores_CreateMore",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/moresMeta"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/moresCreateRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Mores"
+        ]
+      }
+    },
+    "/mores/download/{data.moreId}": {
+      "post": {
+        "summary": "Downloading by parts, if you have permissions",
+        "operationId": "Mores_DownloadMore",
+        "responses": {
+          "200": {
+            "description": "A successful response.(streaming responses)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "$ref": "#/definitions/moresPart"
+                },
+                "error": {
+                  "$ref": "#/definitions/rpcStatus"
+                }
+              },
+              "title": "Stream result of moresPart"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "data.moreId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MoresDownloadMoreBody"
+            }
+          }
+        ],
+        "tags": [
+          "Mores"
+        ]
+      }
+    },
+    "/mores/upload": {
+      "post": {
+        "summary": "Uploading an existing more, if you have permissions",
+        "operationId": "Mores_UploadMore",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/moresMeta"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": " (streaming inputs)",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/moresUploadRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Mores"
+        ]
+      }
+    }
+  },
   "definitions": {
+    "MoresDownloadMoreBody": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "properties": {
+            "blockSize": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "jwtToken": {
+              "type": "string",
+              "title": "Only for upload"
+            }
+          }
+        },
+        "converted": {
+          "type": "boolean"
+        }
+      }
+    },
+    "moresCreateRequest": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "jwtToken": {
+          "type": "string"
+        }
+      }
+    },
+    "moresExchangeData": {
+      "type": "object",
+      "properties": {
+        "moreId": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "blockSize": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "jwtToken": {
+          "type": "string",
+          "title": "Only for upload"
+        }
+      }
+    },
+    "moresMeta": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "creatorId": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "moreId": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "moresPart": {
+      "type": "object",
+      "properties": {
+        "number": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "moresUploadRequest": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/moresExchangeData",
+          "title": "Only first message"
+        },
+        "part": {
+          "$ref": "#/definitions/moresPart"
+        }
+      }
+    },
     "protobufAny": {
       "type": "object",
       "properties": {

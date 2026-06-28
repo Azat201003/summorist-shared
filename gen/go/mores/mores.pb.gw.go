@@ -35,16 +35,21 @@ var (
 	_ = metadata.Join
 )
 
+var filter_Mores_GetFiltered_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+
 func request_Mores_GetFiltered_0(ctx context.Context, marshaler runtime.Marshaler, client MoresClient, req *http.Request, pathParams map[string]string) (Mores_GetFilteredClient, runtime.ServerMetadata, error) {
 	var (
 		protoReq Meta
 		metadata runtime.ServerMetadata
 	)
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
 	if req.Body != nil {
 		_, _ = io.Copy(io.Discard, req.Body)
+	}
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Mores_GetFiltered_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	stream, err := client.GetFiltered(ctx, &protoReq)
 	if err != nil {
@@ -62,12 +67,21 @@ func request_Mores_DownloadMore_0(ctx context.Context, marshaler runtime.Marshal
 	var (
 		protoReq DownloadRequest
 		metadata runtime.ServerMetadata
+		err      error
 	)
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if req.Body != nil {
 		_, _ = io.Copy(io.Discard, req.Body)
+	}
+	val, ok := pathParams["data.more_id"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "data.more_id")
+	}
+	err = runtime.PopulateFieldFromPath(&protoReq, "data.more_id", val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "data.more_id", err)
 	}
 	stream, err := client.DownloadMore(ctx, &protoReq)
 	if err != nil {
@@ -122,16 +136,21 @@ func request_Mores_UploadMore_0(ctx context.Context, marshaler runtime.Marshaler
 	return msg, metadata, err
 }
 
+var filter_Mores_RemoveMore_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+
 func request_Mores_RemoveMore_0(ctx context.Context, marshaler runtime.Marshaler, client MoresClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var (
 		protoReq RemoveRequest
 		metadata runtime.ServerMetadata
 	)
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
 	if req.Body != nil {
 		_, _ = io.Copy(io.Discard, req.Body)
+	}
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Mores_RemoveMore_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	msg, err := client.RemoveMore(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
@@ -142,7 +161,10 @@ func local_request_Mores_RemoveMore_0(ctx context.Context, marshaler runtime.Mar
 		protoReq RemoveRequest
 		metadata runtime.ServerMetadata
 	)
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Mores_RemoveMore_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	msg, err := server.RemoveMore(ctx, &protoReq)
@@ -182,7 +204,7 @@ func local_request_Mores_CreateMore_0(ctx context.Context, marshaler runtime.Mar
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterMoresHandlerFromEndpoint instead.
 // GRPC interceptors will not work for this type of registration. To use interceptors, you must use the "runtime.WithMiddlewares" option in the "runtime.NewServeMux" call.
 func RegisterMoresHandlerServer(ctx context.Context, mux *runtime.ServeMux, server MoresServer) error {
-	mux.Handle(http.MethodPost, pattern_Mores_GetFiltered_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Mores_GetFiltered_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		err := status.Error(codes.Unimplemented, "streaming calls are not yet supported in the in-process transport")
 		_, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
@@ -202,13 +224,13 @@ func RegisterMoresHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 		runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 		return
 	})
-	mux.Handle(http.MethodPost, pattern_Mores_RemoveMore_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_Mores_RemoveMore_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mores.Mores/RemoveMore", runtime.WithHTTPPathPattern("/mores.Mores/RemoveMore"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mores.Mores/RemoveMore", runtime.WithHTTPPathPattern("/mores"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -228,7 +250,7 @@ func RegisterMoresHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mores.Mores/CreateMore", runtime.WithHTTPPathPattern("/mores.Mores/CreateMore"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mores.Mores/CreateMore", runtime.WithHTTPPathPattern("/mores"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -282,11 +304,11 @@ func RegisterMoresHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
 // "MoresClient" to call the correct interceptors. This client ignores the HTTP middlewares.
 func RegisterMoresHandlerClient(ctx context.Context, mux *runtime.ServeMux, client MoresClient) error {
-	mux.Handle(http.MethodPost, pattern_Mores_GetFiltered_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Mores_GetFiltered_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/mores.Mores/GetFiltered", runtime.WithHTTPPathPattern("/mores.Mores/GetFiltered"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/mores.Mores/GetFiltered", runtime.WithHTTPPathPattern("/mores"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -303,7 +325,7 @@ func RegisterMoresHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/mores.Mores/DownloadMore", runtime.WithHTTPPathPattern("/mores.Mores/DownloadMore"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/mores.Mores/DownloadMore", runtime.WithHTTPPathPattern("/mores/download/{data.more_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -320,7 +342,7 @@ func RegisterMoresHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/mores.Mores/UploadMore", runtime.WithHTTPPathPattern("/mores.Mores/UploadMore"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/mores.Mores/UploadMore", runtime.WithHTTPPathPattern("/mores/upload"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -333,11 +355,11 @@ func RegisterMoresHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 		}
 		forward_Mores_UploadMore_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
-	mux.Handle(http.MethodPost, pattern_Mores_RemoveMore_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_Mores_RemoveMore_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/mores.Mores/RemoveMore", runtime.WithHTTPPathPattern("/mores.Mores/RemoveMore"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/mores.Mores/RemoveMore", runtime.WithHTTPPathPattern("/mores"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -354,7 +376,7 @@ func RegisterMoresHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/mores.Mores/CreateMore", runtime.WithHTTPPathPattern("/mores.Mores/CreateMore"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/mores.Mores/CreateMore", runtime.WithHTTPPathPattern("/mores"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -371,11 +393,11 @@ func RegisterMoresHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 }
 
 var (
-	pattern_Mores_GetFiltered_0  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"mores.Mores", "GetFiltered"}, ""))
-	pattern_Mores_DownloadMore_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"mores.Mores", "DownloadMore"}, ""))
-	pattern_Mores_UploadMore_0   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"mores.Mores", "UploadMore"}, ""))
-	pattern_Mores_RemoveMore_0   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"mores.Mores", "RemoveMore"}, ""))
-	pattern_Mores_CreateMore_0   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"mores.Mores", "CreateMore"}, ""))
+	pattern_Mores_GetFiltered_0  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"mores"}, ""))
+	pattern_Mores_DownloadMore_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"mores", "download", "data.more_id"}, ""))
+	pattern_Mores_UploadMore_0   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"mores", "upload"}, ""))
+	pattern_Mores_RemoveMore_0   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"mores"}, ""))
+	pattern_Mores_CreateMore_0   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"mores"}, ""))
 )
 
 var (
