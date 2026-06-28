@@ -1,6 +1,7 @@
 PROTO_DIR := proto
 GEN_GO_DIR := gen/go
 GEN_CPP_DIR := gen/cpp
+GEN_TYPESCRIPT_DIR := gen/typescript
 GEN_OPENAPI_DIR := gen/openapi
 PROTO_FILES := $(shell find $(PROTO_DIR) -name '*.proto')
 INCLUDE_DIR := /usr/include
@@ -28,7 +29,11 @@ gen-proto: $(PROTO_FILES)
     --grpc-gateway_opt=generate_unbound_methods=true \
     --openapiv2_out=$(GEN_OPENAPI_DIR) \
     $(PROTO_FILES)
-	
+	@mkdir -p $(GEN_TYPESCRIPT_DIR)
+	protoc -I $(PROTO_DIR) -I $(INCLUDE_DIR) \
+		--grpc-gateway-ts_out=ts_import_roots=$(GEN_TYPESCRIPT_DIR),ts_import_root_aliases=base:$(GEN_TYPESCRIPT_DIR) \
+		$(PROTO_FILES)
+
 	scripts/gen-mocks.sh
 	
 	@echo "✓ Proto files generated"
