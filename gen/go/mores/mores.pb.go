@@ -262,7 +262,7 @@ func (x *DownloadRequest) GetConverted() bool {
 	return false
 }
 
-type GetFilteredRequest struct {
+type Filter struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Query         string                 `protobuf:"bytes,1,opt,name=query,proto3" json:"query,omitempty"`
 	CreatorId     uint64                 `protobuf:"varint,2,opt,name=creator_id,json=creatorId,proto3" json:"creator_id,omitempty"`
@@ -271,20 +271,20 @@ type GetFilteredRequest struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *GetFilteredRequest) Reset() {
-	*x = GetFilteredRequest{}
+func (x *Filter) Reset() {
+	*x = Filter{}
 	mi := &file_mores_mores_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *GetFilteredRequest) String() string {
+func (x *Filter) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetFilteredRequest) ProtoMessage() {}
+func (*Filter) ProtoMessage() {}
 
-func (x *GetFilteredRequest) ProtoReflect() protoreflect.Message {
+func (x *Filter) ProtoReflect() protoreflect.Message {
 	mi := &file_mores_mores_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -296,26 +296,26 @@ func (x *GetFilteredRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetFilteredRequest.ProtoReflect.Descriptor instead.
-func (*GetFilteredRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use Filter.ProtoReflect.Descriptor instead.
+func (*Filter) Descriptor() ([]byte, []int) {
 	return file_mores_mores_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *GetFilteredRequest) GetQuery() string {
+func (x *Filter) GetQuery() string {
 	if x != nil {
 		return x.Query
 	}
 	return ""
 }
 
-func (x *GetFilteredRequest) GetCreatorId() uint64 {
+func (x *Filter) GetCreatorId() uint64 {
 	if x != nil {
 		return x.CreatorId
 	}
 	return 0
 }
 
-func (x *GetFilteredRequest) GetMoreId() uint64 {
+func (x *Filter) GetMoreId() uint64 {
 	if x != nil {
 		return x.MoreId
 	}
@@ -538,8 +538,8 @@ const file_mores_mores_proto_rawDesc = "" +
 	"\tjwt_token\x18\x03 \x01(\tR\bjwtToken\"X\n" +
 	"\x0fDownloadRequest\x12'\n" +
 	"\x04data\x18\x01 \x01(\v2\x13.mores.ExchangeDataR\x04data\x12\x1c\n" +
-	"\tconverted\x18\x02 \x01(\bR\tconverted\"b\n" +
-	"\x12GetFilteredRequest\x12\x14\n" +
+	"\tconverted\x18\x02 \x01(\bR\tconverted\"V\n" +
+	"\x06Filter\x12\x14\n" +
 	"\x05query\x18\x01 \x01(\tR\x05query\x12\x1d\n" +
 	"\n" +
 	"creator_id\x18\x02 \x01(\x04R\tcreatorId\x12\x17\n" +
@@ -554,9 +554,9 @@ const file_mores_mores_proto_rawDesc = "" +
 	"\x04Part\x12\x16\n" +
 	"\x06number\x18\x01 \x01(\rR\x06number\x12\x12\n" +
 	"\x04size\x18\x02 \x01(\rR\x04size\x12\x12\n" +
-	"\x04data\x18\x03 \x01(\fR\x04data2\x84\x03\n" +
-	"\x05Mores\x12G\n" +
-	"\vGetFiltered\x12\x19.mores.GetFilteredRequest\x1a\v.mores.Meta\"\x0e\x82\xd3\xe4\x93\x02\b\x12\x06/mores0\x01\x12`\n" +
+	"\x04data\x18\x03 \x01(\fR\x04data2\xf8\x02\n" +
+	"\x05Mores\x12;\n" +
+	"\vGetFiltered\x12\r.mores.Filter\x1a\v.mores.Meta\"\x0e\x82\xd3\xe4\x93\x02\b\x12\x06/mores0\x01\x12`\n" +
 	"\fDownloadMore\x12\x16.mores.DownloadRequest\x1a\v.mores.Part\")\x82\xd3\xe4\x93\x02#:\x01*\"\x1e/mores/download/{data.more_id}0\x01\x12K\n" +
 	"\n" +
 	"UploadMore\x12\x14.mores.UploadRequest\x1a\v.mores.Meta\"\x18\x82\xd3\xe4\x93\x02\x12:\x01*\"\r/mores/upload(\x01\x12?\n" +
@@ -579,20 +579,20 @@ func file_mores_mores_proto_rawDescGZIP() []byte {
 
 var file_mores_mores_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_mores_mores_proto_goTypes = []any{
-	(*CreateRequest)(nil),      // 0: mores.CreateRequest
-	(*Meta)(nil),               // 1: mores.Meta
-	(*ExchangeData)(nil),       // 2: mores.ExchangeData
-	(*DownloadRequest)(nil),    // 3: mores.DownloadRequest
-	(*GetFilteredRequest)(nil), // 4: mores.GetFilteredRequest
-	(*UploadRequest)(nil),      // 5: mores.UploadRequest
-	(*RemoveRequest)(nil),      // 6: mores.RemoveRequest
-	(*Part)(nil),               // 7: mores.Part
+	(*CreateRequest)(nil),   // 0: mores.CreateRequest
+	(*Meta)(nil),            // 1: mores.Meta
+	(*ExchangeData)(nil),    // 2: mores.ExchangeData
+	(*DownloadRequest)(nil), // 3: mores.DownloadRequest
+	(*Filter)(nil),          // 4: mores.Filter
+	(*UploadRequest)(nil),   // 5: mores.UploadRequest
+	(*RemoveRequest)(nil),   // 6: mores.RemoveRequest
+	(*Part)(nil),            // 7: mores.Part
 }
 var file_mores_mores_proto_depIdxs = []int32{
 	2, // 0: mores.DownloadRequest.data:type_name -> mores.ExchangeData
 	2, // 1: mores.UploadRequest.data:type_name -> mores.ExchangeData
 	7, // 2: mores.UploadRequest.part:type_name -> mores.Part
-	4, // 3: mores.Mores.GetFiltered:input_type -> mores.GetFilteredRequest
+	4, // 3: mores.Mores.GetFiltered:input_type -> mores.Filter
 	3, // 4: mores.Mores.DownloadMore:input_type -> mores.DownloadRequest
 	5, // 5: mores.Mores.UploadMore:input_type -> mores.UploadRequest
 	6, // 6: mores.Mores.RemoveMore:input_type -> mores.RemoveRequest

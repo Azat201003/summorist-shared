@@ -83,7 +83,7 @@ func (mr *MockMoresClientMockRecorder) DownloadMore(ctx, in any, opts ...any) *g
 }
 
 // GetFiltered mocks base method.
-func (m *MockMoresClient) GetFiltered(ctx context.Context, in *mores.GetFilteredRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[mores.Meta], error) {
+func (m *MockMoresClient) GetFiltered(ctx context.Context, in *mores.Filter, opts ...grpc.CallOption) (grpc.ServerStreamingClient[mores.Meta], error) {
 	m.ctrl.T.Helper()
 	varargs := []any{ctx, in}
 	for _, a := range opts {
@@ -196,7 +196,7 @@ func (mr *MockMoresServerMockRecorder) DownloadMore(arg0, arg1 any) *gomock.Call
 }
 
 // GetFiltered mocks base method.
-func (m *MockMoresServer) GetFiltered(arg0 *mores.GetFilteredRequest, arg1 grpc.ServerStreamingServer[mores.Meta]) error {
+func (m *MockMoresServer) GetFiltered(arg0 *mores.Filter, arg1 grpc.ServerStreamingServer[mores.Meta]) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetFiltered", arg0, arg1)
 	ret0, _ := ret[0].(error)

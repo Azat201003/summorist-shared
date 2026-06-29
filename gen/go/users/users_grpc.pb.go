@@ -41,7 +41,7 @@ type UsersClient interface {
 	// Creating new user
 	SignUp(ctx context.Context, in *User, opts ...grpc.CallOption) (*StatusResponse, error)
 	// Getting list of users with filter, with permissions
-	GetFiltered(ctx context.Context, in *GetFilteredRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[User], error)
+	GetFiltered(ctx context.Context, in *Filter, opts ...grpc.CallOption) (grpc.ServerStreamingClient[User], error)
 	// Change user, if you have permissions
 	UpdateUser(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*StatusResponse, error)
 	// Remove user by id, if you have permissions
@@ -96,13 +96,13 @@ func (c *usersClient) SignUp(ctx context.Context, in *User, opts ...grpc.CallOpt
 	return out, nil
 }
 
-func (c *usersClient) GetFiltered(ctx context.Context, in *GetFilteredRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[User], error) {
+func (c *usersClient) GetFiltered(ctx context.Context, in *Filter, opts ...grpc.CallOption) (grpc.ServerStreamingClient[User], error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	stream, err := c.cc.NewStream(ctx, &Users_ServiceDesc.Streams[0], Users_GetFiltered_FullMethodName, cOpts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &grpc.GenericClientStream[GetFilteredRequest, User]{ClientStream: stream}
+	x := &grpc.GenericClientStream[Filter, User]{ClientStream: stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -148,7 +148,7 @@ type UsersServer interface {
 	// Creating new user
 	SignUp(context.Context, *User) (*StatusResponse, error)
 	// Getting list of users with filter, with permissions
-	GetFiltered(*GetFilteredRequest, grpc.ServerStreamingServer[User]) error
+	GetFiltered(*Filter, grpc.ServerStreamingServer[User]) error
 	// Change user, if you have permissions
 	UpdateUser(context.Context, *UpdateRequest) (*StatusResponse, error)
 	// Remove user by id, if you have permissions
@@ -175,7 +175,7 @@ func (UnimplementedUsersServer) RefreshTokens(context.Context, *RefreshRequest) 
 func (UnimplementedUsersServer) SignUp(context.Context, *User) (*StatusResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method SignUp not implemented")
 }
-func (UnimplementedUsersServer) GetFiltered(*GetFilteredRequest, grpc.ServerStreamingServer[User]) error {
+func (UnimplementedUsersServer) GetFiltered(*Filter, grpc.ServerStreamingServer[User]) error {
 	return status.Error(codes.Unimplemented, "method GetFiltered not implemented")
 }
 func (UnimplementedUsersServer) UpdateUser(context.Context, *UpdateRequest) (*StatusResponse, error) {
@@ -278,11 +278,11 @@ func _Users_SignUp_Handler(srv interface{}, ctx context.Context, dec func(interf
 }
 
 func _Users_GetFiltered_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(GetFilteredRequest)
+	m := new(Filter)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(UsersServer).GetFiltered(m, &grpc.GenericServerStream[GetFilteredRequest, User]{ServerStream: stream})
+	return srv.(UsersServer).GetFiltered(m, &grpc.GenericServerStream[Filter, User]{ServerStream: stream})
 }
 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.

@@ -41,7 +41,7 @@ export type UpdateRequest = {
   jwtToken?: string
 }
 
-export type GetFilteredRequest = {
+export type Filter = {
   query?: string
   userId?: string
   isAdmin?: boolean
@@ -83,8 +83,8 @@ export class Users {
   static SignUp(req: User, initReq?: fm.InitReq): Promise<StatusResponse> {
     return fm.fetchReq<User, StatusResponse>(`/users.Users/SignUp`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})
   }
-  static GetFiltered(req: GetFilteredRequest, entityNotifier?: fm.NotifyStreamEntityArrival<User>, initReq?: fm.InitReq): Promise<void> {
-    return fm.fetchStreamingRequest<GetFilteredRequest, User>(`/users.Users/GetFiltered`, entityNotifier, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})
+  static GetFiltered(req: Filter, entityNotifier?: fm.NotifyStreamEntityArrival<User>, initReq?: fm.InitReq): Promise<void> {
+    return fm.fetchStreamingRequest<Filter, User>(`/users.Users/GetFiltered`, entityNotifier, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})
   }
   static UpdateUser(req: UpdateRequest, initReq?: fm.InitReq): Promise<StatusResponse> {
     return fm.fetchReq<UpdateRequest, StatusResponse>(`/users.Users/UpdateUser`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})

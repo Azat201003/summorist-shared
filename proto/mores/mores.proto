@@ -7,7 +7,7 @@ import "google/api/annotations.proto";
 
 service Mores {
   // Get list of metas by filter
-  rpc GetFiltered(GetFilteredRequest) returns (stream Meta) {
+  rpc GetFiltered(Filter) returns (stream Meta) {
     option (google.api.http) = {
       get: "/mores"
     };
@@ -65,7 +65,7 @@ message DownloadRequest {
 	bool converted = 2;
 }
 
-message GetFilteredRequest {
+message Filter {
 	string query = 1;
 	uint64 creator_id = 2;
 	uint64 more_id = 3;

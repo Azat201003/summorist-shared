@@ -15,7 +15,7 @@ service Users {
   // Creating new user
   rpc SignUp(User) returns (StatusResponse);
   // Getting list of users with filter, with permissions
-  rpc GetFiltered(GetFilteredRequest) returns (stream User);
+  rpc GetFiltered(Filter) returns (stream User);
   // Change user, if you have permissions
   rpc UpdateUser(UpdateRequest) returns (StatusResponse); 
   // Remove user by id, if you have permissions
@@ -67,7 +67,7 @@ message UpdateRequest {
 
 
 // GetFiltered
-message GetFilteredRequest {
+message Filter {
   string query = 1;
   uint64 user_id = 2;
   bool is_admin = 3;

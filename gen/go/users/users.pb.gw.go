@@ -145,7 +145,7 @@ func local_request_Users_SignUp_0(ctx context.Context, marshaler runtime.Marshal
 
 func request_Users_GetFiltered_0(ctx context.Context, marshaler runtime.Marshaler, client UsersClient, req *http.Request, pathParams map[string]string) (Users_GetFilteredClient, runtime.ServerMetadata, error) {
 	var (
-		protoReq GetFilteredRequest
+		protoReq Filter
 		metadata runtime.ServerMetadata
 	)
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {

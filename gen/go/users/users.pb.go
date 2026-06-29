@@ -399,7 +399,7 @@ func (x *UpdateRequest) GetJwtToken() string {
 }
 
 // GetFiltered
-type GetFilteredRequest struct {
+type Filter struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Query         string                 `protobuf:"bytes,1,opt,name=query,proto3" json:"query,omitempty"`
 	UserId        uint64                 `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
@@ -409,20 +409,20 @@ type GetFilteredRequest struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *GetFilteredRequest) Reset() {
-	*x = GetFilteredRequest{}
+func (x *Filter) Reset() {
+	*x = Filter{}
 	mi := &file_users_users_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *GetFilteredRequest) String() string {
+func (x *Filter) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetFilteredRequest) ProtoMessage() {}
+func (*Filter) ProtoMessage() {}
 
-func (x *GetFilteredRequest) ProtoReflect() protoreflect.Message {
+func (x *Filter) ProtoReflect() protoreflect.Message {
 	mi := &file_users_users_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -434,33 +434,33 @@ func (x *GetFilteredRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetFilteredRequest.ProtoReflect.Descriptor instead.
-func (*GetFilteredRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use Filter.ProtoReflect.Descriptor instead.
+func (*Filter) Descriptor() ([]byte, []int) {
 	return file_users_users_proto_rawDescGZIP(), []int{7}
 }
 
-func (x *GetFilteredRequest) GetQuery() string {
+func (x *Filter) GetQuery() string {
 	if x != nil {
 		return x.Query
 	}
 	return ""
 }
 
-func (x *GetFilteredRequest) GetUserId() uint64 {
+func (x *Filter) GetUserId() uint64 {
 	if x != nil {
 		return x.UserId
 	}
 	return 0
 }
 
-func (x *GetFilteredRequest) GetIsAdmin() bool {
+func (x *Filter) GetIsAdmin() bool {
 	if x != nil {
 		return x.IsAdmin
 	}
 	return false
 }
 
-func (x *GetFilteredRequest) GetJwtToken() string {
+func (x *Filter) GetJwtToken() string {
 	if x != nil {
 		return x.JwtToken
 	}
@@ -720,8 +720,8 @@ const file_users_users_proto_rawDesc = "" +
 	"\x04code\x18\x03 \x01(\x05R\x04code\"M\n" +
 	"\rUpdateRequest\x12\x1f\n" +
 	"\x04user\x18\x01 \x01(\v2\v.users.UserR\x04user\x12\x1b\n" +
-	"\tjwt_token\x18\x02 \x01(\tR\bjwtToken\"{\n" +
-	"\x12GetFilteredRequest\x12\x14\n" +
+	"\tjwt_token\x18\x02 \x01(\tR\bjwtToken\"o\n" +
+	"\x06Filter\x12\x14\n" +
 	"\x05query\x18\x01 \x01(\tR\x05query\x12\x17\n" +
 	"\auser_id\x18\x02 \x01(\x04R\x06userId\x12\x19\n" +
 	"\bis_admin\x18\x03 \x01(\bR\aisAdmin\x12\x1b\n" +
@@ -740,13 +740,13 @@ const file_users_users_proto_rawDesc = "" +
 	"refresh_id\x18\x01 \x01(\x04R\trefreshId\x12#\n" +
 	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"$\n" +
 	"\x0eStatusResponse\x12\x12\n" +
-	"\x04code\x18\x01 \x01(\x05R\x04code2\x91\x03\n" +
+	"\x04code\x18\x01 \x01(\x05R\x04code2\x85\x03\n" +
 	"\x05Users\x125\n" +
 	"\x06SignIn\x12\x14.users.SignInRequest\x1a\x15.users.SignInResponse\x124\n" +
 	"\tAuthorize\x12\x12.users.AuthRequest\x1a\x13.users.AuthResponse\x12>\n" +
 	"\rRefreshTokens\x12\x15.users.RefreshRequest\x1a\x16.users.RefreshResponse\x12,\n" +
-	"\x06SignUp\x12\v.users.User\x1a\x15.users.StatusResponse\x127\n" +
-	"\vGetFiltered\x12\x19.users.GetFilteredRequest\x1a\v.users.User0\x01\x129\n" +
+	"\x06SignUp\x12\v.users.User\x1a\x15.users.StatusResponse\x12+\n" +
+	"\vGetFiltered\x12\r.users.Filter\x1a\v.users.User0\x01\x129\n" +
 	"\n" +
 	"UpdateUser\x12\x14.users.UpdateRequest\x1a\x15.users.StatusResponse\x129\n" +
 	"\n" +
@@ -766,18 +766,18 @@ func file_users_users_proto_rawDescGZIP() []byte {
 
 var file_users_users_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_users_users_proto_goTypes = []any{
-	(*SignInRequest)(nil),      // 0: users.SignInRequest
-	(*SignInResponse)(nil),     // 1: users.SignInResponse
-	(*AuthRequest)(nil),        // 2: users.AuthRequest
-	(*AuthResponse)(nil),       // 3: users.AuthResponse
-	(*RefreshRequest)(nil),     // 4: users.RefreshRequest
-	(*RefreshResponse)(nil),    // 5: users.RefreshResponse
-	(*UpdateRequest)(nil),      // 6: users.UpdateRequest
-	(*GetFilteredRequest)(nil), // 7: users.GetFilteredRequest
-	(*RemoveRequest)(nil),      // 8: users.RemoveRequest
-	(*User)(nil),               // 9: users.User
-	(*RefreshToken)(nil),       // 10: users.RefreshToken
-	(*StatusResponse)(nil),     // 11: users.StatusResponse
+	(*SignInRequest)(nil),   // 0: users.SignInRequest
+	(*SignInResponse)(nil),  // 1: users.SignInResponse
+	(*AuthRequest)(nil),     // 2: users.AuthRequest
+	(*AuthResponse)(nil),    // 3: users.AuthResponse
+	(*RefreshRequest)(nil),  // 4: users.RefreshRequest
+	(*RefreshResponse)(nil), // 5: users.RefreshResponse
+	(*UpdateRequest)(nil),   // 6: users.UpdateRequest
+	(*Filter)(nil),          // 7: users.Filter
+	(*RemoveRequest)(nil),   // 8: users.RemoveRequest
+	(*User)(nil),            // 9: users.User
+	(*RefreshToken)(nil),    // 10: users.RefreshToken
+	(*StatusResponse)(nil),  // 11: users.StatusResponse
 }
 var file_users_users_proto_depIdxs = []int32{
 	9,  // 0: users.UpdateRequest.user:type_name -> users.User
@@ -785,7 +785,7 @@ var file_users_users_proto_depIdxs = []int32{
 	2,  // 2: users.Users.Authorize:input_type -> users.AuthRequest
 	4,  // 3: users.Users.RefreshTokens:input_type -> users.RefreshRequest
 	9,  // 4: users.Users.SignUp:input_type -> users.User
-	7,  // 5: users.Users.GetFiltered:input_type -> users.GetFilteredRequest
+	7,  // 5: users.Users.GetFiltered:input_type -> users.Filter
 	6,  // 6: users.Users.UpdateUser:input_type -> users.UpdateRequest
 	8,  // 7: users.Users.RemoveUser:input_type -> users.RemoveRequest
 	1,  // 8: users.Users.SignIn:output_type -> users.SignInResponse

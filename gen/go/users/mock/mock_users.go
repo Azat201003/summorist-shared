@@ -63,7 +63,7 @@ func (mr *MockUsersClientMockRecorder) Authorize(ctx, in any, opts ...any) *gomo
 }
 
 // GetFiltered mocks base method.
-func (m *MockUsersClient) GetFiltered(ctx context.Context, in *users.GetFilteredRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[users.User], error) {
+func (m *MockUsersClient) GetFiltered(ctx context.Context, in *users.Filter, opts ...grpc.CallOption) (grpc.ServerStreamingClient[users.User], error) {
 	m.ctrl.T.Helper()
 	varargs := []any{ctx, in}
 	for _, a := range opts {
@@ -222,7 +222,7 @@ func (mr *MockUsersServerMockRecorder) Authorize(arg0, arg1 any) *gomock.Call {
 }
 
 // GetFiltered mocks base method.
-func (m *MockUsersServer) GetFiltered(arg0 *users.GetFilteredRequest, arg1 grpc.ServerStreamingServer[users.User]) error {
+func (m *MockUsersServer) GetFiltered(arg0 *users.Filter, arg1 grpc.ServerStreamingServer[users.User]) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetFiltered", arg0, arg1)
 	ret0, _ := ret[0].(error)
