@@ -7,7 +7,7 @@ import "google/api/annotations.proto";
 
 service Mores {
   // Get list of metas by filter
-  rpc GetFiltered(Meta) returns (stream Meta) {
+  rpc GetFiltered(GetFilteredRequest) returns (stream Meta) {
     option (google.api.http) = {
       get: "/mores"
     };
@@ -42,42 +42,50 @@ service Mores {
 }
 
 message CreateRequest {
-        string title = 1;
-        string jwt_token = 2;
+  string title = 1;
+  string descripiton = 2;
+  string jwt_token = 3;
 }
 
 message Meta {
-        string title = 1;
-        uint64 creator_id = 2;
-        uint64 more_id = 3;
+	string title = 1;
+	string descripiton = 2;
+	uint64 creator_id = 3;
+	uint64 more_id = 4;
 }
 
 message ExchangeData {
-        uint64 more_id = 1;
-        uint32 block_size = 2;
-        string jwt_token = 3; // Only for upload
+	uint64 more_id = 1;
+	uint32 block_size = 2;
+	string jwt_token = 3; // Only for upload
 }
 
 message DownloadRequest {
-        ExchangeData data = 1;
-        bool converted = 2;
+	ExchangeData data = 1;
+	bool converted = 2;
+}
+
+message GetFilteredRequest {
+	string query = 1;
+	uint64 creator_id = 2;
+	uint64 more_id = 3;
 }
 
 message UploadRequest {
-        oneof request {
-                ExchangeData data = 1; // Only first message
-                Part part = 2;
-        }
+	oneof request {
+		ExchangeData data = 1; // Only first message
+		Part part = 2;
+	}
 }
 
 message RemoveRequest {
-        uint64 more_id = 1;     
-        string jwt_token = 2;
+	uint64 more_id = 1;     
+	string jwt_token = 2;
 }
 
 message Part {
-        uint32 number = 1;
-        uint32 size = 2;
-        bytes data = 3;
+	uint32 number = 1;
+	uint32 size = 2;
+	bytes data = 3;
 }
 

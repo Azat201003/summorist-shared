@@ -42,7 +42,9 @@ export type UpdateRequest = {
 }
 
 export type GetFilteredRequest = {
-  filter?: User
+  query?: string
+  userId?: string
+  isAdmin?: boolean
   jwtToken?: string
 }
 

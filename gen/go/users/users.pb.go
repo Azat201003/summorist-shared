@@ -401,8 +401,10 @@ func (x *UpdateRequest) GetJwtToken() string {
 // GetFiltered
 type GetFilteredRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Filter        *User                  `protobuf:"bytes,1,opt,name=filter,proto3" json:"filter,omitempty"`
-	JwtToken      string                 `protobuf:"bytes,2,opt,name=jwt_token,json=jwtToken,proto3" json:"jwt_token,omitempty"`
+	Query         string                 `protobuf:"bytes,1,opt,name=query,proto3" json:"query,omitempty"`
+	UserId        uint64                 `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	IsAdmin       bool                   `protobuf:"varint,3,opt,name=is_admin,json=isAdmin,proto3" json:"is_admin,omitempty"`
+	JwtToken      string                 `protobuf:"bytes,4,opt,name=jwt_token,json=jwtToken,proto3" json:"jwt_token,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -437,11 +439,25 @@ func (*GetFilteredRequest) Descriptor() ([]byte, []int) {
 	return file_users_users_proto_rawDescGZIP(), []int{7}
 }
 
-func (x *GetFilteredRequest) GetFilter() *User {
+func (x *GetFilteredRequest) GetQuery() string {
 	if x != nil {
-		return x.Filter
+		return x.Query
 	}
-	return nil
+	return ""
+}
+
+func (x *GetFilteredRequest) GetUserId() uint64 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+func (x *GetFilteredRequest) GetIsAdmin() bool {
+	if x != nil {
+		return x.IsAdmin
+	}
+	return false
 }
 
 func (x *GetFilteredRequest) GetJwtToken() string {
@@ -704,10 +720,12 @@ const file_users_users_proto_rawDesc = "" +
 	"\x04code\x18\x03 \x01(\x05R\x04code\"M\n" +
 	"\rUpdateRequest\x12\x1f\n" +
 	"\x04user\x18\x01 \x01(\v2\v.users.UserR\x04user\x12\x1b\n" +
-	"\tjwt_token\x18\x02 \x01(\tR\bjwtToken\"V\n" +
-	"\x12GetFilteredRequest\x12#\n" +
-	"\x06filter\x18\x01 \x01(\v2\v.users.UserR\x06filter\x12\x1b\n" +
-	"\tjwt_token\x18\x02 \x01(\tR\bjwtToken\"E\n" +
+	"\tjwt_token\x18\x02 \x01(\tR\bjwtToken\"{\n" +
+	"\x12GetFilteredRequest\x12\x14\n" +
+	"\x05query\x18\x01 \x01(\tR\x05query\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\x04R\x06userId\x12\x19\n" +
+	"\bis_admin\x18\x03 \x01(\bR\aisAdmin\x12\x1b\n" +
+	"\tjwt_token\x18\x04 \x01(\tR\bjwtToken\"E\n" +
 	"\rRemoveRequest\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\x04R\x06userId\x12\x1b\n" +
 	"\tjwt_token\x18\x02 \x01(\tR\bjwtToken\"\xde\x01\n" +
@@ -763,26 +781,25 @@ var file_users_users_proto_goTypes = []any{
 }
 var file_users_users_proto_depIdxs = []int32{
 	9,  // 0: users.UpdateRequest.user:type_name -> users.User
-	9,  // 1: users.GetFilteredRequest.filter:type_name -> users.User
-	0,  // 2: users.Users.SignIn:input_type -> users.SignInRequest
-	2,  // 3: users.Users.Authorize:input_type -> users.AuthRequest
-	4,  // 4: users.Users.RefreshTokens:input_type -> users.RefreshRequest
-	9,  // 5: users.Users.SignUp:input_type -> users.User
-	7,  // 6: users.Users.GetFiltered:input_type -> users.GetFilteredRequest
-	6,  // 7: users.Users.UpdateUser:input_type -> users.UpdateRequest
-	8,  // 8: users.Users.RemoveUser:input_type -> users.RemoveRequest
-	1,  // 9: users.Users.SignIn:output_type -> users.SignInResponse
-	3,  // 10: users.Users.Authorize:output_type -> users.AuthResponse
-	5,  // 11: users.Users.RefreshTokens:output_type -> users.RefreshResponse
-	11, // 12: users.Users.SignUp:output_type -> users.StatusResponse
-	9,  // 13: users.Users.GetFiltered:output_type -> users.User
-	11, // 14: users.Users.UpdateUser:output_type -> users.StatusResponse
-	11, // 15: users.Users.RemoveUser:output_type -> users.StatusResponse
-	9,  // [9:16] is the sub-list for method output_type
-	2,  // [2:9] is the sub-list for method input_type
-	2,  // [2:2] is the sub-list for extension type_name
-	2,  // [2:2] is the sub-list for extension extendee
-	0,  // [0:2] is the sub-list for field type_name
+	0,  // 1: users.Users.SignIn:input_type -> users.SignInRequest
+	2,  // 2: users.Users.Authorize:input_type -> users.AuthRequest
+	4,  // 3: users.Users.RefreshTokens:input_type -> users.RefreshRequest
+	9,  // 4: users.Users.SignUp:input_type -> users.User
+	7,  // 5: users.Users.GetFiltered:input_type -> users.GetFilteredRequest
+	6,  // 6: users.Users.UpdateUser:input_type -> users.UpdateRequest
+	8,  // 7: users.Users.RemoveUser:input_type -> users.RemoveRequest
+	1,  // 8: users.Users.SignIn:output_type -> users.SignInResponse
+	3,  // 9: users.Users.Authorize:output_type -> users.AuthResponse
+	5,  // 10: users.Users.RefreshTokens:output_type -> users.RefreshResponse
+	11, // 11: users.Users.SignUp:output_type -> users.StatusResponse
+	9,  // 12: users.Users.GetFiltered:output_type -> users.User
+	11, // 13: users.Users.UpdateUser:output_type -> users.StatusResponse
+	11, // 14: users.Users.RemoveUser:output_type -> users.StatusResponse
+	8,  // [8:15] is the sub-list for method output_type
+	1,  // [1:8] is the sub-list for method input_type
+	1,  // [1:1] is the sub-list for extension type_name
+	1,  // [1:1] is the sub-list for extension extendee
+	0,  // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_users_users_proto_init() }

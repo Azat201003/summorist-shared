@@ -31,7 +31,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type MoresClient interface {
 	// Get list of metas by filter
-	GetFiltered(ctx context.Context, in *Meta, opts ...grpc.CallOption) (grpc.ServerStreamingClient[Meta], error)
+	GetFiltered(ctx context.Context, in *GetFilteredRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[Meta], error)
 	// Downloading by parts, if you have permissions
 	DownloadMore(ctx context.Context, in *DownloadRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[Part], error)
 	// Uploading an existing more, if you have permissions
@@ -50,13 +50,13 @@ func NewMoresClient(cc grpc.ClientConnInterface) MoresClient {
 	return &moresClient{cc}
 }
 
-func (c *moresClient) GetFiltered(ctx context.Context, in *Meta, opts ...grpc.CallOption) (grpc.ServerStreamingClient[Meta], error) {
+func (c *moresClient) GetFiltered(ctx context.Context, in *GetFilteredRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[Meta], error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	stream, err := c.cc.NewStream(ctx, &Mores_ServiceDesc.Streams[0], Mores_GetFiltered_FullMethodName, cOpts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &grpc.GenericClientStream[Meta, Meta]{ClientStream: stream}
+	x := &grpc.GenericClientStream[GetFilteredRequest, Meta]{ClientStream: stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -126,7 +126,7 @@ func (c *moresClient) CreateMore(ctx context.Context, in *CreateRequest, opts ..
 // for forward compatibility.
 type MoresServer interface {
 	// Get list of metas by filter
-	GetFiltered(*Meta, grpc.ServerStreamingServer[Meta]) error
+	GetFiltered(*GetFilteredRequest, grpc.ServerStreamingServer[Meta]) error
 	// Downloading by parts, if you have permissions
 	DownloadMore(*DownloadRequest, grpc.ServerStreamingServer[Part]) error
 	// Uploading an existing more, if you have permissions
@@ -145,7 +145,7 @@ type MoresServer interface {
 // pointer dereference when methods are called.
 type UnimplementedMoresServer struct{}
 
-func (UnimplementedMoresServer) GetFiltered(*Meta, grpc.ServerStreamingServer[Meta]) error {
+func (UnimplementedMoresServer) GetFiltered(*GetFilteredRequest, grpc.ServerStreamingServer[Meta]) error {
 	return status.Error(codes.Unimplemented, "method GetFiltered not implemented")
 }
 func (UnimplementedMoresServer) DownloadMore(*DownloadRequest, grpc.ServerStreamingServer[Part]) error {
@@ -182,11 +182,11 @@ func RegisterMoresServer(s grpc.ServiceRegistrar, srv MoresServer) {
 }
 
 func _Mores_GetFiltered_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(Meta)
+	m := new(GetFilteredRequest)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(MoresServer).GetFiltered(m, &grpc.GenericServerStream[Meta, Meta]{ServerStream: stream})
+	return srv.(MoresServer).GetFiltered(m, &grpc.GenericServerStream[GetFilteredRequest, Meta]{ServerStream: stream})
 }
 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.

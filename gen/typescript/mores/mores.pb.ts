@@ -16,11 +16,13 @@ type OneOf<T> =
     : never);
 export type CreateRequest = {
   title?: string
+  descripiton?: string
   jwtToken?: string
 }
 
 export type Meta = {
   title?: string
+  descripiton?: string
   creatorId?: string
   moreId?: string
 }
@@ -34,6 +36,12 @@ export type ExchangeData = {
 export type DownloadRequest = {
   data?: ExchangeData
   converted?: boolean
+}
+
+export type GetFilteredRequest = {
+  query?: string
+  creatorId?: string
+  moreId?: string
 }
 
 
@@ -55,8 +63,8 @@ export type Part = {
 }
 
 export class Mores {
-  static GetFiltered(req: Meta, entityNotifier?: fm.NotifyStreamEntityArrival<Meta>, initReq?: fm.InitReq): Promise<void> {
-    return fm.fetchStreamingRequest<Meta, Meta>(`/mores?${fm.renderURLSearchParams(req, [])}`, entityNotifier, {...initReq, method: "GET"})
+  static GetFiltered(req: GetFilteredRequest, entityNotifier?: fm.NotifyStreamEntityArrival<Meta>, initReq?: fm.InitReq): Promise<void> {
+    return fm.fetchStreamingRequest<GetFilteredRequest, Meta>(`/mores?${fm.renderURLSearchParams(req, [])}`, entityNotifier, {...initReq, method: "GET"})
   }
   static DownloadMore(req: DownloadRequest, entityNotifier?: fm.NotifyStreamEntityArrival<Part>, initReq?: fm.InitReq): Promise<void> {
     return fm.fetchStreamingRequest<DownloadRequest, Part>(`/mores/download/${req["dataMoreId"]}`, entityNotifier, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})

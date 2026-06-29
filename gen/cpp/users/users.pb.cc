@@ -1322,6 +1322,176 @@ const ::_pbi::ClassData* RefreshRequest_get_class_data() {
 }
 }  // namespace
 #endif  // PROTOBUF_CUSTOM_VTABLE
+class GetFilteredRequest::_Internal {
+ public:
+  using HasBits = decltype(::std::declval<GetFilteredRequest>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+      8 * PROTOBUF_FIELD_OFFSET(GetFilteredRequest, _impl_._has_bits_);
+};
+
+constexpr GetFilteredRequest::ParseTableT_ GetFilteredRequest::InternalGenerateParseTable_(const ::_pbi::ClassData* class_data) {
+  return ParseTableT_{
+    {
+      PROTOBUF_FIELD_OFFSET(GetFilteredRequest, _impl_._has_bits_),
+      0, // no _extensions_
+      4, 24,  // max_field_number, fast_idx_mask
+      offsetof(ParseTableT_, field_lookup_table),
+      4294967280,  // skipmap
+      offsetof(ParseTableT_, field_entries),
+      4,  // num_field_entries
+      0,  // num_aux_entries
+      offsetof(ParseTableT_, field_names),  // no aux_entries
+      class_data,
+      nullptr,  // post_loop_handler
+      ::_pbi::TcParser::GenericFallback,  // fallback
+      #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+      ::_pbi::TcParser::GetTable<::users::GetFilteredRequest>(),  // to_prefetch
+      #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+    }, {{
+      // string jwt_token = 4;
+      {::_pbi::TcParser::FastUS1,
+       {34, 1, 0,
+        PROTOBUF_FIELD_OFFSET(GetFilteredRequest, _impl_.jwt_token_)}},
+      // string query = 1;
+      {::_pbi::TcParser::FastUS1,
+       {10, 0, 0,
+        PROTOBUF_FIELD_OFFSET(GetFilteredRequest, _impl_.query_)}},
+      // uint64 user_id = 2;
+      {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(GetFilteredRequest, _impl_.user_id_), 2>(),
+       {16, 2, 0,
+        PROTOBUF_FIELD_OFFSET(GetFilteredRequest, _impl_.user_id_)}},
+      // bool is_admin = 3;
+      {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(GetFilteredRequest, _impl_.is_admin_), 3>(),
+       {24, 3, 0,
+        PROTOBUF_FIELD_OFFSET(GetFilteredRequest, _impl_.is_admin_)}},
+    }}, {{
+      65535, 65535
+    }}, {{
+      // string query = 1;
+      {PROTOBUF_FIELD_OFFSET(GetFilteredRequest, _impl_.query_), _Internal::kHasBitsOffset + 0, 0, (0 | ::_fl::kFcOptional | ::_fl::kUtf8String | ::_fl::kRepAString)},
+      // uint64 user_id = 2;
+      {PROTOBUF_FIELD_OFFSET(GetFilteredRequest, _impl_.user_id_), _Internal::kHasBitsOffset + 2, 0, (0 | ::_fl::kFcOptional | ::_fl::kUInt64)},
+      // bool is_admin = 3;
+      {PROTOBUF_FIELD_OFFSET(GetFilteredRequest, _impl_.is_admin_), _Internal::kHasBitsOffset + 3, 0, (0 | ::_fl::kFcOptional | ::_fl::kBool)},
+      // string jwt_token = 4;
+      {PROTOBUF_FIELD_OFFSET(GetFilteredRequest, _impl_.jwt_token_), _Internal::kHasBitsOffset + 1, 0, (0 | ::_fl::kFcOptional | ::_fl::kUtf8String | ::_fl::kRepAString)},
+    }},
+    // no aux_entries
+    {{
+      "\30\5\0\0\11\0\0\0"
+      "users.GetFilteredRequest"
+      "query"
+      "jwt_token"
+    }},
+  };
+}
+
+
+inline constexpr GetFilteredRequest::Impl_::Impl_(
+    [[maybe_unused]] ::google::protobuf::internal::InternalVisibility visibility,
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        query_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        jwt_token_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        user_id_{::uint64_t{0u}},
+        is_admin_{false} {}
+
+template <typename>
+constexpr GetFilteredRequest::GetFilteredRequest(::_pbi::ConstantInitialized,
+                       const ::_pbi::ClassData* PROTOBUF_NONNULL class_data)
+    : ::google::protobuf::Message(
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+          class_data
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          ),
+      _impl_(internal_visibility(), ::_pbi::ConstantInitialized()) {
+}
+inline void* PROTOBUF_NONNULL GetFilteredRequest::PlacementNew_(
+    const void* PROTOBUF_NONNULL, void* PROTOBUF_NONNULL mem,
+    ::google::protobuf::Arena* PROTOBUF_NULLABLE arena) {
+  return ::new (mem) GetFilteredRequest(arena);
+}
+constexpr auto GetFilteredRequest::InternalNewImpl_() {
+  return ::google::protobuf::internal::MessageCreator::CopyInit(sizeof(GetFilteredRequest), alignof(GetFilteredRequest));
+}
+constexpr auto GetFilteredRequest::InternalGenerateClassData_(
+    const MessageLite& prototype,
+    const ::google::protobuf::internal::TcParseTableBase* tc_table) {
+  return ::google::protobuf::internal::ClassDataFull{
+      ::google::protobuf::internal::ClassData{
+          &prototype,
+#ifndef PROTOBUF_MESSAGE_GLOBALS
+          &_table_.header,
+#else
+          tc_table,
+#endif
+          nullptr,  // IsInitialized
+          &GetFilteredRequest::MergeImpl,
+          ::google::protobuf::Message::GetNewImpl<GetFilteredRequest>(),
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+          &GetFilteredRequest::SharedDtor,
+          ::google::protobuf::Message::GetClearImpl<GetFilteredRequest>(), &GetFilteredRequest::ByteSizeLong,
+              &GetFilteredRequest::_InternalSerialize,
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          PROTOBUF_FIELD_OFFSET(GetFilteredRequest, _impl_._cached_size_),
+          false,
+      },
+#ifdef PROTOBUF_MESSAGE_GLOBALS
+      &file_reflection_data[7],
+#else   // !PROTOBUF_MESSAGE_GLOBALS
+      &::_pbi::kDescriptorMethods,
+      &descriptor_table_users_2fusers_2eproto,
+      nullptr,  // tracker
+#endif  // PROTOBUF_MESSAGE_GLOBALS
+  };
+}
+struct GetFilteredRequestGlobalsTypeInternal : ::_pbi::MessageGlobalsBase {
+  constexpr GetFilteredRequestGlobalsTypeInternal()
+      :
+#ifndef PROTOBUF_MESSAGE_GLOBALS
+        _default(::_pbi::ConstantInitialized{},
+                 GetFilteredRequest_class_data_.base())
+#else   // !PROTOBUF_MESSAGE_GLOBALS
+        MessageGlobalsBase(GetFilteredRequest::InternalGenerateClassData_(
+            _default, &GetFilteredRequest_globals_._table.header)),
+        _default(::_pbi::ConstantInitialized{}, GetClassData()),
+        _table(::_pbi::PrivateAccess::GenerateParseTable<GetFilteredRequest>(
+            GetClassData()))
+#endif  // PROTOBUF_MESSAGE_GLOBALS
+  {
+  }
+  ~GetFilteredRequestGlobalsTypeInternal() {}
+  union {
+    alignas(::_pbi::kMaxMessageAlignment) GetFilteredRequest _default;
+  };
+#ifdef PROTOBUF_MESSAGE_GLOBALS
+  decltype(::_pbi::PrivateAccess::GenerateParseTable<GetFilteredRequest>(
+      ::std::declval<const ::_pbi::ClassData*>())) _table;
+#endif
+};
+#ifdef PROTOBUF_MESSAGE_GLOBALS
+static_assert(PROTOBUF_FIELD_OFFSET(GetFilteredRequestGlobalsTypeInternal, _default) ==
+              ::_pbi::MessageGlobalsBase::OffsetToDefault());
+#endif  // PROTOBUF_MESSAGE_GLOBALS
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PROTOBUF_MESSAGE_GLOBALS_CONST GetFilteredRequestGlobalsTypeInternal GetFilteredRequest_globals_
+        PROTOBUF_MESSAGE_GLOBALS_SECTION(.data.rel.ro);
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+namespace {
+const ::_pbi::ClassData* GetFilteredRequest_get_class_data() {
+#ifdef PROTOBUF_MESSAGE_GLOBALS
+  return GetFilteredRequest_globals_.GetClassData();
+#else
+  return GetFilteredRequest_class_data_.base();
+#endif  // PROTOBUF_MESSAGE_GLOBALS
+}
+}  // namespace
+#endif  // PROTOBUF_CUSTOM_VTABLE
 class AuthResponse::_Internal {
  public:
   using HasBits = decltype(::std::declval<AuthResponse>()._impl_._has_bits_);
@@ -1775,165 +1945,6 @@ const ::_pbi::ClassData* UpdateRequest_get_class_data() {
 }
 }  // namespace
 #endif  // PROTOBUF_CUSTOM_VTABLE
-class GetFilteredRequest::_Internal {
- public:
-  using HasBits = decltype(::std::declval<GetFilteredRequest>()._impl_._has_bits_);
-  static constexpr ::int32_t kHasBitsOffset =
-      8 * PROTOBUF_FIELD_OFFSET(GetFilteredRequest, _impl_._has_bits_);
-};
-
-constexpr GetFilteredRequest::ParseTableT_ GetFilteredRequest::InternalGenerateParseTable_(const ::_pbi::ClassData* class_data) {
-  return ParseTableT_{
-    {
-      PROTOBUF_FIELD_OFFSET(GetFilteredRequest, _impl_._has_bits_),
-      0, // no _extensions_
-      2, 8,  // max_field_number, fast_idx_mask
-      offsetof(ParseTableT_, field_lookup_table),
-      4294967292,  // skipmap
-      offsetof(ParseTableT_, field_entries),
-      2,  // num_field_entries
-      1,  // num_aux_entries
-      offsetof(ParseTableT_, aux_entries),
-      class_data,
-      nullptr,  // post_loop_handler
-      ::_pbi::TcParser::GenericFallback,  // fallback
-      #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
-      ::_pbi::TcParser::GetTable<::users::GetFilteredRequest>(),  // to_prefetch
-      #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
-    }, {{
-      // string jwt_token = 2;
-      {::_pbi::TcParser::FastUS1,
-       {18, 0, 0,
-        PROTOBUF_FIELD_OFFSET(GetFilteredRequest, _impl_.jwt_token_)}},
-      // .users.User filter = 1;
-      {::_pbi::TcParser::FastMtS1,
-       {10, 1, 0,
-        PROTOBUF_FIELD_OFFSET(GetFilteredRequest, _impl_.filter_)}},
-    }}, {{
-      65535, 65535
-    }}, {{
-      // .users.User filter = 1;
-      {PROTOBUF_FIELD_OFFSET(GetFilteredRequest, _impl_.filter_), _Internal::kHasBitsOffset + 1, 0, (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
-      // string jwt_token = 2;
-      {PROTOBUF_FIELD_OFFSET(GetFilteredRequest, _impl_.jwt_token_), _Internal::kHasBitsOffset + 0, 0, (0 | ::_fl::kFcOptional | ::_fl::kUtf8String | ::_fl::kRepAString)},
-    }},
-    {{
-        #ifndef PROTOBUF_MESSAGE_GLOBALS
-        {::_pbi::TcParser::GetTable<::users::User>()},
-        #else
-        {::_pbi::FieldAuxMessageGlobals(), &::users::User_globals_},
-        #endif
-    }},
-    {{
-      "\30\0\11\0\0\0\0\0"
-      "users.GetFilteredRequest"
-      "jwt_token"
-    }},
-  };
-}
-
-
-inline constexpr GetFilteredRequest::Impl_::Impl_(
-    [[maybe_unused]] ::google::protobuf::internal::InternalVisibility visibility,
-    ::_pbi::ConstantInitialized) noexcept
-      : _cached_size_{0},
-        jwt_token_(
-            &::google::protobuf::internal::fixed_address_empty_string,
-            ::_pbi::ConstantInitialized()),
-        filter_{nullptr} {}
-
-template <typename>
-constexpr GetFilteredRequest::GetFilteredRequest(::_pbi::ConstantInitialized,
-                       const ::_pbi::ClassData* PROTOBUF_NONNULL class_data)
-    : ::google::protobuf::Message(
-#if defined(PROTOBUF_CUSTOM_VTABLE)
-          class_data
-#endif  // PROTOBUF_CUSTOM_VTABLE
-          ),
-      _impl_(internal_visibility(), ::_pbi::ConstantInitialized()) {
-}
-inline void* PROTOBUF_NONNULL GetFilteredRequest::PlacementNew_(
-    const void* PROTOBUF_NONNULL, void* PROTOBUF_NONNULL mem,
-    ::google::protobuf::Arena* PROTOBUF_NULLABLE arena) {
-  return ::new (mem) GetFilteredRequest(arena);
-}
-constexpr auto GetFilteredRequest::InternalNewImpl_() {
-  return ::google::protobuf::internal::MessageCreator::CopyInit(sizeof(GetFilteredRequest), alignof(GetFilteredRequest));
-}
-constexpr auto GetFilteredRequest::InternalGenerateClassData_(
-    const MessageLite& prototype,
-    const ::google::protobuf::internal::TcParseTableBase* tc_table) {
-  return ::google::protobuf::internal::ClassDataFull{
-      ::google::protobuf::internal::ClassData{
-          &prototype,
-#ifndef PROTOBUF_MESSAGE_GLOBALS
-          &_table_.header,
-#else
-          tc_table,
-#endif
-          nullptr,  // IsInitialized
-          &GetFilteredRequest::MergeImpl,
-          ::google::protobuf::Message::GetNewImpl<GetFilteredRequest>(),
-#if defined(PROTOBUF_CUSTOM_VTABLE)
-          &GetFilteredRequest::SharedDtor,
-          ::google::protobuf::Message::GetClearImpl<GetFilteredRequest>(), &GetFilteredRequest::ByteSizeLong,
-              &GetFilteredRequest::_InternalSerialize,
-#endif  // PROTOBUF_CUSTOM_VTABLE
-          PROTOBUF_FIELD_OFFSET(GetFilteredRequest, _impl_._cached_size_),
-          false,
-      },
-#ifdef PROTOBUF_MESSAGE_GLOBALS
-      &file_reflection_data[7],
-#else   // !PROTOBUF_MESSAGE_GLOBALS
-      &::_pbi::kDescriptorMethods,
-      &descriptor_table_users_2fusers_2eproto,
-      nullptr,  // tracker
-#endif  // PROTOBUF_MESSAGE_GLOBALS
-  };
-}
-struct GetFilteredRequestGlobalsTypeInternal : ::_pbi::MessageGlobalsBase {
-  constexpr GetFilteredRequestGlobalsTypeInternal()
-      :
-#ifndef PROTOBUF_MESSAGE_GLOBALS
-        _default(::_pbi::ConstantInitialized{},
-                 GetFilteredRequest_class_data_.base())
-#else   // !PROTOBUF_MESSAGE_GLOBALS
-        MessageGlobalsBase(GetFilteredRequest::InternalGenerateClassData_(
-            _default, &GetFilteredRequest_globals_._table.header)),
-        _default(::_pbi::ConstantInitialized{}, GetClassData()),
-        _table(::_pbi::PrivateAccess::GenerateParseTable<GetFilteredRequest>(
-            GetClassData()))
-#endif  // PROTOBUF_MESSAGE_GLOBALS
-  {
-  }
-  ~GetFilteredRequestGlobalsTypeInternal() {}
-  union {
-    alignas(::_pbi::kMaxMessageAlignment) GetFilteredRequest _default;
-  };
-#ifdef PROTOBUF_MESSAGE_GLOBALS
-  decltype(::_pbi::PrivateAccess::GenerateParseTable<GetFilteredRequest>(
-      ::std::declval<const ::_pbi::ClassData*>())) _table;
-#endif
-};
-#ifdef PROTOBUF_MESSAGE_GLOBALS
-static_assert(PROTOBUF_FIELD_OFFSET(GetFilteredRequestGlobalsTypeInternal, _default) ==
-              ::_pbi::MessageGlobalsBase::OffsetToDefault());
-#endif  // PROTOBUF_MESSAGE_GLOBALS
-
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PROTOBUF_MESSAGE_GLOBALS_CONST GetFilteredRequestGlobalsTypeInternal GetFilteredRequest_globals_
-        PROTOBUF_MESSAGE_GLOBALS_SECTION(.data.rel.ro);
-#if defined(PROTOBUF_CUSTOM_VTABLE)
-namespace {
-const ::_pbi::ClassData* GetFilteredRequest_get_class_data() {
-#ifdef PROTOBUF_MESSAGE_GLOBALS
-  return GetFilteredRequest_globals_.GetClassData();
-#else
-  return GetFilteredRequest_class_data_.base();
-#endif  // PROTOBUF_MESSAGE_GLOBALS
-}
-}  // namespace
-#endif  // PROTOBUF_CUSTOM_VTABLE
 }  // namespace users
 static constexpr const ::_pb::EnumDescriptor* PROTOBUF_NONNULL* PROTOBUF_NULLABLE
     file_level_enum_descriptors_users_2fusers_2eproto = nullptr;
@@ -1995,11 +2006,15 @@ const ::uint32_t
         0,
         0x081, // bitmap
         PROTOBUF_FIELD_OFFSET(::users::GetFilteredRequest, _impl_._has_bits_),
-        5, // hasbit index offset
-        PROTOBUF_FIELD_OFFSET(::users::GetFilteredRequest, _impl_.filter_),
+        7, // hasbit index offset
+        PROTOBUF_FIELD_OFFSET(::users::GetFilteredRequest, _impl_.query_),
+        PROTOBUF_FIELD_OFFSET(::users::GetFilteredRequest, _impl_.user_id_),
+        PROTOBUF_FIELD_OFFSET(::users::GetFilteredRequest, _impl_.is_admin_),
         PROTOBUF_FIELD_OFFSET(::users::GetFilteredRequest, _impl_.jwt_token_),
-        1,
         0,
+        2,
+        3,
+        1,
         0x081, // bitmap
         PROTOBUF_FIELD_OFFSET(::users::RemoveRequest, _impl_._has_bits_),
         5, // hasbit index offset
@@ -2044,10 +2059,10 @@ static const ::_pbi::MigrationSchema
         {35, sizeof(::users::RefreshResponse)},
         {44, sizeof(::users::UpdateRequest)},
         {51, sizeof(::users::GetFilteredRequest)},
-        {58, sizeof(::users::RemoveRequest)},
-        {65, sizeof(::users::User)},
-        {78, sizeof(::users::RefreshToken)},
-        {85, sizeof(::users::StatusResponse)},
+        {62, sizeof(::users::RemoveRequest)},
+        {69, sizeof(::users::User)},
+        {82, sizeof(::users::RefreshToken)},
+        {89, sizeof(::users::StatusResponse)},
 };
 static const ::_pbi::MessageGlobalsBase* PROTOBUF_NONNULL const
     file_message_globals[] = {
@@ -2077,29 +2092,29 @@ const char descriptor_table_protodef_users_2fusers_2eproto[] ABSL_ATTRIBUTE_SECT
     "fresh_token\030\002 \001(\t\"I\n\017RefreshResponse\022\025\n\r"
     "refresh_token\030\001 \001(\t\022\021\n\tjwt_token\030\002 \001(\t\022\014"
     "\n\004code\030\003 \001(\005\"=\n\rUpdateRequest\022\031\n\004user\030\001 "
-    "\001(\0132\013.users.User\022\021\n\tjwt_token\030\002 \001(\t\"D\n\022G"
-    "etFilteredRequest\022\033\n\006filter\030\001 \001(\0132\013.user"
-    "s.User\022\021\n\tjwt_token\030\002 \001(\t\"3\n\rRemoveReque"
-    "st\022\017\n\007user_id\030\001 \001(\004\022\021\n\tjwt_token\030\002 \001(\t\"\247"
-    "\001\n\004User\022\020\n\010username\030\001 \001(\t\022-\n\rpassword_ha"
-    "sh\030\002 \001(\014B\026\232\204\236\003\021gorm:\"type:bytea\"\022\025\n\rrefr"
-    "esh_token\030\003 \001(\t\0225\n\007user_id\030\004 \001(\004B$\232\204\236\003\037g"
-    "orm:\"primaryKey;autoIncrement\"\022\020\n\010is_adm"
-    "in\030\005 \001(\010\"9\n\014RefreshToken\022\022\n\nrefresh_id\030\001"
-    " \001(\004\022\025\n\rrefresh_token\030\002 \001(\t\"\036\n\016StatusRes"
-    "ponse\022\014\n\004code\030\001 \001(\0052\221\003\n\005Users\0225\n\006SignIn\022"
-    "\024.users.SignInRequest\032\025.users.SignInResp"
-    "onse\0224\n\tAuthorize\022\022.users.AuthRequest\032\023."
-    "users.AuthResponse\022>\n\rRefreshTokens\022\025.us"
-    "ers.RefreshRequest\032\026.users.RefreshRespon"
-    "se\022,\n\006SignUp\022\013.users.User\032\025.users.Status"
-    "Response\0227\n\013GetFiltered\022\031.users.GetFilte"
-    "redRequest\032\013.users.User0\001\0229\n\nUpdateUser\022"
-    "\024.users.UpdateRequest\032\025.users.StatusResp"
-    "onse\0229\n\nRemoveUser\022\024.users.RemoveRequest"
-    "\032\025.users.StatusResponseB:Z8github.com/Az"
-    "at201003/summorist-share/gen/go/users;us"
-    "ersb\006proto3"
+    "\001(\0132\013.users.User\022\021\n\tjwt_token\030\002 \001(\t\"Y\n\022G"
+    "etFilteredRequest\022\r\n\005query\030\001 \001(\t\022\017\n\007user"
+    "_id\030\002 \001(\004\022\020\n\010is_admin\030\003 \001(\010\022\021\n\tjwt_token"
+    "\030\004 \001(\t\"3\n\rRemoveRequest\022\017\n\007user_id\030\001 \001(\004"
+    "\022\021\n\tjwt_token\030\002 \001(\t\"\247\001\n\004User\022\020\n\010username"
+    "\030\001 \001(\t\022-\n\rpassword_hash\030\002 \001(\014B\026\232\204\236\003\021gorm"
+    ":\"type:bytea\"\022\025\n\rrefresh_token\030\003 \001(\t\0225\n\007"
+    "user_id\030\004 \001(\004B$\232\204\236\003\037gorm:\"primaryKey;aut"
+    "oIncrement\"\022\020\n\010is_admin\030\005 \001(\010\"9\n\014Refresh"
+    "Token\022\022\n\nrefresh_id\030\001 \001(\004\022\025\n\rrefresh_tok"
+    "en\030\002 \001(\t\"\036\n\016StatusResponse\022\014\n\004code\030\001 \001(\005"
+    "2\221\003\n\005Users\0225\n\006SignIn\022\024.users.SignInReque"
+    "st\032\025.users.SignInResponse\0224\n\tAuthorize\022\022"
+    ".users.AuthRequest\032\023.users.AuthResponse\022"
+    ">\n\rRefreshTokens\022\025.users.RefreshRequest\032"
+    "\026.users.RefreshResponse\022,\n\006SignUp\022\013.user"
+    "s.User\032\025.users.StatusResponse\0227\n\013GetFilt"
+    "ered\022\031.users.GetFilteredRequest\032\013.users."
+    "User0\001\0229\n\nUpdateUser\022\024.users.UpdateReque"
+    "st\032\025.users.StatusResponse\0229\n\nRemoveUser\022"
+    "\024.users.RemoveRequest\032\025.users.StatusResp"
+    "onseB:Z8github.com/Azat201003/summorist-"
+    "share/gen/go/users;usersb\006proto3"
 };
 static const ::_pbi::DescriptorTable* PROTOBUF_NONNULL const
     descriptor_table_users_2fusers_2eproto_deps[1] = {
@@ -2109,7 +2124,7 @@ static ::absl::once_flag descriptor_table_users_2fusers_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_users_2fusers_2eproto = {
     false,
     false,
-    1331,
+    1352,
     descriptor_table_protodef_users_2fusers_2eproto,
     "users/users.proto",
     &descriptor_table_users_2fusers_2eproto_once,
@@ -3879,6 +3894,7 @@ PROTOBUF_NDEBUG_INLINE GetFilteredRequest::Impl_::Impl_(
     [[maybe_unused]] const ::users::GetFilteredRequest& from_msg)
       : _has_bits_{from._has_bits_},
         _cached_size_{0},
+        query_(arena, from.query_),
         jwt_token_(arena, from.jwt_token_) {}
 
 GetFilteredRequest::GetFilteredRequest(
@@ -3895,10 +3911,13 @@ GetFilteredRequest::GetFilteredRequest(
   _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
       from._internal_metadata_);
   new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
-  ::uint32_t cached_has_bits = _impl_._has_bits_[0];
-  _impl_.filter_ = (CheckHasBit(cached_has_bits, 0x00000002U))
-                ? ::google::protobuf::Message::CopyConstruct(arena, *from._impl_.filter_)
-                : nullptr;
+  ::memcpy(reinterpret_cast<char*>(&_impl_) +
+               offsetof(Impl_, user_id_),
+           reinterpret_cast<const char*>(&from._impl_) +
+               offsetof(Impl_, user_id_),
+           offsetof(Impl_, is_admin_) -
+               offsetof(Impl_, user_id_) +
+               sizeof(Impl_::is_admin_));
 
   // @@protoc_insertion_point(copy_constructor:users.GetFilteredRequest)
 }
@@ -3906,11 +3925,17 @@ PROTOBUF_NDEBUG_INLINE GetFilteredRequest::Impl_::Impl_(
     [[maybe_unused]] ::google::protobuf::internal::InternalVisibility visibility,
     [[maybe_unused]] ::google::protobuf::Arena* PROTOBUF_NULLABLE arena)
       : _cached_size_{0},
+        query_(arena),
         jwt_token_(arena) {}
 
 inline void GetFilteredRequest::SharedCtor(::_pb::Arena* PROTOBUF_NULLABLE arena) {
   new (&_impl_) Impl_(internal_visibility(), arena);
-  _impl_.filter_ = {};
+  ::memset(reinterpret_cast<char*>(&_impl_) +
+               offsetof(Impl_, user_id_),
+           0,
+           offsetof(Impl_, is_admin_) -
+               offsetof(Impl_, user_id_) +
+               sizeof(Impl_::is_admin_));
 }
 GetFilteredRequest::~GetFilteredRequest() {
   // @@protoc_insertion_point(destructor:users.GetFilteredRequest)
@@ -3923,8 +3948,8 @@ inline void GetFilteredRequest::SharedDtor(MessageLite& self) {
   }
   this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   ABSL_DCHECK(this_.GetArena() == nullptr);
+  this_._impl_.query_.Destroy();
   this_._impl_.jwt_token_.Destroy();
-  delete this_._impl_.filter_;
   this_._impl_.~Impl_();
 }
 
@@ -3964,12 +3989,16 @@ PROTOBUF_NOINLINE void GetFilteredRequest::Clear() {
   cached_has_bits = _impl_._has_bits_[0];
   if (BatchCheckHasBit(cached_has_bits, 0x00000003U)) {
     if (CheckHasBit(cached_has_bits, 0x00000001U)) {
-      _impl_.jwt_token_.ClearNonDefaultToEmpty();
+      _impl_.query_.ClearNonDefaultToEmpty();
     }
     if (CheckHasBit(cached_has_bits, 0x00000002U)) {
-      ABSL_DCHECK(_impl_.filter_ != nullptr);
-      _impl_.filter_->Clear();
+      _impl_.jwt_token_.ClearNonDefaultToEmpty();
     }
+  }
+  if (BatchCheckHasBit(cached_has_bits, 0x0000000cU)) {
+    ::memset(&_impl_.user_id_, 0, static_cast<::size_t>(
+        reinterpret_cast<char*>(&_impl_.is_admin_) -
+        reinterpret_cast<char*>(&_impl_.user_id_)) + sizeof(_impl_.is_admin_));
   }
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
@@ -3994,20 +4023,41 @@ PROTOBUF_NOINLINE void GetFilteredRequest::Clear() {
   (void)cached_has_bits;
 
   cached_has_bits = this_._impl_._has_bits_[0];
-  // .users.User filter = 1;
-  if (CheckHasBit(cached_has_bits, 0x00000002U)) {
-    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
-        1, *this_._impl_.filter_, this_._impl_.filter_->GetCachedSize(), target,
-        stream);
+  // string query = 1;
+  if (CheckHasBit(cached_has_bits, 0x00000001U)) {
+    if (!this_._internal_query().empty()) {
+      const ::std::string& _s = this_._internal_query();
+      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "users.GetFilteredRequest.query");
+      target = stream->WriteStringMaybeAliased(1, _s, target);
+    }
   }
 
-  // string jwt_token = 2;
-  if (CheckHasBit(cached_has_bits, 0x00000001U)) {
+  // uint64 user_id = 2;
+  if (CheckHasBit(cached_has_bits, 0x00000004U)) {
+    if (this_._internal_user_id() != 0) {
+      target = stream->EnsureSpace(target);
+      target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+          2, this_._internal_user_id(), target);
+    }
+  }
+
+  // bool is_admin = 3;
+  if (CheckHasBit(cached_has_bits, 0x00000008U)) {
+    if (this_._internal_is_admin() != 0) {
+      target = stream->EnsureSpace(target);
+      target = ::_pbi::WireFormatLite::WriteBoolToArray(
+          3, this_._internal_is_admin(), target);
+    }
+  }
+
+  // string jwt_token = 4;
+  if (CheckHasBit(cached_has_bits, 0x00000002U)) {
     if (!this_._internal_jwt_token().empty()) {
       const ::std::string& _s = this_._internal_jwt_token();
       ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
           _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "users.GetFilteredRequest.jwt_token");
-      target = stream->WriteStringMaybeAliased(2, _s, target);
+      target = stream->WriteStringMaybeAliased(4, _s, target);
     }
   }
 
@@ -4036,18 +4086,33 @@ PROTOBUF_NOINLINE void GetFilteredRequest::Clear() {
 
   ::_pbi::Prefetch5LinesFrom7Lines(&this_);
   cached_has_bits = this_._impl_._has_bits_[0];
-  if (BatchCheckHasBit(cached_has_bits, 0x00000003U)) {
-    // string jwt_token = 2;
+  if (BatchCheckHasBit(cached_has_bits, 0x0000000fU)) {
+    // string query = 1;
     if (CheckHasBit(cached_has_bits, 0x00000001U)) {
+      if (!this_._internal_query().empty()) {
+        total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                        this_._internal_query());
+      }
+    }
+    // string jwt_token = 4;
+    if (CheckHasBit(cached_has_bits, 0x00000002U)) {
       if (!this_._internal_jwt_token().empty()) {
         total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
                                         this_._internal_jwt_token());
       }
     }
-    // .users.User filter = 1;
-    if (CheckHasBit(cached_has_bits, 0x00000002U)) {
-      total_size += 1 +
-                    ::google::protobuf::internal::WireFormatLite::MessageSize(*this_._impl_.filter_);
+    // uint64 user_id = 2;
+    if (CheckHasBit(cached_has_bits, 0x00000004U)) {
+      if (this_._internal_user_id() != 0) {
+        total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+            this_._internal_user_id());
+      }
+    }
+    // bool is_admin = 3;
+    if (CheckHasBit(cached_has_bits, 0x00000008U)) {
+      if (this_._internal_is_admin() != 0) {
+        total_size += 2;
+      }
     }
   }
   return this_.MaybeComputeUnknownFieldsSize(total_size,
@@ -4061,15 +4126,23 @@ void GetFilteredRequest::MergeImpl(::google::protobuf::MessageLite& to_msg,
   if constexpr (::_pbi::DebugHardenCheckHasBitConsistency()) {
     from.CheckHasBitConsistency();
   }
-  ::google::protobuf::Arena* arena = _this->GetArena();
   // @@protoc_insertion_point(class_specific_merge_from_start:users.GetFilteredRequest)
   ABSL_DCHECK_NE(&from, _this);
   ::uint32_t cached_has_bits = 0;
   (void)cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
-  if (BatchCheckHasBit(cached_has_bits, 0x00000003U)) {
+  if (BatchCheckHasBit(cached_has_bits, 0x0000000fU)) {
     if (CheckHasBit(cached_has_bits, 0x00000001U)) {
+      if (!from._internal_query().empty()) {
+        _this->_internal_set_query(from._internal_query());
+      } else {
+        if (_this->_impl_.query_.IsDefault()) {
+          _this->_internal_set_query("");
+        }
+      }
+    }
+    if (CheckHasBit(cached_has_bits, 0x00000002U)) {
       if (!from._internal_jwt_token().empty()) {
         _this->_internal_set_jwt_token(from._internal_jwt_token());
       } else {
@@ -4078,12 +4151,14 @@ void GetFilteredRequest::MergeImpl(::google::protobuf::MessageLite& to_msg,
         }
       }
     }
-    if (CheckHasBit(cached_has_bits, 0x00000002U)) {
-      ABSL_DCHECK(from._impl_.filter_ != nullptr);
-      if (_this->_impl_.filter_ == nullptr) {
-        _this->_impl_.filter_ = ::google::protobuf::Message::CopyConstruct(arena, *from._impl_.filter_);
-      } else {
-        _this->_impl_.filter_->MergeFrom(*from._impl_.filter_);
+    if (CheckHasBit(cached_has_bits, 0x00000004U)) {
+      if (from._internal_user_id() != 0) {
+        _this->_impl_.user_id_ = from._impl_.user_id_;
+      }
+    }
+    if (CheckHasBit(cached_has_bits, 0x00000008U)) {
+      if (from._internal_is_admin() != 0) {
+        _this->_impl_.is_admin_ = from._impl_.is_admin_;
       }
     }
   }
@@ -4106,8 +4181,14 @@ void GetFilteredRequest::InternalSwap(GetFilteredRequest* PROTOBUF_RESTRICT PROT
   ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.query_, &other->_impl_.query_, arena);
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.jwt_token_, &other->_impl_.jwt_token_, arena);
-  swap(_impl_.filter_, other->_impl_.filter_);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(GetFilteredRequest, _impl_.is_admin_)
+      + sizeof(GetFilteredRequest::_impl_.is_admin_)
+      - PROTOBUF_FIELD_OFFSET(GetFilteredRequest, _impl_.user_id_)>(
+          reinterpret_cast<char*>(&_impl_.user_id_),
+          reinterpret_cast<char*>(&other->_impl_.user_id_));
 }
 
 ::google::protobuf::Metadata GetFilteredRequest::GetMetadata() const {

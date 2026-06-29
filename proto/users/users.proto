@@ -68,8 +68,10 @@ message UpdateRequest {
 
 // GetFiltered
 message GetFilteredRequest {
-  User filter = 1;
-  string jwt_token = 2;
+  string query = 1;
+  uint64 user_id = 2;
+  bool is_admin = 3;
+  string jwt_token = 4;
 }
 
 

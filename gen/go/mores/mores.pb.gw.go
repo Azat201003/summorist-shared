@@ -39,7 +39,7 @@ var filter_Mores_GetFiltered_0 = &utilities.DoubleArray{Encoding: map[string]int
 
 func request_Mores_GetFiltered_0(ctx context.Context, marshaler runtime.Marshaler, client MoresClient, req *http.Request, pathParams map[string]string) (Mores_GetFilteredClient, runtime.ServerMetadata, error) {
 	var (
-		protoReq Meta
+		protoReq GetFilteredRequest
 		metadata runtime.ServerMetadata
 	)
 	if req.Body != nil {

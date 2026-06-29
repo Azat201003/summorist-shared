@@ -25,7 +25,8 @@ const (
 type CreateRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Title         string                 `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
-	JwtToken      string                 `protobuf:"bytes,2,opt,name=jwt_token,json=jwtToken,proto3" json:"jwt_token,omitempty"`
+	Descripiton   string                 `protobuf:"bytes,2,opt,name=descripiton,proto3" json:"descripiton,omitempty"`
+	JwtToken      string                 `protobuf:"bytes,3,opt,name=jwt_token,json=jwtToken,proto3" json:"jwt_token,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -67,6 +68,13 @@ func (x *CreateRequest) GetTitle() string {
 	return ""
 }
 
+func (x *CreateRequest) GetDescripiton() string {
+	if x != nil {
+		return x.Descripiton
+	}
+	return ""
+}
+
 func (x *CreateRequest) GetJwtToken() string {
 	if x != nil {
 		return x.JwtToken
@@ -77,8 +85,9 @@ func (x *CreateRequest) GetJwtToken() string {
 type Meta struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Title         string                 `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
-	CreatorId     uint64                 `protobuf:"varint,2,opt,name=creator_id,json=creatorId,proto3" json:"creator_id,omitempty"`
-	MoreId        uint64                 `protobuf:"varint,3,opt,name=more_id,json=moreId,proto3" json:"more_id,omitempty"`
+	Descripiton   string                 `protobuf:"bytes,2,opt,name=descripiton,proto3" json:"descripiton,omitempty"`
+	CreatorId     uint64                 `protobuf:"varint,3,opt,name=creator_id,json=creatorId,proto3" json:"creator_id,omitempty"`
+	MoreId        uint64                 `protobuf:"varint,4,opt,name=more_id,json=moreId,proto3" json:"more_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -116,6 +125,13 @@ func (*Meta) Descriptor() ([]byte, []int) {
 func (x *Meta) GetTitle() string {
 	if x != nil {
 		return x.Title
+	}
+	return ""
+}
+
+func (x *Meta) GetDescripiton() string {
+	if x != nil {
+		return x.Descripiton
 	}
 	return ""
 }
@@ -246,6 +262,66 @@ func (x *DownloadRequest) GetConverted() bool {
 	return false
 }
 
+type GetFilteredRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Query         string                 `protobuf:"bytes,1,opt,name=query,proto3" json:"query,omitempty"`
+	CreatorId     uint64                 `protobuf:"varint,2,opt,name=creator_id,json=creatorId,proto3" json:"creator_id,omitempty"`
+	MoreId        uint64                 `protobuf:"varint,3,opt,name=more_id,json=moreId,proto3" json:"more_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetFilteredRequest) Reset() {
+	*x = GetFilteredRequest{}
+	mi := &file_mores_mores_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetFilteredRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetFilteredRequest) ProtoMessage() {}
+
+func (x *GetFilteredRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_mores_mores_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetFilteredRequest.ProtoReflect.Descriptor instead.
+func (*GetFilteredRequest) Descriptor() ([]byte, []int) {
+	return file_mores_mores_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *GetFilteredRequest) GetQuery() string {
+	if x != nil {
+		return x.Query
+	}
+	return ""
+}
+
+func (x *GetFilteredRequest) GetCreatorId() uint64 {
+	if x != nil {
+		return x.CreatorId
+	}
+	return 0
+}
+
+func (x *GetFilteredRequest) GetMoreId() uint64 {
+	if x != nil {
+		return x.MoreId
+	}
+	return 0
+}
+
 type UploadRequest struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// Types that are valid to be assigned to Request:
@@ -259,7 +335,7 @@ type UploadRequest struct {
 
 func (x *UploadRequest) Reset() {
 	*x = UploadRequest{}
-	mi := &file_mores_mores_proto_msgTypes[4]
+	mi := &file_mores_mores_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -271,7 +347,7 @@ func (x *UploadRequest) String() string {
 func (*UploadRequest) ProtoMessage() {}
 
 func (x *UploadRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_mores_mores_proto_msgTypes[4]
+	mi := &file_mores_mores_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -284,7 +360,7 @@ func (x *UploadRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UploadRequest.ProtoReflect.Descriptor instead.
 func (*UploadRequest) Descriptor() ([]byte, []int) {
-	return file_mores_mores_proto_rawDescGZIP(), []int{4}
+	return file_mores_mores_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *UploadRequest) GetRequest() isUploadRequest_Request {
@@ -338,7 +414,7 @@ type RemoveRequest struct {
 
 func (x *RemoveRequest) Reset() {
 	*x = RemoveRequest{}
-	mi := &file_mores_mores_proto_msgTypes[5]
+	mi := &file_mores_mores_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -350,7 +426,7 @@ func (x *RemoveRequest) String() string {
 func (*RemoveRequest) ProtoMessage() {}
 
 func (x *RemoveRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_mores_mores_proto_msgTypes[5]
+	mi := &file_mores_mores_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -363,7 +439,7 @@ func (x *RemoveRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RemoveRequest.ProtoReflect.Descriptor instead.
 func (*RemoveRequest) Descriptor() ([]byte, []int) {
-	return file_mores_mores_proto_rawDescGZIP(), []int{5}
+	return file_mores_mores_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *RemoveRequest) GetMoreId() uint64 {
@@ -391,7 +467,7 @@ type Part struct {
 
 func (x *Part) Reset() {
 	*x = Part{}
-	mi := &file_mores_mores_proto_msgTypes[6]
+	mi := &file_mores_mores_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -403,7 +479,7 @@ func (x *Part) String() string {
 func (*Part) ProtoMessage() {}
 
 func (x *Part) ProtoReflect() protoreflect.Message {
-	mi := &file_mores_mores_proto_msgTypes[6]
+	mi := &file_mores_mores_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -416,7 +492,7 @@ func (x *Part) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Part.ProtoReflect.Descriptor instead.
 func (*Part) Descriptor() ([]byte, []int) {
-	return file_mores_mores_proto_rawDescGZIP(), []int{6}
+	return file_mores_mores_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *Part) GetNumber() uint32 {
@@ -444,15 +520,17 @@ var File_mores_mores_proto protoreflect.FileDescriptor
 
 const file_mores_mores_proto_rawDesc = "" +
 	"\n" +
-	"\x11mores/mores.proto\x12\x05mores\x1a\x1cgoogle/api/annotations.proto\"B\n" +
+	"\x11mores/mores.proto\x12\x05mores\x1a\x1cgoogle/api/annotations.proto\"d\n" +
 	"\rCreateRequest\x12\x14\n" +
-	"\x05title\x18\x01 \x01(\tR\x05title\x12\x1b\n" +
-	"\tjwt_token\x18\x02 \x01(\tR\bjwtToken\"T\n" +
+	"\x05title\x18\x01 \x01(\tR\x05title\x12 \n" +
+	"\vdescripiton\x18\x02 \x01(\tR\vdescripiton\x12\x1b\n" +
+	"\tjwt_token\x18\x03 \x01(\tR\bjwtToken\"v\n" +
 	"\x04Meta\x12\x14\n" +
-	"\x05title\x18\x01 \x01(\tR\x05title\x12\x1d\n" +
+	"\x05title\x18\x01 \x01(\tR\x05title\x12 \n" +
+	"\vdescripiton\x18\x02 \x01(\tR\vdescripiton\x12\x1d\n" +
 	"\n" +
-	"creator_id\x18\x02 \x01(\x04R\tcreatorId\x12\x17\n" +
-	"\amore_id\x18\x03 \x01(\x04R\x06moreId\"c\n" +
+	"creator_id\x18\x03 \x01(\x04R\tcreatorId\x12\x17\n" +
+	"\amore_id\x18\x04 \x01(\x04R\x06moreId\"c\n" +
 	"\fExchangeData\x12\x17\n" +
 	"\amore_id\x18\x01 \x01(\x04R\x06moreId\x12\x1d\n" +
 	"\n" +
@@ -460,7 +538,12 @@ const file_mores_mores_proto_rawDesc = "" +
 	"\tjwt_token\x18\x03 \x01(\tR\bjwtToken\"X\n" +
 	"\x0fDownloadRequest\x12'\n" +
 	"\x04data\x18\x01 \x01(\v2\x13.mores.ExchangeDataR\x04data\x12\x1c\n" +
-	"\tconverted\x18\x02 \x01(\bR\tconverted\"h\n" +
+	"\tconverted\x18\x02 \x01(\bR\tconverted\"b\n" +
+	"\x12GetFilteredRequest\x12\x14\n" +
+	"\x05query\x18\x01 \x01(\tR\x05query\x12\x1d\n" +
+	"\n" +
+	"creator_id\x18\x02 \x01(\x04R\tcreatorId\x12\x17\n" +
+	"\amore_id\x18\x03 \x01(\x04R\x06moreId\"h\n" +
 	"\rUploadRequest\x12)\n" +
 	"\x04data\x18\x01 \x01(\v2\x13.mores.ExchangeDataH\x00R\x04data\x12!\n" +
 	"\x04part\x18\x02 \x01(\v2\v.mores.PartH\x00R\x04partB\t\n" +
@@ -471,9 +554,9 @@ const file_mores_mores_proto_rawDesc = "" +
 	"\x04Part\x12\x16\n" +
 	"\x06number\x18\x01 \x01(\rR\x06number\x12\x12\n" +
 	"\x04size\x18\x02 \x01(\rR\x04size\x12\x12\n" +
-	"\x04data\x18\x03 \x01(\fR\x04data2\xf6\x02\n" +
-	"\x05Mores\x129\n" +
-	"\vGetFiltered\x12\v.mores.Meta\x1a\v.mores.Meta\"\x0e\x82\xd3\xe4\x93\x02\b\x12\x06/mores0\x01\x12`\n" +
+	"\x04data\x18\x03 \x01(\fR\x04data2\x84\x03\n" +
+	"\x05Mores\x12G\n" +
+	"\vGetFiltered\x12\x19.mores.GetFilteredRequest\x1a\v.mores.Meta\"\x0e\x82\xd3\xe4\x93\x02\b\x12\x06/mores0\x01\x12`\n" +
 	"\fDownloadMore\x12\x16.mores.DownloadRequest\x1a\v.mores.Part\")\x82\xd3\xe4\x93\x02#:\x01*\"\x1e/mores/download/{data.more_id}0\x01\x12K\n" +
 	"\n" +
 	"UploadMore\x12\x14.mores.UploadRequest\x1a\v.mores.Meta\"\x18\x82\xd3\xe4\x93\x02\x12:\x01*\"\r/mores/upload(\x01\x12?\n" +
@@ -494,27 +577,28 @@ func file_mores_mores_proto_rawDescGZIP() []byte {
 	return file_mores_mores_proto_rawDescData
 }
 
-var file_mores_mores_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+var file_mores_mores_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_mores_mores_proto_goTypes = []any{
-	(*CreateRequest)(nil),   // 0: mores.CreateRequest
-	(*Meta)(nil),            // 1: mores.Meta
-	(*ExchangeData)(nil),    // 2: mores.ExchangeData
-	(*DownloadRequest)(nil), // 3: mores.DownloadRequest
-	(*UploadRequest)(nil),   // 4: mores.UploadRequest
-	(*RemoveRequest)(nil),   // 5: mores.RemoveRequest
-	(*Part)(nil),            // 6: mores.Part
+	(*CreateRequest)(nil),      // 0: mores.CreateRequest
+	(*Meta)(nil),               // 1: mores.Meta
+	(*ExchangeData)(nil),       // 2: mores.ExchangeData
+	(*DownloadRequest)(nil),    // 3: mores.DownloadRequest
+	(*GetFilteredRequest)(nil), // 4: mores.GetFilteredRequest
+	(*UploadRequest)(nil),      // 5: mores.UploadRequest
+	(*RemoveRequest)(nil),      // 6: mores.RemoveRequest
+	(*Part)(nil),               // 7: mores.Part
 }
 var file_mores_mores_proto_depIdxs = []int32{
 	2, // 0: mores.DownloadRequest.data:type_name -> mores.ExchangeData
 	2, // 1: mores.UploadRequest.data:type_name -> mores.ExchangeData
-	6, // 2: mores.UploadRequest.part:type_name -> mores.Part
-	1, // 3: mores.Mores.GetFiltered:input_type -> mores.Meta
+	7, // 2: mores.UploadRequest.part:type_name -> mores.Part
+	4, // 3: mores.Mores.GetFiltered:input_type -> mores.GetFilteredRequest
 	3, // 4: mores.Mores.DownloadMore:input_type -> mores.DownloadRequest
-	4, // 5: mores.Mores.UploadMore:input_type -> mores.UploadRequest
-	5, // 6: mores.Mores.RemoveMore:input_type -> mores.RemoveRequest
+	5, // 5: mores.Mores.UploadMore:input_type -> mores.UploadRequest
+	6, // 6: mores.Mores.RemoveMore:input_type -> mores.RemoveRequest
 	0, // 7: mores.Mores.CreateMore:input_type -> mores.CreateRequest
 	1, // 8: mores.Mores.GetFiltered:output_type -> mores.Meta
-	6, // 9: mores.Mores.DownloadMore:output_type -> mores.Part
+	7, // 9: mores.Mores.DownloadMore:output_type -> mores.Part
 	1, // 10: mores.Mores.UploadMore:output_type -> mores.Meta
 	1, // 11: mores.Mores.RemoveMore:output_type -> mores.Meta
 	1, // 12: mores.Mores.CreateMore:output_type -> mores.Meta
@@ -530,7 +614,7 @@ func file_mores_mores_proto_init() {
 	if File_mores_mores_proto != nil {
 		return
 	}
-	file_mores_mores_proto_msgTypes[4].OneofWrappers = []any{
+	file_mores_mores_proto_msgTypes[5].OneofWrappers = []any{
 		(*UploadRequest_Data)(nil),
 		(*UploadRequest_Part)(nil),
 	}
@@ -540,7 +624,7 @@ func file_mores_mores_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_mores_mores_proto_rawDesc), len(file_mores_mores_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   7,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

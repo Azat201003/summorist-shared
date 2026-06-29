@@ -45,7 +45,7 @@
         },
         "parameters": [
           {
-            "name": "title",
+            "name": "query",
             "in": "query",
             "required": false,
             "type": "string"
@@ -249,6 +249,9 @@
         "title": {
           "type": "string"
         },
+        "descripiton": {
+          "type": "string"
+        },
         "jwtToken": {
           "type": "string"
         }
@@ -275,6 +278,9 @@
       "type": "object",
       "properties": {
         "title": {
+          "type": "string"
+        },
+        "descripiton": {
           "type": "string"
         },
         "creatorId": {
